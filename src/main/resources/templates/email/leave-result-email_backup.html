@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body style="
+    margin:0;
+    padding:0;
+    background:#f4f6f9;
+    font-family:Arial,Helvetica,sans-serif;">
+
+<div style="
+    max-width:700px;
+    margin:30px auto;
+    background:white;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 4px 20px rgba(0,0,0,0.08);">
+
+    <!-- HEADER -->
+	<div style=" background:#0B3C61; background-image: linear-gradient(to right,#0B3C61,#1565C0); padding:30px; text-align:center; color:white;">
+
+        <img src="cid:companyLogo" width="120"  style="display:block; margin:0 auto 15px auto; width:120px; height:auto;">
+
+        <div style="display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); padding:6px 14px; border-radius:30px; font-size:12px; letter-spacing:1px; margin-bottom:15px;">
+            HR LEAVE MANAGEMENT SYSTEM
+        </div>
+
+        <h1 style=" margin:0; font-size:28px; font-weight:700;"> Leave Request Status</h1>
+
+    </div>
+
+    <!-- CONTENT -->
+    <div style="padding:35px;">
+
+        <p style="
+            font-size:16px;
+            color:#333;
+            margin-top:0;">
+
+            Dear
+            <b th:text="${employeeName}"></b>,
+
+        </p>
+
+        <p style="
+            color:#555;
+            line-height:1.7;
+            font-size:15px;">
+
+            Your leave request has been processed successfully.
+
+        </p>
+
+        <!-- STATUS CARD -->
+        <div th:if="${action == 'APPROVE'}"
+             style="
+                background:#ecfdf3;
+                border:1px solid #b7ebc6;
+                border-left:6px solid #27ae60;
+                border-radius:12px;
+                padding:20px;
+                margin-top:25px;">
+
+            <div style="
+                font-size:24px;
+                margin-bottom:8px;">
+
+                ✅ APPROVED
+
+            </div>
+
+            <div style="
+                color:#1f7a45;
+                font-size:15px;">
+
+                Your leave request has been approved by management.
+
+            </div>
+
+        </div>
+
+        <div th:if="${action == 'REJECT'}"
+             style="
+                background:#fff1f0;
+                border:1px solid #ffccc7;
+                border-left:6px solid #e74c3c;
+                border-radius:12px;
+                padding:20px;
+                margin-top:25px;">
+
+            <div style="
+                font-size:24px;
+                margin-bottom:8px;">
+
+                ❌ REJECTED
+
+            </div>
+
+            <div style="
+                color:#b42318;
+                font-size:15px;">
+
+                Your leave request was rejected by management.
+
+            </div>
+
+        </div>
+
+        <!-- LEAVE INFO -->
+        <div style=" margin-top:30px; border:1px solid #e5e7eb;  border-radius:12px; overflow:hidden;">    
+        	<div style="background:#f8fafc; padding:14px 20px;font-weight:700; color:#0B3C61; border-bottom:1px solid #e5e7eb;">Leave Information</div>
+
+            <table style="width:100%;border-collapse:collapse;font-size:14px;">
+                <tr>
+                    <td style=" padding:14px 20px; width:35%;background:#fafafa; border-bottom:1px solid #eee;"> <b>Employee</b></td> <td style=" padding:14px 20px;border-bottom:1px solid #eee;" th:text="${employeeName}"> </td>
+                </tr>
+                
+                <tr>
+                    <td style="padding:14px 20px;background:#fafafa;border-bottom:1px solid #eee;"> <b>Request Date</b> </td> <td style="padding:14px 20px;border-bottom:1px solid #eee;"  th:text="${#temporals.format(requestDate, 'dd-MM-yyyy')}"></td>
+                </tr>
+                
+                <tr>
+                	<td style="  padding:14px 20px;background:#fafafa; border-bottom:1px solid #eee;"><b>Department</b></td> <td style="padding:14px 20px; border-bottom:1px solid #eee;" th:text="${department}"></td>
+                </tr>
+                
+                 <tr>
+                	<td style="  padding:14px 20px;background:#fafafa; border-bottom:1px solid #eee;"><b>Contact Number</b></td> <td style="padding:14px 20px; border-bottom:1px solid #eee;" th:text="${contactNumber}"></td>
+                </tr>
+                
+                 <tr>
+                	<td style="  padding:14px 20px;background:#fafafa; border-bottom:1px solid #eee;"><b>Annual Leave Available Balance</b></td> <td style="padding:14px 20px; border-bottom:1px solid #eee;" th:text="${annualLeaveAvailabelBalance}"></td>
+                </tr>       
+                
+                <tr>
+                	<td style="  padding:14px 20px;background:#fafafa; border-bottom:1px solid #eee;"><b>Sick Leave Used</b></td> <td style="padding:14px 20px; border-bottom:1px solid #eee;" th:text="${sickLeaveUsed}"></td>
+                </tr> 
+                  
+                <tr>
+                	<td style="  padding:14px 20px;background:#fafafa; border-bottom:1px solid #eee;"><b>Special Leave Used</b></td> <td style="padding:14px 20px; border-bottom:1px solid #eee;" th:text="${specialLeaveUsed}"></td>
+                </tr>        
+                
+                <tr>
+                	<td style="  padding:14px 20px;background:#fafafa; border-bottom:1px solid #eee;"><b>Unpaid Leave Used</b></td> <td style="padding:14px 20px; border-bottom:1px solid #eee;" th:text="${unpaidLeaveUsed}"></td>
+                </tr>  
+                
+                <tr>
+                	<td style="  padding:14px 20px;background:#fafafa; border-bottom:1px solid #eee;"><b>paternityLeaveUsed</b></td> <td style="padding:14px 20px; border-bottom:1px solid #eee;" th:text="${paternityLeaveUsed}"></td>
+                </tr> 
+
+                <tr>
+                    <td style="padding:14px 20px;background:#fafafa;border-bottom:1px solid #eee;"> <b>Maternity Leave Used</b> </td> <td style="padding:14px 20px;border-bottom:1px solid #eee;" th:text="${maternityLeaveUsed}"></td>
+                </tr>    
+                
+                <tr>
+                    <td style="padding:14px 20px;background:#fafafa;border-bottom:1px solid #eee;"> <b>Compensatory Leave Remining</b> </td> <td style="padding:14px 20px;border-bottom:1px solid #eee;" th:text="${compensatoryLeaveRemain}"></td>
+                </tr> 
+                
+                <tr>
+                    <td style="padding:14px 20px;background:#fafafa;border-bottom:1px solid #eee;"> <b>Reason</b> </td> <td style="padding:14px 20px;border-bottom:1px solid #eee;" th:text="${reason}"></td>
+                </tr>                                              
+
+                <tr>
+                    <td style=" padding:14px 20px; background:#fafafa;"> <b>Status</b> </td> <td style="padding:14px 20px;"> 
+                    	<span th:if="${action == 'APPROVE'}"   style=" background:#27ae60; color:white; padding:5px 12px; border-radius:20px;font-size:12px;font-weight:bold;"> APPROVED </span>
+                        <span th:if="${action == 'REJECT'}" style="background:#e74c3c; color:white;padding:5px 12px;border-radius:20px; font-size:12px; font-weight:bold;">REJECTED</span>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+        
+         <br/>
+        <div style=" margin-top:30px; border:1px solid #e5e7eb;  border-radius:12px; overflow:hidden;">   
+       		<div style="background:#f8fafc; padding:14px 20px;font-weight:700; color:#0B3C61; border-bottom:1px solid #e5e7eb;">Leave Detail</div>
+		</div>       		
+	       	<div th:each="detail : ${leaveDetails}"
+			     style="
+			        border:1px solid #ddd;
+			        border-radius:8px;
+			        padding:15px;
+			        margin-bottom:15px;
+			        background:#fafafa;">
+			
+			    <table style="width:100%;font-size:14px;border-collapse:collapse;">
+			
+			        <tr>
+			            <td style="padding:5px 0;width:40%;">
+			                <b>Leave Type | ប្រភេទច្បាប់</b>
+			            </td>
+						<td th:text="${detail.leaveType.leaveNameEn != null ? detail.leaveType.leaveNameEn : ''} 
+						              + ' - ' + 
+						              ${detail.leaveType.leaveNameKh != null ? detail.leaveType.leaveNameKh : ''}">
+						</td>
+			        </tr>
+			
+			        <tr>
+			            <td style="padding:5px 0;">
+			                <b>Sub Type</b>
+			            </td>
+			
+			            <td th:text="${detail.leaveTypeSubType != null ? detail.leaveTypeSubType.leaveSubTypeNameEn : ''}
+			            			 + ' - ' + 
+			            			 ${detail.leaveTypeSubType != null ? detail.leaveTypeSubType.leaveSubTypeNameKh : ''}">
+			            </td>
+			        </tr>
+			
+			        <tr>
+			            <td style="padding:5px 0;">
+			                <b>From</b>
+			            </td>
+					    <td th:text="${#temporals.format(detail.fromDate, 'dd-MM-yyyy')}"></td>
+			        </tr>
+			
+			        <tr>
+			            <td style="padding:5px 0;">
+			                <b>To</b>
+			            </td>
+			
+			            <td th:text="${#temporals.format(detail.toDate, 'dd-MM-yyyy')}"> </td>
+			        </tr>
+			
+			        <tr>
+			            <td style="padding:5px 0;">
+			                <b>Duration</b>
+			            </td>
+			
+			            <td th:text="${detail.leaveDuration}">
+			            </td>
+			        </tr>
+			
+			        <tr>
+			            <td style="padding:5px 0;">
+			                <b>Days</b>
+			            </td>
+			
+			            <td th:text="${detail.numberOfDay}">
+			            </td>
+			        </tr>
+			
+			        <tr>
+			            <td style="padding:5px 0;">
+			                <b>Remark</b>
+			            </td>
+			
+			            <td th:text="${detail.remark}">
+			            </td>
+			        </tr>
+			
+			    </table>
+			
+			</div>
+			
+
+        <!-- FOOTER MESSAGE -->
+        <div style="
+            margin-top:35px;
+            font-size:14px;
+            color:#666;
+            line-height:1.7;">
+
+            If you have any questions regarding this leave request,
+            please contact the HR department.
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<div style="
+    text-align:center;
+    margin-top:25px;
+    color:#999;
+    font-size:12px;
+    line-height:1.8;">
+
+    © 2026 HR Management System<br/>
+    This is an automated email notification.
+
+</div>
+
+</body>
+</html>
+```

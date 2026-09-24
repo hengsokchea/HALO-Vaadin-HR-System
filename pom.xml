@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.halocambodia</groupId>
+    <artifactId>hr</artifactId>
+    <version>1.0.0</version>
+    <packaging>war</packaging>
+    <name>hr</name>
+
+    <properties>
+        <java.version>25</java.version>
+        <vaadin.version>25.3.0</vaadin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.1</version>
+    </parent>
+
+	<repositories>
+	    <repository>
+	        <id>central</id>
+	        <url>https://repo.maven.apache.org/maven2</url>
+	    </repository>
+	    <repository>
+	        <id>Vaadin Directory</id>
+	        <url>https://maven.vaadin.com/vaadin-addons</url>
+	    </repository>
+	</repositories>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.vaadin</groupId>
+                <artifactId>vaadin-bom</artifactId>
+                <version>${vaadin.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            
+        
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+
+        <!-- Vaadin -->
+         <!-- <dependency>
+		    <groupId>com.vaadin</groupId>
+		    <artifactId>vaadin-core</artifactId>
+		    <exclusions>
+	            <exclusion>
+	                <groupId>commons-io</groupId>
+	                <artifactId>commons-io</artifactId>
+	            </exclusion>
+	        </exclusions>
+		</dependency>
+-->
+        <dependency>
+            <groupId>com.vaadin</groupId>
+            <artifactId>vaadin-spring-boot-starter</artifactId>
+            <exclusions>
+	            <exclusion>
+	                <groupId>commons-io</groupId>
+	                <artifactId>commons-io</artifactId>
+	            </exclusion>
+	        </exclusions>
+        </dependency>
+      <!--  
+        <dependency>
+		    <groupId>com.vaadin</groupId>
+		    <artifactId>vaadin-dev</artifactId>
+		    <optional>true</optional>
+		</dependency>
+	-->  
+		
+        <!-- awesome Icon -->  
+        <dependency>
+            <groupId>org.parttio</groupId>
+            <artifactId>line-awesome</artifactId>
+            <version>2.1.0</version>
+        </dependency>
+        
+        <!-- Spring Boot -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
+        
+        <dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+
+		      <version>1.18.46</version>
+		    <scope>provided</scope> 
+		</dependency>
+
+        
+
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <!-- Database -->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.7.4</version>
+        </dependency>
+
+        <!-- Utilities -->
+		<!-- Apache POI Core for XLS/XLSX -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>5.3.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml</artifactId>
+		    <version>5.3.0</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-ooxml-full</artifactId>
+		    <version>5.3.0</version>
+		</dependency>
+		
+		<!-- Needed for POI XML schemas -->
+		<dependency>
+		    <groupId>org.apache.xmlbeans</groupId>
+		    <artifactId>xmlbeans</artifactId>
+		    <version>5.3.0</version>
+		</dependency>
+
+
+
+
+        <!-- Development -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.lazyluke</groupId>
+            <artifactId>log4jdbc-remix</artifactId>
+            <version>0.2.7</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Testing -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+		<!-- JasperReports Core Library -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports</artifactId>
+		    <version>7.0.2</version>
+		</dependency>
+		
+		<!-- Required for runtime JRXML compilation in Tomcat -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-jdt</artifactId>
+		    <version>7.0.2</version>
+		</dependency>
+		
+		
+		<!-- Barcode4J Support -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-barcode4j</artifactId>
+		    <version>7.0.2</version>
+		</dependency>
+		
+
+		<!-- Barcode Support -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-barbecue</artifactId>
+		    <version>7.0.2</version>
+		</dependency>
+
+
+		<!-- JasperReports Fonts -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-fonts</artifactId>
+		    <version>7.0.2</version>
+		</dependency>
+		
+		<!-- JasperReports Functions -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-functions</artifactId>
+		    <version>7.0.2</version>
+		</dependency>
+		
+		<!-- JasperReports PDF Export -->
+		<dependency>
+		    <groupId>net.sf.jasperreports</groupId>
+		    <artifactId>jasperreports-pdf</artifactId>
+		    <version>7.0.2</version>
+		</dependency>
+
+		<!-- Upload Attachmet For executing yt-dlp command  -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.16.1</version>
+		</dependency>
+		
+		<!-- ============================= -->
+		<!-- Power BI Embedded Dependencies -->
+		<!-- ============================= -->
+		
+		<!-- Microsoft Authentication Library (Azure AD) -->
+		<dependency>
+		    <groupId>com.microsoft.azure</groupId>
+		    <artifactId>msal4j</artifactId>
+		    <version>1.15.1</version>
+		</dependency>
+		
+		<!-- HTTP Client -->
+		<dependency>
+		    <groupId>com.squareup.okhttp3</groupId>
+		    <artifactId>okhttp</artifactId>
+		    <version>4.12.0</version>
+		</dependency>
+		
+		<!-- JSON Parser -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20240303</version>
+		</dependency>
+		
+		<!-- For Sending Email -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<!-- For thymeleaf -->
+	    <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
+	<!-- For QR Code -->
+		<dependency>
+		    <groupId>com.google.zxing</groupId>
+		    <artifactId>core</artifactId>
+		    <version>3.5.3</version>
+		</dependency>
+		
+		<dependency>
+		    <groupId>com.google.zxing</groupId>
+		    <artifactId>javase</artifactId>
+		    <version>3.5.3</version>
+		</dependency>
+		
+		
+		 <!-- Fingerprint -->
+	    <!-- WebAuthn https://webauthn.io/ -->
+	    <dependency>
+	        <groupId>com.webauthn4j</groupId>
+	        <artifactId>webauthn4j-core</artifactId>
+	        <version>0.31.6.RELEASE</version>
+	    </dependency>
+	    
+	    
+	    
+	    <dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>33.5.0-jre</version>
+		</dependency>
+	    
+	   <!--
+	    <dependency>
+		    <groupId>com.vaadin</groupId>
+		    <artifactId>vaadin-lumo-theme</artifactId>
+		    <version>${vaadin.version}</version>
+		</dependency>
+	-->
+		<!-- Spring Retry - Compatible with Spring Boot 4.0.7 -->
+		<dependency>
+		    <groupId>org.springframework.retry</groupId>
+		    <artifactId>spring-retry</artifactId>
+		    <version>2.0.5</version>
+		</dependency>
+		
+		<!-- Spring AOP for @Retryable support - NO VERSION NEEDED -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-aspectj</artifactId>
+		</dependency>
+		
+		<!--PDF Thumbnail Generator -->
+		<dependency>
+		    <groupId>org.apache.pdfbox</groupId>
+		    <artifactId>pdfbox</artifactId>
+		    <version>3.0.5</version>
+		</dependency>
+
+
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		
+		<dependency>
+		    <groupId>io.micrometer</groupId>
+		    <artifactId>micrometer-registry-prometheus</artifactId>
+		    <scope>runtime</scope>
+		</dependency>
+		
+		
+		
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+
+    </dependencies>
+
+    <build>
+    	<finalName>hr</finalName>
+        <plugins>
+	        <plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-surefire-plugin</artifactId>
+			    <version>3.5.4</version>
+			    <configuration>
+			        <excludes>
+			            <exclude>**/*IT.java</exclude>
+			        </excludes>
+			    </configuration>
+			</plugin>
+
+	        <plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-clean-plugin</artifactId>
+			    <version>3.2.0</version>
+			    <configuration>
+			        <filesets>
+                        <!-- Node dependencies -->
+                        <fileset>
+                            <directory>${project.basedir}/node_modules</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>	
+                        
+                        <!-- Vaadin generated bundles -->
+                        <fileset>
+                            <directory>${project.basedir}/src/main/bundles</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>  
+                                              		        
+                        <!-- Vaadin generated frontend only -->
+                        <fileset>
+                            <directory>${project.basedir}/src/main/frontend/generated</directory>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>   
+                        
+                        <!-- Root-level files regenerated by Vaadin -->
+                        <fileset>
+                            <directory>${project.basedir}</directory>
+                            <includes>
+                                <include>package-lock.json</include>
+                                <include>package.json</include>
+                                <include>pnpm-lock.yaml</include>
+                                <include>vite.config.ts</include>
+                                <include>tsconfig.json</include>
+                                <include>types.d.ts</include>
+                            </includes>
+                            <followSymlinks>false</followSymlinks>
+                        </fileset>                                                                   		        
+			        
+			         <!--
+			            <fileset>
+			                <directory>node_modules</directory>
+			                <followSymlinks>false</followSymlinks>
+			            </fileset>
+			            <fileset>
+			                <directory>frontend</directory>
+			                <followSymlinks>false</followSymlinks>
+			            </fileset>
+			            -->
+			        </filesets>
+			    </configuration>
+			</plugin>
+            <!-- Vaadin Plugin -->
+			<plugin>
+			    <groupId>com.vaadin</groupId>
+			    <artifactId>vaadin-maven-plugin</artifactId>
+			    <version>${vaadin.version}</version>
+			
+			    <executions>
+			        <execution>
+			            <id>prepare-frontend</id>
+			            <goals>
+			                <goal>prepare-frontend</goal>
+			            </goals>
+			        </execution>
+			
+			        <execution>
+			            <id>build-frontend</id>
+			            <phase>compile</phase>
+			            <goals>
+			                <goal>build-frontend</goal>
+			            </goals>
+			        </execution>
+			    </executions>
+			
+			    <configuration>
+			        <productionMode>true</productionMode>
+			        <generateBundle>true</generateBundle>
+			        <optimizeBundle>true</optimizeBundle>
+			    </configuration>
+			</plugin>
+			
+			<!-- War Plugin -->
+			<plugin>
+			    <groupId>org.apache.maven.plugins</groupId>
+			    <artifactId>maven-war-plugin</artifactId>
+			    <version>3.3.2</version>
+			    <configuration>
+			        <failOnMissingWebXml>false</failOnMissingWebXml>
+					<!-- Added configuration to include uploads directory -->
+                    <webResources>
+                        <resource>
+                            <directory>${project.basedir}/uploads</directory>
+                            <targetPath>uploads</targetPath>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </resource>
+                        
+                        <resource>
+                            <directory>${project.basedir}/ffmpeg</directory>
+                            <targetPath>ffmpeg</targetPath>
+                            <includes>
+                                <include>**/*</include>
+                            </includes>
+                        </resource>
+                    </webResources>
+			    </configuration>
+			</plugin>
+
+            <!-- Spring Boot Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <mainClass>org.halocambodia.Application</mainClass>
+                    <jvmArguments>${jvm.args}</jvmArguments>
+
+                </configuration>
+            </plugin>
+
+
+
+
+            <!-- Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.1</version>
+                <configuration>
+                	<release>${java.version}</release>
+			        <annotationProcessorPaths>
+			            <path>
+			                <groupId>org.projectlombok</groupId>
+			                <artifactId>lombok</artifactId>
+			                <version>1.18.46</version>
+			            </path>
+			        </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+           <dependencies>
+		        <dependency>
+		            <groupId>com.vaadin</groupId>
+		            <artifactId>vaadin-dev</artifactId>
+		            <optional>true</optional>
+		        </dependency>
+		    </dependencies>
+    
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+                <jvm.args>
+                    -Xms8192m 
+                    -Xmx24576m 
+                    -XX:MaxMetaspaceSize=512m 
+                    -XX:MetaspaceSize=256m 
+                    -XX:+UseG1GC 
+                    -XX:MaxGCPauseMillis=200 
+                    -XX:ParallelGCThreads=8 
+                    -XX:ConcGCThreads=4 
+                    -XX:G1HeapRegionSize=16m 
+                    -XX:G1ReservePercent=25 
+                    -XX:InitiatingHeapOccupancyPercent=35 
+                    -XX:+UseStringDeduplication 
+                    -XX:+ParallelRefProcEnabled 
+                    -XX:+HeapDumpOnOutOfMemoryError 
+                    -XX:HeapDumpPath=./logs/dev_heapdump.hprof 
+                    -Dspring.profiles.active=dev
+                </jvm.args>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <spring.profiles.active>prod</spring.profiles.active>
+        		<vaadin.productionMode>true</vaadin.productionMode>
+                <jvm.args>
+                    -Xms16384m 
+                    -Xmx49152m 
+                    -XX:MaxMetaspaceSize=1024m 
+                    -XX:MetaspaceSize=512m 
+                    -XX:+UseG1GC 
+                    -XX:MaxGCPauseMillis=200 
+                    -XX:ParallelGCThreads=16 
+                    -XX:ConcGCThreads=8 
+                    -XX:G1HeapRegionSize=32m 
+                    -XX:G1ReservePercent=20 
+                    -XX:InitiatingHeapOccupancyPercent=30 
+                    -XX:+UseStringDeduplication 
+                    -XX:+ParallelRefProcEnabled 
+                    -XX:+HeapDumpOnOutOfMemoryError 
+                    -XX:HeapDumpPath=/var/log/tomcat/prod_heapdump.hprof 
+                    -Dspring.profiles.active=prod
+		            <!-- ============================ -->
+		            <!-- CRITICAL: Java 25 Module Access -->
+		            <!-- ============================ -->
+		            --add-opens java.base/java.nio=ALL-UNNAMED
+		            --add-opens java.base/sun.nio.ch=ALL-UNNAMED
+		            --add-opens java.base/java.io=ALL-UNNAMED
+		            --add-opens java.base/java.lang=ALL-UNNAMED
+		            --add-opens java.base/java.util=ALL-UNNAMED
+		            --add-opens java.base/java.util.concurrent=ALL-UNNAMED
+		            --add-opens java.base/java.util.regex=ALL-UNNAMED
+		            --add-opens java.base/java.text=ALL-UNNAMED
+		            --add-opens java.base/java.time=ALL-UNNAMED
+		            --add-opens java.base/java.math=ALL-UNNAMED
+		            --add-opens java.sql/java.sql=ALL-UNNAMED
+		            --add-opens java.xml/javax.xml.parsers=ALL-UNNAMED
+		            --add-opens java.xml/com.sun.org.apache.xerces.internal.parsers=ALL-UNNAMED
+		            --add-opens java.xml/com.sun.org.apache.xerces.internal.dom=ALL-UNNAMED
+		            --add-opens java.xml/com.sun.org.apache.xerces.internal.util=ALL-UNNAMED
+		            --add-opens java.xml/com.sun.org.apache.xalan.internal.xsltc.trax=ALL-UNNAMED
+		            --add-opens java.desktop/java.awt=ALL-UNNAMED
+		            --add-opens java.desktop/java.awt.font=ALL-UNNAMED
+		            --add-opens java.desktop/java.awt.geom=ALL-UNNAMED
+		            --add-opens java.desktop/javax.swing=ALL-UNNAMED
+		            --add-opens java.desktop/sun.awt=ALL-UNNAMED
+		            --add-opens java.desktop/sun.font=ALL-UNNAMED
+		            --add-opens java.base/jdk.internal.loader=ALL-UNNAMED
+		            --add-opens java.base/jdk.internal.ref=ALL-UNNAMED
+                </jvm.args>
+            </properties>
+        </profile>
+    </profiles>
+</project>

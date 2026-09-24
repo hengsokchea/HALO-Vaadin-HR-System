@@ -1,0 +1,21 @@
+package org.halocambodia.data;
+
+/** Immutable payroll audit event types. */
+public enum PayrollRunEventType {
+    RUN_CREATED,
+    RUN_CALCULATED,
+    RUN_RECALCULATED,
+    SENT_FOR_REVIEW,
+    RUN_REVIEWED,
+    RETURNED_FOR_CORRECTION,
+    EMPLOYEE_RECALCULATED,
+    RUN_APPROVED,
+    PAYMENT_GENERATED,
+    PAYMENT_APPROVED,
+    PAYMENT_FILE_EXPORTED,
+    PAYMENT_RECONCILED,
+    PAYMENT_PAID,
+    PAYMENT_CANCELLED,
+    RUN_PAID,
+    PERIOD_CLOSED
+}

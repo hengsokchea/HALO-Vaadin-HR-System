@@ -1,0 +1,298 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="performance review" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="880ba763-8ad5-4f35-ba90-c35732ff6fba">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hr"/>
+	<parameter name="emp_performance_review_id" class="java.util.Collection"/>
+	<parameter name="SUBREPORT_DIR" forPrompting="false" class="java.lang.String"/>
+	<parameter name="ATTACHMENT_DIR" forPrompting="false" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT review.emp_performance_review_id,
+	emp_master.insurance_no,
+	emp_master.name_en,
+	emp_master.name_kh,
+	emp_master.gender,
+	emp_master.date_of_birth,
+	list_position.emp_position,
+	list_position.emp_position_kh,
+	line_manager.insurance_no AS supervisor_insurance,
+	line_manager.name_en AS supervisor_name_en,
+	line_manager.name_kh AS supervisor_name_kh,
+	review.review_date,
+	review.manager_review_date AS supervisor_review_date,
+	performance_status.status_name AS supervisor_status,
+	review.manager_comments AS supervisor_comments,
+	final_review.insurance_no AS final_review_insurance,
+	final_review.name_en AS final_review_name_en,
+	final_review.name_kh AS final_review_name_kh,
+	review.final_review_date,
+	final_status.status_name AS final_review_status,
+	review.final_review_comments,
+	overall_rating
+FROM emp_performance_review review
+	INNER JOIN emp_master ON 
+	 emp_master.emp_id = review.emp_id 
+	INNER JOIN list_position ON 
+	 list_position.position_id = review.emp_position_id 
+	INNER JOIN emp_master line_manager ON 
+	 line_manager.emp_id = review.supervisor_emp_id 
+	INNER JOIN performance_status ON 
+	 performance_status.performance_status_id = review.manager_status_id 
+	INNER JOIN emp_master final_review ON 
+	 final_review.emp_id = review.final_review_emp_id 
+	INNER JOIN performance_status final_status ON 
+	 final_status.performance_status_id = review.final_review_status_id  
+WHERE 
+   $X{IN, review.emp_performance_review_id, emp_performance_review_id}
+]]></query>
+	<field name="emp_performance_review_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="emp_performance_review_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_performance_review_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_performance_review"/>
+	</field>
+	<field name="insurance_no" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="insurance_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="insurance_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="name_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="name_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="name_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="date_of_birth" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="date_of_birth"/>
+		<property name="com.jaspersoft.studio.field.label" value="date_of_birth"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="emp_position" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emp_position"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_position"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="emp_position_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emp_position_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_position_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="supervisor_insurance" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_insurance"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_insurance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="supervisor_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_name_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_name_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="supervisor_name_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_name_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_name_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="review_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="review_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="review_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_performance_review"/>
+	</field>
+	<field name="supervisor_review_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_review_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_review_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_performance_review"/>
+	</field>
+	<field name="supervisor_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="performance_status"/>
+	</field>
+	<field name="supervisor_comments" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_comments"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_comments"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_performance_review"/>
+	</field>
+	<field name="final_review_insurance" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="final_review_insurance"/>
+		<property name="com.jaspersoft.studio.field.label" value="final_review_insurance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="final_review_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="final_review_name_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="final_review_name_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="final_review_name_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="final_review_name_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="final_review_name_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="final_review_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="final_review_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="final_review_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_performance_review"/>
+	</field>
+	<field name="final_review_status" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="final_review_status"/>
+		<property name="com.jaspersoft.studio.field.label" value="final_review_status"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="performance_status"/>
+	</field>
+	<field name="final_review_comments" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="final_review_comments"/>
+		<property name="com.jaspersoft.studio.field.label" value="final_review_comments"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_performance_review"/>
+	</field>
+	<field name="overall_rating" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="overall_rating"/>
+		<property name="com.jaspersoft.studio.field.label" value="overall_rating"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_performance_review"/>
+	</field>
+	<variable name="GROUP1_TOTAL_PAGES" resetType="Group" incrementType="Page" calculation="Count" resetGroup="Group1" class="java.lang.Integer">
+		<expression><![CDATA[1]]></expression>
+	</variable>
+	<group name="Group1" startNewPage="true" resetPageNumber="true">
+		<expression><![CDATA[$F{emp_performance_review_id}]]></expression>
+		<groupHeader>
+			<band height="268">
+				<element kind="staticText" uuid="17ef4d67-229c-49fa-ba99-2d60bcf46f03" x="180" y="38" width="200" height="65" fontName="Kantumruy Pro" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[ការពិនិត្យមើលការអនុវត្តការងារ
+Performance Review]]></text>
+				</element>
+				<element kind="staticText" uuid="ab2cc20f-a012-4c64-b1be-71dc8746eb00" x="381" y="1" width="171" height="101" forecolor="#0B3C61" fontName="Calibri" fontSize="8.0" hTextAlign="Right">
+					<text><![CDATA[National Road 6A
+Chey Village
+Tuek Vil Sangkhat
+Krong Siem Reap
+Siem Reap Province
+85501 Cambodia
+
+T: +855 12 808 630
+mail@halocambodia.org
+www.halotrust.org
+]]></text>
+				</element>
+				<element kind="staticText" uuid="5003af24-dbb2-4e9b-a6b3-000beb3d678b" x="5" y="120" width="55" height="30" fontName="Calibri" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Ins. & Name:]]></text>
+				</element>
+				<element kind="staticText" uuid="94368afa-dada-47db-bf32-35706f7c042e" x="1" y="104" width="100" height="16" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Employee’s Details:]]></text>
+				</element>
+				<element kind="line" uuid="b5478e2b-eb06-4688-9d67-9c97d9ab9c83" x="0" y="120" width="555" height="1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="line" uuid="56010c7a-b274-4416-a6ec-1c4d242a6166" x="0" y="148" width="555" height="1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="line" uuid="7bfdc1a2-53f2-459b-875c-6efddfb4ce37" x="0" y="179" width="555" height="1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="line" uuid="238641ac-90e2-428b-a5ed-062f0703de8c" x="0" y="120" width="1" height="59"/>
+				<element kind="staticText" uuid="86bc882b-ee81-4942-8486-3c426aa3a581" x="5" y="150" width="55" height="30" fontName="Calibri" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Job Title:]]></text>
+				</element>
+				<element kind="textField" uuid="3c200af3-4000-4674-a9f8-363fa500f06e" x="70" y="149" width="463" height="30" fontName="Calibri" blankWhenNull="true" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{emp_position}]]></expression>
+				</element>
+				<element kind="line" uuid="eae6df59-4af3-467f-933b-7feb43765ca5" x="60" y="121" width="1" height="59"/>
+				<element kind="line" uuid="9bdf29ea-3013-496c-acb1-8c6a7724cdd6" x="554" y="120" width="1" height="59"/>
+				<element kind="staticText" uuid="582a3d4f-36c3-4017-9df2-b45560031119" x="1" y="190" width="100" height="16" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Manager:]]></text>
+				</element>
+				<element kind="line" uuid="7f8da218-6ebf-41d7-b6c4-dcb2ddfaab7a" x="0" y="206" width="1" height="59"/>
+				<element kind="line" uuid="efa6c722-85fe-444a-af5a-91f6270609c4" x="60" y="207" width="1" height="59"/>
+				<element kind="line" uuid="67601d37-5799-4d0f-a4c1-65630eaf09d0" x="554" y="206" width="1" height="59"/>
+				<element kind="line" uuid="85679b2c-856e-4693-a05a-fd8fc5adb7d4" x="0" y="206" width="555" height="1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="line" uuid="81fa4e02-b273-4f62-87f5-ebb8958d8458" x="0" y="234" width="555" height="1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="line" uuid="213441ac-c7f4-4780-b1d2-7a3c8389d228" x="0" y="265" width="555" height="1">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="staticText" uuid="6ea1089e-a825-457c-abde-055b2695bfe3" x="5" y="206" width="55" height="30" fontName="Calibri" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Ins. & Name:]]></text>
+				</element>
+				<element kind="staticText" uuid="bc131d52-dafe-4e05-8ad2-c8a3d1b5897e" x="5" y="236" width="50" height="30" fontName="Calibri" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Date:]]></text>
+				</element>
+				<element kind="textField" uuid="1993d603-2ec5-447f-ae3d-33ebfadc202d" x="70" y="236" width="130" height="30" printWhenGroupChanges="Group1" fontName="Calibri" blankWhenNull="true" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[    $F{review_date} == null ? "" :
+    new java.text.SimpleDateFormat("dd-MM-yyyy").format($F{review_date})]]></expression>
+				</element>
+				<element kind="textField" uuid="e263c67f-a1f3-4c04-833d-15a7ad96505a" x="70" y="121" width="410" height="27" fontName="Calibri" blankWhenNull="true" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[($F{name_en} == null ? "" : $F{name_en})
+    + " - "
+    + ($F{insurance_no} == null ? "" : String.valueOf($F{insurance_no}))]]></expression>
+				</element>
+				<element kind="textField" uuid="f8035895-55a4-40b2-923a-2fdfa48e933d" x="70" y="206" width="320" height="28" fontName="Calibri" blankWhenNull="true" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[($F{supervisor_name_en} == null ? "" : $F{supervisor_name_en})
+    + " - "
+    + ($F{supervisor_insurance} == null ? "" : String.valueOf($F{supervisor_insurance}))
+]]></expression>
+				</element>
+				<element kind="image" uuid="fb476b58-fb81-4f1d-8901-20c0de45fce6" x="41" y="1" width="60" height="60" onErrorType="Blank" linkTarget="Self">
+					<expression><![CDATA["assets/images/Halo_blue.png"]]></expression>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="120">
+				<element kind="staticText" uuid="6badf67a-2d2f-4ca5-b201-8a324cfa5919" x="430" y="0" width="80" height="24" fontName="Calibri" hTextAlign="Right" vTextAlign="Middle">
+					<text><![CDATA[Overall Rating:]]></text>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="staticText" uuid="76d508bc-ac78-4deb-9b5c-51afe573f0bc" x="0" y="25" width="554" height="16" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Line Manager  comments:]]></text>
+				</element>
+				<element kind="textField" uuid="54d7cf60-3ffa-4f5f-aeda-9d437639dd78" stretchType="ContainerHeight" x="10" y="41" width="544" height="30" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{supervisor_comments}]]></expression>
+				</element>
+				<element kind="staticText" uuid="c926e7ca-f3e6-4be2-98e2-b4796076a66b" x="0" y="72" width="554" height="16" bold="true" hTextAlign="Left" vTextAlign="Middle">
+					<text><![CDATA[Final  comments:]]></text>
+				</element>
+				<element kind="textField" uuid="04ceecc5-18ea-4bcd-a6a5-3a410cd92588" stretchType="ContainerHeight" x="10" y="89" width="544" height="29" textAdjust="StretchHeight" blankWhenNull="true">
+					<expression><![CDATA[$F{final_review_comments}]]></expression>
+				</element>
+				<element kind="textField" uuid="41bc4705-5160-4272-8915-9231124d3835" x="510" y="0" width="45" height="24" fontName="Calibri" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$F{overall_rating}]]></expression>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</element>
+				<element kind="break" uuid="422b4d17-b24b-4fee-a2c1-d987d870282c" positionType="FixRelativeToBottom" x="0" y="119" width="552" height="1"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<detail>
+		<band height="27" splitType="Stretch">
+			<element kind="subreport" uuid="7e15c8b6-9ca4-4ce4-84d5-fa0766b463be" x="0" y="2" width="555" height="23">
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<expression><![CDATA["report_embed/redundancy_sub_form.jasper"]]></expression>
+				<parameter name="emp_performance_review_id">
+					<expression><![CDATA[$F{emp_performance_review_id}]]></expression>
+				</parameter>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="31" splitType="Stretch">
+		<element kind="staticText" uuid="73f73c0a-46b0-4659-9142-cc201a72c3de" x="0" y="2" width="470" height="28" forecolor="#0B3C61" fontName="Calibri" fontSize="8.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[The HALO Trust is a company limited by guarantee
+Registered in England No. 2228587   Registered Charity No. 1001813 & SCO37870   Registered Office: 50 Broadway, London SW1H 0BL
+]]></text>
+		</element>
+		<element kind="textField" uuid="d2a147df-12be-46b7-b590-78973fa500ef" x="470" y="1" width="63" height="30" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA["Page " + $V{PAGE_NUMBER} + " of"]]></expression>
+		</element>
+		<element kind="textField" uuid="9e16fbb9-11ef-43d0-ab36-e74d58e6a507" x="533" y="1" width="21" height="30" evaluationTime="Group" evaluationGroup="Group1" hTextAlign="Left" vTextAlign="Middle">
+			<expression><![CDATA[" " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>

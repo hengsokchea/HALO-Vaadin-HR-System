@@ -1,0 +1,873 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fontFamilies>
+
+  <fontFamily name="Kantumruy Pro">
+    <normal>fonts/KantumruyPro-Regular.ttf</normal>
+    <bold>fonts/KantumruyPro-Bold.ttf</bold>
+    <italic>fonts/KantumruyPro-Italic.ttf</italic>
+    <boldItalic>fonts/KantumruyPro-BoldItalic.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Kantumruy Pro Light">
+    <normal>fonts/KantumruyPro-Light.ttf</normal>
+    <italic>fonts/KantumruyPro-LightItalic.ttf</italic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Kantumruy Pro Medium">
+    <normal>fonts/KantumruyPro-Medium.ttf</normal>
+    <italic>fonts/KantumruyPro-MediumItalic.ttf</italic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Kantumruy Pro ExtraLight">
+    <normal>fonts/KantumruyPro-ExtraLight.ttf</normal>
+    <italic>fonts/KantumruyPro-ExtraLightItalic.ttf</italic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+    <fontFamily name="Dangrek">
+    <normal>fonts/Dangrek-Regular.ttf</normal>
+    <bold>fonts/Dangrek-Regular.ttf</bold>
+    <italic>fonts/Dangrek-Regular.ttf</italic>
+    <boldItalic>fonts/Dangrek-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+   <!-- Angkor (single style, reused) -->
+  <fontFamily name="Angkor">
+    <normal>fonts/Angkor-Regular.ttf</normal>
+    <bold>fonts/Angkor-Regular.ttf</bold>
+    <italic>fonts/Angkor-Regular.ttf</italic>
+    <boldItalic>fonts/Angkor-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+    <!-- BATTAMBANG -->
+  <fontFamily name="Battambang">
+    <normal>fonts/Battambang-Regular.ttf</normal>
+    <bold>fonts/Battambang-Bold.ttf</bold>
+    <italic>fonts/Battambang-Regular.ttf</italic>
+    <boldItalic>fonts/Battambang-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Battambang Light">
+    <normal>fonts/Battambang-Light.ttf</normal>
+    <italic>fonts/Battambang-Light.ttf</italic>
+    <bold>fonts/Battambang-Light.ttf</bold>
+    <boldItalic>fonts/Battambang-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Battambang Thin">
+    <normal>fonts/Battambang-Thin.ttf</normal>
+    <italic>fonts/Battambang-Thin.ttf</italic>
+    <bold>fonts/Battambang-Thin.ttf</bold>
+    <boldItalic>fonts/Battambang-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Battambang Black">
+    <normal>fonts/Battambang-Black.ttf</normal>
+    <italic>fonts/Battambang-Black.ttf</italic>
+    <bold>fonts/Battambang-Black.ttf</bold>
+    <boldItalic>fonts/Battambang-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+  <fontFamily name="Bayon">
+  <normal>fonts/Bayon-Regular.ttf</normal>
+  <bold>fonts/Bayon-Regular.ttf</bold>
+  <italic>fonts/Bayon-Regular.ttf</italic>
+  <boldItalic>fonts/Bayon-Regular.ttf</boldItalic>
+  <pdfEncoding>Identity-H</pdfEncoding>
+  <pdfEmbedded>true</pdfEmbedded>
+</fontFamily>
+  
+  <fontFamily name="Bokor">
+    <normal>fonts/Bokor-Regular.ttf</normal>
+    <bold>fonts/Bokor-Regular.ttf</bold>
+    <italic>fonts/Bokor-Regular.ttf</italic>
+    <boldItalic>fonts/Bokor-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>  
+  
+   <!-- ===================== CONTENT (Regular/Bold) ===================== -->
+  <fontFamily name="Content">
+    <normal>fonts/Content-Regular.ttf</normal>
+    <bold>fonts/Content-Bold.ttf</bold>
+    <italic>fonts/Content-Regular.ttf</italic>
+    <boldItalic>fonts/Content-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <!-- ===================== FASTHAND / FREEHAND ===================== -->
+  <fontFamily name="Fasthand">
+    <normal>fonts/Fasthand-Regular.ttf</normal>
+    <bold>fonts/Fasthand-Regular.ttf</bold>
+    <italic>fonts/Fasthand-Regular.ttf</italic>
+    <boldItalic>fonts/Fasthand-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+  <!-- Kdam Thmor Pro -->
+  <fontFamily name="Kdam Thmor Pro">
+    <normal>fonts/KdamThmorPro-Regular.ttf</normal>
+    <bold>fonts/KdamThmorPro-Regular.ttf</bold>
+    <italic>fonts/KdamThmorPro-Regular.ttf</italic>
+    <boldItalic>fonts/KdamThmorPro-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <!-- Hanuman (base family: Regular + Bold) -->
+  <fontFamily name="Hanuman">
+    <normal>fonts/Hanuman-Regular.ttf</normal>
+    <bold>fonts/Hanuman-Bold.ttf</bold>
+    <italic>fonts/Hanuman-Regular.ttf</italic>
+    <boldItalic>fonts/Hanuman-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <!-- Hanuman weights (no separate italic files; reuse same face) -->
+  <fontFamily name="Hanuman Thin">
+    <normal>fonts/Hanuman-Thin.ttf</normal>
+    <bold>fonts/Hanuman-Thin.ttf</bold>
+    <italic>fonts/Hanuman-Thin.ttf</italic>
+    <boldItalic>fonts/Hanuman-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Hanuman ExtraLight">
+    <normal>fonts/Hanuman-ExtraLight.ttf</normal>
+    <bold>fonts/Hanuman-ExtraLight.ttf</bold>
+    <italic>fonts/Hanuman-ExtraLight.ttf</italic>
+    <boldItalic>fonts/Hanuman-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Hanuman Light">
+    <normal>fonts/Hanuman-Light.ttf</normal>
+    <bold>fonts/Hanuman-Light.ttf</bold>
+    <italic>fonts/Hanuman-Light.ttf</italic>
+    <boldItalic>fonts/Hanuman-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Hanuman Medium">
+    <normal>fonts/Hanuman-Medium.ttf</normal>
+    <bold>fonts/Hanuman-Medium.ttf</bold>
+    <italic>fonts/Hanuman-Medium.ttf</italic>
+    <boldItalic>fonts/Hanuman-Medium.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Hanuman SemiBold">
+    <normal>fonts/Hanuman-SemiBold.ttf</normal>
+    <bold>fonts/Hanuman-SemiBold.ttf</bold>
+    <italic>fonts/Hanuman-SemiBold.ttf</italic>
+    <boldItalic>fonts/Hanuman-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Hanuman Bold">
+    <normal>fonts/Hanuman-Bold.ttf</normal>
+    <bold>fonts/Hanuman-Bold.ttf</bold>
+    <italic>fonts/Hanuman-Bold.ttf</italic>
+    <boldItalic>fonts/Hanuman-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Hanuman ExtraBold">
+    <normal>fonts/Hanuman-ExtraBold.ttf</normal>
+    <bold>fonts/Hanuman-ExtraBold.ttf</bold>
+    <italic>fonts/Hanuman-ExtraBold.ttf</italic>
+    <boldItalic>fonts/Hanuman-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Hanuman Black">
+    <normal>fonts/Hanuman-Black.ttf</normal>
+    <bold>fonts/Hanuman-Black.ttf</bold>
+    <italic>fonts/Hanuman-Black.ttf</italic>
+    <boldItalic>fonts/Hanuman-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>  
+  
+	<!-- MOUL -->
+	<fontFamily name="Moul">
+	  <normal>fonts/Moul-Regular.ttf</normal>
+	  <bold>fonts/Moul-Regular.ttf</bold>
+	  <italic>fonts/Moul-Regular.ttf</italic>
+	  <boldItalic>fonts/Moul-Regular.ttf</boldItalic>
+	  <pdfEncoding>Identity-H</pdfEncoding>
+	  <pdfEmbedded>true</pdfEmbedded>
+	</fontFamily>
+	
+	<!-- KOULEN -->
+	<fontFamily name="Koulen">
+	  <normal>fonts/Koulen-Regular.ttf</normal>
+	  <bold>fonts/Koulen-Regular.ttf</bold>
+	  <italic>fonts/Koulen-Regular.ttf</italic>
+	  <boldItalic>fonts/Koulen-Regular.ttf</boldItalic>
+	  <pdfEncoding>Identity-H</pdfEncoding>
+	  <pdfEmbedded>true</pdfEmbedded>
+	</fontFamily>
+
+	<!-- MOULPALI -->
+	<fontFamily name="Moulpali">
+	  <normal>fonts/Moulpali-Regular.ttf</normal>
+	  <bold>fonts/Moulpali-Regular.ttf</bold>
+	  <italic>fonts/Moulpali-Regular.ttf</italic>
+	  <boldItalic>fonts/Moulpali-Regular.ttf</boldItalic>
+	  <pdfEncoding>Identity-H</pdfEncoding>
+	  <pdfEmbedded>true</pdfEmbedded>
+	</fontFamily>
+  
+<!-- Base family (Regular/Bold) -->
+  <fontFamily name="Noto Sans Khmer Condensed">
+    <normal>fonts/NotoSansKhmer_Condensed-Regular.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-Bold.ttf</bold>
+    <!-- Khmer has no true italics; reuse the same faces -->
+    <italic>fonts/NotoSansKhmer_Condensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <!-- Individual weights (useful when you need precise weight control) -->
+  <fontFamily name="Noto Sans Khmer Condensed Thin">
+    <normal>fonts/NotoSansKhmer_Condensed-Thin.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-Thin.ttf</bold>
+    <italic>fonts/NotoSansKhmer_Condensed-Thin.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Condensed ExtraLight">
+    <normal>fonts/NotoSansKhmer_Condensed-ExtraLight.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-ExtraLight.ttf</bold>
+    <italic>fonts/NotoSansKhmer_Condensed-ExtraLight.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Condensed Light">
+    <normal>fonts/NotoSansKhmer_Condensed-Light.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-Light.ttf</bold>
+    <italic>fonts/NotoSansKhmer_Condensed-Light.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Condensed Medium">
+    <normal>fonts/NotoSansKhmer_Condensed-Medium.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-Medium.ttf</bold>
+    <italic>fonts/NotoSansKhmer_Condensed-Medium.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-Medium.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Condensed SemiBold">
+    <normal>fonts/NotoSansKhmer_Condensed-SemiBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-SemiBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_Condensed-SemiBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Condensed ExtraBold">
+    <normal>fonts/NotoSansKhmer_Condensed-ExtraBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-ExtraBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_Condensed-ExtraBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Condensed Black">
+    <normal>fonts/NotoSansKhmer_Condensed-Black.ttf</normal>
+    <bold>fonts/NotoSansKhmer_Condensed-Black.ttf</bold>
+    <italic>fonts/NotoSansKhmer_Condensed-Black.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_Condensed-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+    <!-- Base family (Regular/Bold). Khmer has no true italics; reuse same faces. -->
+  <fontFamily name="Noto Sans Khmer ExtraCondensed">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-Regular.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed Thin">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-Thin.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-Thin.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-Thin.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed ExtraLight">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-ExtraLight.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-ExtraLight.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-ExtraLight.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed Light">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-Light.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-Light.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-Light.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed Medium">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-Medium.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-Medium.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-Medium.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-Medium.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed SemiBold">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-SemiBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-SemiBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-SemiBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed Bold">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-Bold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-Bold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed ExtraBold">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-ExtraBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-ExtraBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-ExtraBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraCondensed Black">
+    <normal>fonts/NotoSansKhmer_ExtraCondensed-Black.ttf</normal>
+    <bold>fonts/NotoSansKhmer_ExtraCondensed-Black.ttf</bold>
+    <italic>fonts/NotoSansKhmer_ExtraCondensed-Black.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_ExtraCondensed-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+    <!-- Base family (Regular/Bold). Khmer has no true italics; reuse same faces. -->
+  <fontFamily name="Noto Sans Khmer SemiCondensed">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-Regular.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed Thin">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-Thin.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-Thin.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-Thin.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed ExtraLight">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-ExtraLight.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-ExtraLight.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-ExtraLight.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed Light">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-Light.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-Light.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-Light.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed Medium">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-Medium.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-Medium.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-Medium.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-Medium.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed SemiBold">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-SemiBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-SemiBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-SemiBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed Bold">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-Bold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-Bold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed ExtraBold">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-ExtraBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-ExtraBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-ExtraBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiCondensed Black">
+    <normal>fonts/NotoSansKhmer_SemiCondensed-Black.ttf</normal>
+    <bold>fonts/NotoSansKhmer_SemiCondensed-Black.ttf</bold>
+    <italic>fonts/NotoSansKhmer_SemiCondensed-Black.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer_SemiCondensed-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+ 
+   <!-- Base family (Regular/Bold). Khmer has no true italics; reuse same faces. -->
+  <fontFamily name="Noto Sans Khmer">
+    <normal>fonts/NotoSansKhmer-Regular.ttf</normal>
+    <bold>fonts/NotoSansKhmer-Bold.ttf</bold>
+    <italic>fonts/NotoSansKhmer-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <!-- Individual weights so you can pick exact weights in JRXML styles -->
+  <fontFamily name="Noto Sans Khmer Thin">
+    <normal>fonts/NotoSansKhmer-Thin.ttf</normal>
+    <bold>fonts/NotoSansKhmer-Thin.ttf</bold>
+    <italic>fonts/NotoSansKhmer-Thin.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraLight">
+    <normal>fonts/NotoSansKhmer-ExtraLight.ttf</normal>
+    <bold>fonts/NotoSansKhmer-ExtraLight.ttf</bold>
+    <italic>fonts/NotoSansKhmer-ExtraLight.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Light">
+    <normal>fonts/NotoSansKhmer-Light.ttf</normal>
+    <bold>fonts/NotoSansKhmer-Light.ttf</bold>
+    <italic>fonts/NotoSansKhmer-Light.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Medium">
+    <normal>fonts/NotoSansKhmer-Medium.ttf</normal>
+    <bold>fonts/NotoSansKhmer-Medium.ttf</bold>
+    <italic>fonts/NotoSansKhmer-Medium.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-Medium.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer SemiBold">
+    <normal>fonts/NotoSansKhmer-SemiBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer-SemiBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer-SemiBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Bold">
+    <normal>fonts/NotoSansKhmer-Bold.ttf</normal>
+    <bold>fonts/NotoSansKhmer-Bold.ttf</bold>
+    <italic>fonts/NotoSansKhmer-Bold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer ExtraBold">
+    <normal>fonts/NotoSansKhmer-ExtraBold.ttf</normal>
+    <bold>fonts/NotoSansKhmer-ExtraBold.ttf</bold>
+    <italic>fonts/NotoSansKhmer-ExtraBold.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Sans Khmer Black">
+    <normal>fonts/NotoSansKhmer-Black.ttf</normal>
+    <bold>fonts/NotoSansKhmer-Black.ttf</bold>
+    <italic>fonts/NotoSansKhmer-Black.ttf</italic>
+    <boldItalic>fonts/NotoSansKhmer-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+    <!-- Base family (Regular/Bold). Khmer families typically have no true italics; reuse same faces. -->
+  <fontFamily name="Noto Serif Khmer Condensed">
+    <normal>fonts/NotoSerifKhmer_Condensed-Regular.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <!-- Individual weights (useful when you want exact weights in styles) -->
+  <fontFamily name="Noto Serif Khmer Condensed Thin">
+    <normal>fonts/NotoSerifKhmer_Condensed-Thin.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Thin.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Thin.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed ExtraLight">
+    <normal>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Light">
+    <normal>fonts/NotoSerifKhmer_Condensed-Light.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Light.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Light.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Medium">
+    <normal>fonts/NotoSerifKhmer_Condensed-Regular.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Regular.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed SemiBold">
+    <normal>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Bold">
+    <normal>fonts/NotoSerifKhmer_Condensed-Bold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Bold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed ExtraBold">
+    <normal>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Black">
+    <normal>fonts/NotoSerifKhmer_Condensed-Black.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Black.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Black.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily> 
+  
+      <fontFamily name="Noto Serif Khmer Condensed">
+    <normal>fonts/NotoSerifKhmer_Condensed-Regular.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Thin">
+    <normal>fonts/NotoSerifKhmer_Condensed-Thin.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Thin.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Thin.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed ExtraLight">
+    <normal>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Light">
+    <normal>fonts/NotoSerifKhmer_Condensed-Light.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Light.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Light.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Medium">
+    <normal>fonts/NotoSerifKhmer_Condensed-Regular.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Regular.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed SemiBold">
+    <normal>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Bold">
+    <normal>fonts/NotoSerifKhmer_Condensed-Bold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Bold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed ExtraBold">
+    <normal>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer Condensed Black">
+    <normal>fonts/NotoSerifKhmer_Condensed-Black.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_Condensed-Black.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_Condensed-Black.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_Condensed-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily> 
+    
+  <fontFamily name="Noto Serif Khmer ExtraCondensed Thin">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-Thin.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-Thin.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-Thin.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-Thin.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed ExtraLight">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-ExtraLight.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-ExtraLight.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-ExtraLight.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-ExtraLight.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed Light">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-Light.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-Light.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-Light.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-Light.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed Regular">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-Regular.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed Medium">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-Medium.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-Medium.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-Medium.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-Medium.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed SemiBold">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-SemiBold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-SemiBold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-SemiBold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-SemiBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed Bold">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed ExtraBold">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-ExtraBold.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-ExtraBold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-ExtraBold.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-ExtraBold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+
+  <fontFamily name="Noto Serif Khmer ExtraCondensed Black">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-Black.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-Black.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-Black.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-Black.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+    
+ <fontFamily name="Noto Serif Khmer Condensed">
+    <normal>fonts/NotoSerifKhmer_ExtraCondensed-Regular.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_ExtraCondensed-Regular.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_ExtraCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+  <fontFamily name="Noto Serif Khmer Semi-Condensed">
+    <normal>fonts/NotoSerifKhmer_SemiCondensed-Black.ttf</normal>
+    <bold>fonts/NotoSerifKhmer_SemiCondensed-Bold.ttf</bold>
+    <italic>fonts/NotoSerifKhmer_SemiCondensed-Black.ttf</italic>
+    <boldItalic>fonts/NotoSerifKhmer_SemiCondensed-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+  <fontFamily name="Suwannaphum">
+    <normal>fonts/Suwannaphum-Regular.ttf</normal>
+    <bold>fonts/Suwannaphum-Bold.ttf</bold>
+    <italic>fonts/Suwannaphum-Regular.ttf</italic>
+    <boldItalic>fonts/Suwannaphum-Bold.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+  <fontFamily name="Odor Mean Chey">
+    <normal>fonts/OdorMeanChey-Regular.ttf</normal>
+    <bold>fonts/OdorMeanChey-Regular.ttf</bold>
+    <italic>fonts/OdorMeanChey-Regular.ttf</italic>
+    <boldItalic>fonts/OdorMeanChey-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+  <fontFamily name="Preahvihear">
+    <normal>fonts/Preahvihear-Regular.ttf</normal>
+    <bold>fonts/Preahvihear-Regular.ttf</bold>
+    <italic>fonts/Preahvihear-Regular.ttf</italic>
+    <boldItalic>fonts/Preahvihear-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>
+  
+  <fontFamily name="Siemreap">
+    <normal>fonts/Siemreap-Regular.ttf</normal>
+    <bold>fonts/Siemreap-Regular.ttf</bold>
+    <italic>fonts/Siemreap-Regular.ttf</italic>
+    <boldItalic>fonts/Siemreap-Regular.ttf</boldItalic>
+    <pdfEncoding>Identity-H</pdfEncoding>
+    <pdfEmbedded>true</pdfEmbedded>
+  </fontFamily>    
+  
+</fontFamilies>
+

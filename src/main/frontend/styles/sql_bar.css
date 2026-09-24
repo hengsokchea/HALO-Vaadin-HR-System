@@ -1,0 +1,40 @@
+/* =========================
+   SQL Filter Bar (under toolbar)
+   ========================= */
+
+.sql-filter-bar {
+  padding: 0.25rem 0.75rem;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--lumo-contrast-10pct);
+  background: var(--lumo-contrast-5pct); /* light */
+}
+
+.sql-filter-chips {
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.sql-filter-chip {
+  max-width: 520px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* =========================
+   DARK MODE (Vaadin Lumo.DARK)
+   Your MainLayout toggles UI theme list with Lumo.DARK :contentReference[oaicite:1]{index=1}
+   Vaadin sets theme="dark" on the UI/root, so we style via [theme~="dark"].
+   ========================= */
+
+[theme~="dark"] .sql-filter-bar {
+  background: var(--lumo-contrast-10pct);
+  border-bottom: 1px solid var(--lumo-contrast-20pct);
+}
+
+/* Primary badges can be too strong in dark -> force neutral chip look */
+[theme~="dark"] .sql-filter-chip[theme~="badge"] {
+  background: var(--lumo-contrast-20pct) !important;
+  color: var(--lumo-body-text-color) !important;
+  border: 1px solid var(--lumo-contrast-30pct);
+}

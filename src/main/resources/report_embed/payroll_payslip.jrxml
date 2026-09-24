@@ -1,0 +1,226 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="payroll_payslip" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="18" bottomMargin="18" uuid="88e6f3ca-7efe-4e40-9bd6-917323a922a1">
+	<parameter name="REPORT_TITLE" class="java.lang.String"/>
+	<field name="payrollEmployeePaymentId" class="java.lang.Long"/>
+	<field name="payrollEmployeeId" class="java.lang.Long"/>
+	<field name="employeeId" class="java.lang.Long"/>
+	<field name="insuranceNo" class="java.lang.Integer"/>
+	<field name="employeeNameEn" class="java.lang.String"/>
+	<field name="employeeNameKh" class="java.lang.String"/>
+	<field name="bankName" class="java.lang.String"/>
+	<field name="bankAccount" class="java.lang.String"/>
+	<field name="payrollYear" class="java.lang.Integer"/>
+	<field name="payrollMonth" class="java.lang.Integer"/>
+	<field name="periodStart" class="java.time.LocalDate"/>
+	<field name="periodEnd" class="java.time.LocalDate"/>
+	<field name="paymentDate" class="java.time.LocalDate"/>
+	<field name="runNumber" class="java.lang.Integer"/>
+	<field name="runType" class="java.lang.String"/>
+	<field name="installmentType" class="java.lang.String"/>
+	<field name="currency" class="java.lang.String"/>
+	<field name="basicSalary" class="java.math.BigDecimal"/>
+	<field name="totalEarnings" class="java.math.BigDecimal"/>
+	<field name="totalDeductions" class="java.math.BigDecimal"/>
+	<field name="salaryTax" class="java.math.BigDecimal"/>
+	<field name="employeeContribution" class="java.math.BigDecimal"/>
+	<field name="employerContribution" class="java.math.BigDecimal"/>
+	<field name="netSalary" class="java.math.BigDecimal"/>
+	<field name="previousPaidAmount" class="java.math.BigDecimal"/>
+	<field name="paymentAmount" class="java.math.BigDecimal"/>
+	<field name="carryForwardAmount" class="java.math.BigDecimal"/>
+	<field name="paymentMethod" class="java.lang.String"/>
+	<field name="paymentReference" class="java.lang.String"/>
+	<field name="bankReference" class="java.lang.String"/>
+	<field name="paidAt" class="java.time.OffsetDateTime"/>
+	<field name="componentCode" class="java.lang.String"/>
+	<field name="componentNameEn" class="java.lang.String"/>
+	<field name="componentNameKh" class="java.lang.String"/>
+	<field name="componentType" class="java.lang.String"/>
+	<field name="description" class="java.lang.String"/>
+	<field name="sourceType" class="java.lang.String"/>
+	<field name="lineAmount" class="java.math.BigDecimal"/>
+	<group name="EmployeePayslip" reprintHeaderOnEachPage="true" startNewPage="true" resetPageNumber="true">
+		<expression><![CDATA[$F{payrollEmployeePaymentId}]]></expression>
+		<groupHeader>
+			<band height="192">
+				<element kind="rectangle" uuid="c63e9c8b-042c-4106-abd9-d4dc79d3928e" x="0" y="0" width="555" height="69" forecolor="#031C59" backcolor="#031C59"/>
+				<element kind="image" uuid="8ea722c8-d299-4c1f-a54b-8c46515d92a6" x="10" y="9" width="70" height="49" scaleImage="RetainShape" onErrorType="Blank" hImageAlign="Left" vImageAlign="Middle">
+					<expression><![CDATA["assets/images/HALO_Logo_Light.png"]]></expression>
+					<box padding="0"/>
+				</element>
+				<element kind="textField" uuid="d24d3f9d-cb3c-4b32-84f7-268024861298" x="80" y="5" width="395" height="28" forecolor="#FFFFFF" fontName="Kantumruy Pro" fontSize="17.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<expression><![CDATA[$P{REPORT_TITLE}]]></expression>
+				</element>
+				<element kind="staticText" uuid="429e6f42-ad0a-4fe2-94cf-7a222e7af139" x="80" y="36" width="395" height="18" forecolor="#FFFFFF" fontName="Kantumruy Pro" fontSize="9.0" hTextAlign="Center">
+					<text><![CDATA[Final payroll snapshot - Confidential | ទិន្នន័យប្រាក់បៀវត្សចុងក្រោយ - សម្ងាត់]]></text>
+				</element>
+				<element kind="rectangle" uuid="cfc94356-d3a7-401a-97ea-a5ce071fc306" x="0" y="69" width="555" height="92" forecolor="#D9DEE3" backcolor="#F7F9FA"/>
+				<element kind="staticText" uuid="d071d339-18ab-44b4-a535-9ba6c3648abc" x="10" y="76" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Insurance No | លេខ៖]]></text>
+				</element>
+				<element kind="textField" uuid="03ec74c3-cf11-41a7-8030-6fdc01a14cd1" x="100" y="76" width="136" height="18" fontName="Kantumruy Pro" fontSize="9.0" blankWhenNull="true">
+					<expression><![CDATA[$F{insuranceNo}]]></expression>
+				</element>
+				<element kind="staticText" uuid="ef351cb3-e188-4c99-bc72-7a255b316ef3" x="260" y="76" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Employee | បុគ្គលិក៖]]></text>
+				</element>
+				<element kind="textField" uuid="1975710c-8d8c-4f36-9b48-e62822c5d920" x="350" y="76" width="195" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[($F{employeeNameEn} == null ? "" : $F{employeeNameEn}) + ($F{employeeNameKh} == null || $F{employeeNameKh}.isBlank() ? "" : " | " + $F{employeeNameKh})]]></expression>
+				</element>
+				<element kind="staticText" uuid="d60202c4-cced-4f32-9188-d5e78bef22c6" x="10" y="98" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Payroll Period | ខែ៖]]></text>
+				</element>
+				<element kind="textField" uuid="555eed02-f506-4907-9a21-66681bd0082f" x="100" y="98" width="144" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[String.format("%04d-%02d", $F{payrollYear}, $F{payrollMonth}) + "  (" + $F{periodStart} + " - " + $F{periodEnd} + ")"]]></expression>
+				</element>
+				<element kind="staticText" uuid="5f46ecf6-a45f-4ccb-997b-e3dac49f15cd" x="260" y="98" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Run | ដំណើរការ៖]]></text>
+				</element>
+				<element kind="textField" uuid="f67becac-6891-4613-a8ae-a4ac2ee55e55" x="350" y="98" width="195" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA["#" + $F{runNumber} + " · " + $F{runType} + " · " + $F{installmentType}]]></expression>
+				</element>
+				<element kind="staticText" uuid="d82ac681-0400-4cf8-9a37-39b129ea9ed3" x="10" y="120" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Bank | ធនាគារ៖]]></text>
+				</element>
+				<element kind="textField" uuid="62b10218-8374-4819-9207-e25a0dc305f3" x="100" y="120" width="144" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[$F{bankName}]]></expression>
+				</element>
+				<element kind="staticText" uuid="7e45fe6b-da59-4220-8107-5fda88c71e21" x="260" y="120" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Account | គណនី៖]]></text>
+				</element>
+				<element kind="textField" uuid="958baac9-1fd5-4de3-a264-f85c9127d388" x="350" y="120" width="195" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[$F{bankAccount}]]></expression>
+				</element>
+				<element kind="staticText" uuid="c9045db0-3738-4b2a-bc92-bcb141885280" x="10" y="142" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Payment Date | ថ្ងៃ៖]]></text>
+				</element>
+				<element kind="textField" uuid="c16b4ae2-e37f-41a0-a4f3-cc866d245880" x="100" y="142" width="144" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[$F{paymentDate} == null ? "-" : $F{paymentDate}.toString()]]></expression>
+				</element>
+				<element kind="staticText" uuid="e01e1f31-a3dc-4b70-8fde-850e69042dda" x="260" y="142" width="90" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Currency | រូបិយប័ណ្ណ៖]]></text>
+				</element>
+				<element kind="textField" uuid="4942fc49-cbea-4652-8d12-ac8bd5c5ef97" x="350" y="142" width="195" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[$F{currency}]]></expression>
+				</element>
+				<element kind="staticText" uuid="51bb8034-0eaa-4629-bb76-c97fa6095bb9" mode="Opaque" x="0" y="164" width="120" height="28" backcolor="#E9EEF3" fontName="Kantumruy Pro" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Type | ប្រភេទ]]></text>
+				</element>
+				<element kind="staticText" uuid="39d51fbe-5592-4366-b5b5-70b55da29455" mode="Opaque" x="120" y="164" width="360" height="28" backcolor="#E9EEF3" fontName="Kantumruy Pro" fontSize="8.0" bold="true" vTextAlign="Middle">
+					<text><![CDATA[Payroll Component | សមាសភាគប្រាក់បៀវត្ស]]></text>
+				</element>
+				<element kind="staticText" uuid="03277fa4-6b1a-4daf-8217-83add8f64859" mode="Opaque" x="480" y="164" width="75" height="28" backcolor="#E9EEF3" fontName="Kantumruy Pro" fontSize="8.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+					<text><![CDATA[Amount | ចំនួន]]></text>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="214">
+				<element kind="line" uuid="66c94f53-a3c4-430b-999e-835a99c797ed" x="0" y="0" width="555" height="1" forecolor="#C6CCD2"/>
+				<element kind="staticText" uuid="8a1ab00f-0e18-4bd5-a9e3-027205452023" x="285" y="10" width="155" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Basic Salary | ប្រាក់មូលដ្ឋាន]]></text>
+				</element>
+				<element kind="textField" uuid="8fc48f72-b3e5-48d2-839d-5f62ec3c7fe4" x="440" y="10" width="115" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{basicSalary})]]></expression>
+				</element>
+				<element kind="staticText" uuid="18ed0cb3-4081-4128-9c79-af1a90757fbf" x="285" y="30" width="155" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Total Earnings | ចំណូលសរុប]]></text>
+				</element>
+				<element kind="textField" uuid="d6d75cbe-3953-4056-a78c-e722102cd89e" x="440" y="30" width="115" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{totalEarnings})]]></expression>
+				</element>
+				<element kind="staticText" uuid="bc35bf16-c214-4ac7-967d-c16483411099" x="285" y="50" width="155" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Total Deductions | កាត់សរុប]]></text>
+				</element>
+				<element kind="textField" uuid="03544698-55ef-4bbe-afb2-4a567941ac20" x="440" y="50" width="115" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{totalDeductions})]]></expression>
+				</element>
+				<element kind="staticText" uuid="9ae00adb-fbd2-4a0c-a4d0-ee54fa77c24a" x="285" y="70" width="155" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Net Salary | ប្រាក់សុទ្ធ]]></text>
+				</element>
+				<element kind="textField" uuid="fb61a9de-8f48-4fcb-96e3-eab73ee750b6" x="440" y="70" width="115" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="10.0" textAdjust="ScaleFont" blankWhenNull="true" bold="true" hTextAlign="Right">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{netSalary})]]></expression>
+				</element>
+				<element kind="staticText" uuid="4528598a-263c-4142-91c9-9d89e2a59c86" x="0" y="10" width="160" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Salary Tax | ពន្ធលើប្រាក់បៀវត្ស]]></text>
+				</element>
+				<element kind="textField" uuid="c0430e24-33b1-48f6-92bb-609d03e3a24a" x="160" y="10" width="105" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{salaryTax})]]></expression>
+				</element>
+				<element kind="staticText" uuid="e1953581-c550-4365-a53d-a6e19566de3d" x="0" y="30" width="160" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[NSSF Employee | ប.ស.ស. បុគ្គលិក]]></text>
+				</element>
+				<element kind="textField" uuid="23824e5b-205b-46fd-a651-a81d8ea2a925" x="160" y="30" width="105" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{employeeContribution})]]></expression>
+				</element>
+				<element kind="staticText" uuid="95da76b5-e73c-43a5-8a07-ef29f141ed58" x="0" y="50" width="160" height="18" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[NSSF Employer | ប.ស.ស. និយោជក]]></text>
+				</element>
+				<element kind="textField" uuid="2dcd9262-cd37-4bf5-99e2-ee4d67a7d4fd" x="160" y="50" width="105" height="18" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Right">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{employerContribution})]]></expression>
+				</element>
+				<element kind="rectangle" uuid="05e5a8b6-6850-4404-8638-f27ef1ba80c7" x="0" y="98" width="555" height="60" forecolor="#D9DEE3" backcolor="#BBEDFF" radius="10"/>
+				<element kind="staticText" uuid="c2407f82-ebf6-4d17-8326-486d3b666312" x="10" y="105" width="130" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Previously Paid | បានបើកមុន]]></text>
+				</element>
+				<element kind="textField" uuid="296ee163-7379-45e0-b8fa-da6737fe08cc" x="140" y="105" width="145" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Left">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{previousPaidAmount})]]></expression>
+				</element>
+				<element kind="staticText" uuid="28e24027-b093-4e1c-b7c9-09e3a632383d" x="284" y="105" width="126" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="12.0" bold="true">
+					<text><![CDATA[Paid Now | បើកឥឡូវ]]></text>
+				</element>
+				<element kind="textField" uuid="46e07704-cf59-44a5-81fe-40588ef62b77" x="410" y="105" width="145" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="12.0" textAdjust="ScaleFont" blankWhenNull="true" bold="true" hTextAlign="Left">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{paymentAmount})]]></expression>
+				</element>
+				<element kind="staticText" uuid="5282cb36-c87c-4449-93c2-524f0762edca" x="10" y="129" width="190" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="9.0" bold="true">
+					<text><![CDATA[Recovery Carry Forward | កាត់សងខែក្រោយ]]></text>
+				</element>
+				<element kind="textField" uuid="a682ce35-cba8-4cb2-8a66-f3ae31d3f701" x="200" y="129" width="235" height="18" forecolor="#031C59" fontName="Kantumruy Pro" fontSize="9.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Left">
+					<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{carryForwardAmount})]]></expression>
+				</element>
+				<element kind="staticText" uuid="0ef6f111-5ff0-4de0-9899-918c0464e6a4" x="0" y="168" width="140" height="16" fontName="Kantumruy Pro" fontSize="8.0" bold="true">
+					<text><![CDATA[Payment Method | វិធីបើកប្រាក់:]]></text>
+				</element>
+				<element kind="textField" uuid="0c37117e-b4a0-478b-b5a6-73e1d89d3dd1" x="150" y="168" width="125" height="16" fontName="Kantumruy Pro" fontSize="8.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[$F{paymentMethod}]]></expression>
+				</element>
+				<element kind="staticText" uuid="2bdf0500-0730-49c5-9815-d5bbd6b39914" x="310" y="168" width="125" height="16" fontName="Kantumruy Pro" fontSize="8.0" bold="true">
+					<text><![CDATA[Payment Reference | លេខយោង:]]></text>
+				</element>
+				<element kind="textField" uuid="48f240e2-3315-4930-8dba-ed550d42312c" x="435" y="168" width="115" height="16" fontName="Kantumruy Pro" fontSize="8.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[$F{paymentReference}]]></expression>
+				</element>
+				<element kind="staticText" uuid="74991d8d-e7ad-4710-9f13-89678e7daf9a" x="0" y="187" width="140" height="16" fontName="Kantumruy Pro" fontSize="8.0" bold="true">
+					<text><![CDATA[Bank Reference | លេខយោងធនាគារ:]]></text>
+				</element>
+				<element kind="textField" uuid="36ed31da-5f55-44e5-9701-043f5ee3951d" x="150" y="187" width="402" height="16" fontName="Kantumruy Pro" fontSize="8.0" textAdjust="ScaleFont" blankWhenNull="true">
+					<expression><![CDATA[$F{bankReference}]]></expression>
+				</element>
+			</band>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="20">
+			<element kind="textField" uuid="3463acfb-dd5f-44fa-9c2d-e68102b02086" stretchType="ContainerHeight" x="0" y="1" width="120" height="18" fontName="Kantumruy Pro" fontSize="8.0" textAdjust="ScaleFont" blankWhenNull="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{componentCode} != null]]></printWhenExpression>
+				<expression><![CDATA[$F{componentType}]]></expression>
+			</element>
+			<element kind="textField" uuid="c66eff29-c10d-4f60-9720-8796c99438c0" stretchType="ContainerHeight" x="120" y="1" width="360" height="18" fontName="Kantumruy Pro" fontSize="8.0" textAdjust="ScaleFont" blankWhenNull="true" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{componentCode} != null]]></printWhenExpression>
+				<expression><![CDATA[($F{componentNameEn} == null ? "" : $F{componentNameEn}) + ($F{componentNameKh} == null || $F{componentNameKh}.isBlank() ? "" : " | " + $F{componentNameKh})]]></expression>
+			</element>
+			<element kind="textField" uuid="9e51db72-6418-4570-9355-683559ea33f3" stretchType="ContainerHeight" x="480" y="1" width="75" height="18" fontName="Kantumruy Pro" fontSize="8.0" textAdjust="ScaleFont" blankWhenNull="true" hTextAlign="Right" vTextAlign="Middle">
+				<printWhenExpression><![CDATA[$F{componentCode} != null]]></printWhenExpression>
+				<expression><![CDATA[$F{currency} + " " + String.format("%,.2f", $F{lineAmount})]]></expression>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="18">
+		<element kind="staticText" uuid="43daebea-78d1-4770-a37d-f40afc9aa041" x="0" y="3" width="430" height="15" forecolor="#777777" fontName="Kantumruy Pro" fontSize="7.0">
+			<text><![CDATA[THE HALO TRUST CAMBODIA]]></text>
+		</element>
+		<element kind="textField" uuid="5be5b9b6-7024-448c-85df-69c6856c3874" x="430" y="3" width="125" height="15" fontName="Kantumruy Pro" fontSize="7.0" hTextAlign="Right">
+			<expression><![CDATA["Page " + $V{PAGE_NUMBER}]]></expression>
+		</element>
+	</pageFooter>
+</jasperReport>

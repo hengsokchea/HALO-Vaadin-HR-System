@@ -1,0 +1,39 @@
+/* Visual feedback for editable cells */
+.editable-grid [editable] {
+    cursor: pointer;
+    background-color: var(--lumo-contrast-5pct);
+    transition: background-color 0.2s ease;
+}
+
+.editable-grid [editable]:hover {
+    background-color: var(--lumo-primary-color-10pct);
+}
+
+/* Inline editor styling */
+.inline-editor {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.inline-editor > :first-child {
+    flex-grow: 1;
+}
+
+.inline-editor .inline-button {
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0;
+}
+
+/* Highlight the editing cell */
+.grid-cell-editing {
+    background-color: var(--lumo-primary-color-10pct) !important;
+    border: 2px solid var(--lumo-primary-color) !important;
+}
+
+/* Hide other cells when editing */
+.editable-grid .grid-editor-open:not([editing]) {
+    opacity: 0.5;
+}

@@ -1,0 +1,516 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="leave_request_form" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="880ba763-8ad5-4f35-ba90-c35732ff6fba">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hr"/>
+	<parameter name="emp_leave_id" class="java.util.Collection"/>
+	<parameter name="SUBREPORT_DIR" forPrompting="false" class="java.lang.String"/>
+	<parameter name="ATTACHMENT_DIR" forPrompting="false" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT
+  emp_leave.emp_leave_id,
+  emp_leave.emp_id,
+  emp_master.insurance_no,
+  emp_master.name_en,
+  emp_master.name_kh,
+  emp_master.gender,
+  emp_leave.request_date,
+  emp_leave.contact_number,
+  request_department.department_name           AS department_en,
+  request_department.department_name_kh        AS department_kh,
+  request_position.emp_position                AS position_en,
+  request_position.emp_position_kh             AS position_kh,
+  emp_leave.reason,
+  request_leave_status.leave_status_name       AS request_status_en,
+  request_leave_status.leave_status_name_kh    AS request_status_kh,
+  request_team.team_name                       AS team,
+  request_team_type.list_team_type_name        AS team_type,
+
+  line_manager_leave_status.leave_status_name    AS supervisor_status_en,
+  line_manager_leave_status.leave_status_name_kh AS supervisor_status_kh,
+  emp_leave.line_manager_check_date,
+  line_manager.insurance_no                      AS supervisor_ins,
+  line_manager.name_en                           AS supervisor_en,
+  line_manager.name_kh                           AS supervisor_kh,
+  line_manager_position.emp_position             AS supervisor_position_en,
+  line_manager_position.emp_position_kh          AS supervisor_position_kh,
+  emp_leave.line_manager_check_comments          AS supervisor_comments,
+
+  hr_leave_status.leave_status_name              AS hr_status_en,
+  hr_leave_status.leave_status_name_kh           AS hr_status_kh,
+  emp_leave.hr_verification_date,
+  hr_manager.insurance_no                        AS hr_ins,
+  hr_manager.name_en                             AS hr_en,
+  hr_manager.name_kh                             AS hr_kh,
+  hr_position.emp_position                       AS hr_position_en,
+  hr_position.emp_position_kh                    AS hr_position_kh,
+  emp_leave.hr_verification_comments,
+
+  sig.request_signature,
+  sig.request_signature_byte,
+  sig.supervisor_signature,
+  sig.supervisor_signature_byte,
+  sig.hr_signature,
+  sig.hr_signature_byte
+
+FROM public.emp_leave
+JOIN public.emp_master
+  ON emp_master.emp_id = emp_leave.emp_id
+LEFT JOIN public.list_department  AS request_department
+  ON request_department.department_id = emp_leave.department_id
+LEFT JOIN public.list_position    AS request_position
+  ON request_position.position_id = emp_leave.position_id
+LEFT JOIN public.leave_status     AS request_leave_status
+  ON request_leave_status.leave_status_id = emp_leave.leave_status_id
+LEFT JOIN public.list_team        AS request_team
+  ON request_team.team_id = emp_master.team_id
+LEFT JOIN public.list_team_type   AS request_team_type
+  ON request_team_type.list_team_type_id = request_team.team_type_id
+LEFT JOIN public.emp_master       AS line_manager
+  ON line_manager.emp_id = emp_leave.line_manager_check_by_emp_id
+LEFT JOIN public.list_position    AS line_manager_position
+  ON line_manager_position.position_id = emp_leave.line_manager_check_position_id
+LEFT JOIN public.leave_status     AS line_manager_leave_status
+  ON line_manager_leave_status.leave_status_id = emp_leave.line_manager_check_status_id
+LEFT JOIN public.leave_status     AS hr_leave_status
+  ON hr_leave_status.leave_status_id = emp_leave.hr_verification_status_id
+LEFT JOIN public.emp_master       AS hr_manager
+  ON hr_manager.emp_id = emp_leave.hr_verification_by_emp_id
+LEFT JOIN public.list_position    AS hr_position
+  ON hr_position.position_id = emp_leave.hr_verification_position_id
+
+LEFT JOIN LATERAL (
+  SELECT
+    -- pick the latest (by attachment_id) name/bytes for each type
+    (array_agg(a.file_name ORDER BY a.attachment_id DESC)
+       FILTER (WHERE a.attachment_type_id = 1))[1] AS request_signature,
+    (array_agg(a.file_data ORDER BY a.attachment_id DESC)
+       FILTER (WHERE a.attachment_type_id = 1))[1] AS request_signature_byte,
+
+    (array_agg(a.file_name ORDER BY a.attachment_id DESC)
+       FILTER (WHERE a.attachment_type_id = 2))[1] AS supervisor_signature,
+    (array_agg(a.file_data ORDER BY a.attachment_id DESC)
+       FILTER (WHERE a.attachment_type_id = 2))[1] AS supervisor_signature_byte,
+
+    (array_agg(a.file_name ORDER BY a.attachment_id DESC)
+       FILTER (WHERE a.attachment_type_id = 3))[1] AS hr_signature,
+    (array_agg(a.file_data ORDER BY a.attachment_id DESC)
+       FILTER (WHERE a.attachment_type_id = 3))[1] AS hr_signature_byte
+  FROM public.attachment a
+  WHERE a.entity_table = 'emp_leave'
+    AND a.entity_id = emp_leave.emp_leave_id
+) AS sig ON TRUE
+WHERE $X{IN, emp_leave.emp_leave_id, emp_leave_id}
+]]></query>
+	<field name="emp_leave_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="emp_leave_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_leave_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="emp_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="emp_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="insurance_no" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="insurance_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="insurance_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="name_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="name_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="name_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="request_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="request_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="request_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="contact_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="contact_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="contact_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="department_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="department_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="department_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_department"/>
+	</field>
+	<field name="department_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="department_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="department_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_department"/>
+	</field>
+	<field name="position_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="position_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="position_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="position_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="position_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="position_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="reason" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="reason"/>
+		<property name="com.jaspersoft.studio.field.label" value="reason"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="request_status_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="request_status_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="request_status_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="leave_status"/>
+	</field>
+	<field name="request_status_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="request_status_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="request_status_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="leave_status"/>
+	</field>
+	<field name="team" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="team"/>
+		<property name="com.jaspersoft.studio.field.label" value="team"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_team"/>
+	</field>
+	<field name="team_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="team_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="team_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_team_type"/>
+	</field>
+	<field name="supervisor_status_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_status_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_status_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="leave_status"/>
+	</field>
+	<field name="supervisor_status_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_status_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_status_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="leave_status"/>
+	</field>
+	<field name="line_manager_check_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="line_manager_check_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="line_manager_check_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="supervisor_ins" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_ins"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_ins"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="supervisor_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="supervisor_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="supervisor_position_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_position_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_position_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="supervisor_position_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_position_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_position_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="supervisor_comments" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_comments"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_comments"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="hr_status_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_status_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_status_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="leave_status"/>
+	</field>
+	<field name="hr_status_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_status_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_status_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="leave_status"/>
+	</field>
+	<field name="hr_verification_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="hr_verification_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_verification_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="hr_ins" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="hr_ins"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_ins"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="hr_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="hr_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_master"/>
+	</field>
+	<field name="hr_position_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_position_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_position_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="hr_position_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_position_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_position_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_position"/>
+	</field>
+	<field name="hr_verification_comments" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_verification_comments"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_verification_comments"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave"/>
+	</field>
+	<field name="request_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="request_signature"/>
+		<property name="com.jaspersoft.studio.field.label" value="request_signature"/>
+	</field>
+	<field name="request_signature_byte" class="byte[]">
+		<property name="com.jaspersoft.studio.field.name" value="request_signature_byte"/>
+		<property name="com.jaspersoft.studio.field.label" value="request_signature_byte"/>
+	</field>
+	<field name="supervisor_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_signature"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_signature"/>
+	</field>
+	<field name="supervisor_signature_byte" class="byte[]">
+		<property name="com.jaspersoft.studio.field.name" value="supervisor_signature_byte"/>
+		<property name="com.jaspersoft.studio.field.label" value="supervisor_signature_byte"/>
+	</field>
+	<field name="hr_signature" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="hr_signature"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_signature"/>
+	</field>
+	<field name="hr_signature_byte" class="byte[]">
+		<property name="com.jaspersoft.studio.field.name" value="hr_signature_byte"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_signature_byte"/>
+	</field>
+	<variable name="reportedSignatureFile" class="java.io.File">
+		<expression><![CDATA[($P{ATTACHMENT_DIR} != null 
+	         && $F{request_signature} != null 
+	         && !$F{request_signature}.trim().isEmpty())
+	        ? new java.io.File($P{ATTACHMENT_DIR}, $F{request_signature}.trim())
+	        : null]]></expression>
+	</variable>
+	<variable name="supervisorSignatureFile" class="java.io.File">
+		<expression><![CDATA[($P{ATTACHMENT_DIR} != null 
+	         && $F{supervisor_signature} != null 
+	         && !$F{supervisor_signature}.trim().isEmpty())
+	        ? new java.io.File($P{ATTACHMENT_DIR}, $F{supervisor_signature}.trim())
+	        : null]]></expression>
+	</variable>
+	<variable name="hrSignatureFile" class="java.io.File">
+		<expression><![CDATA[($P{ATTACHMENT_DIR} != null 
+	         && $F{hr_signature} != null 
+	         && !$F{hr_signature}.trim().isEmpty())
+	        ? new java.io.File($P{ATTACHMENT_DIR}, $F{hr_signature}.trim())
+	        : null]]></expression>
+	</variable>
+	<group name="emp_leave_group" reprintHeaderOnEachPage="true" resetPageNumber="true" startNewPage="true">
+		<expression><![CDATA[$F{emp_leave_id}]]></expression>
+		<groupHeader>
+			<band height="82">
+				<element kind="staticText" uuid="ea8e20a2-ab0b-4536-89c8-83cd9dc6ec42" x="1" y="2" width="70" height="21" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[លេខធានារ៉ាប់រងៈ]]></text>
+				</element>
+				<element kind="staticText" uuid="2637a51b-3592-4591-a77e-5845f0d3d88f" x="1" y="18" width="70" height="22" vTextAlign="Middle">
+					<text><![CDATA[Insurance No:]]></text>
+				</element>
+				<element kind="textField" uuid="943b4b1b-eba3-4280-8ac0-76b337164163" x="73" y="2" width="50" height="38" forecolor="#0B3C61" blankWhenNull="true" bold="false" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{insurance_no}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="a0797f2d-a61d-4abd-b0f7-2e8c39966a02"/>
+				</element>
+				<element kind="staticText" uuid="f20d0808-861e-4cbc-9a90-e74e6e0d5acd" x="127" y="2" width="80" height="21" fontName="Kantumruy Pro" fontSize="10.0" vTextAlign="Middle">
+					<text><![CDATA[ឈ្មោះៈ]]></text>
+				</element>
+				<element kind="staticText" uuid="616f72db-61fd-4632-86f7-1cea899aeedc" x="126" y="20" width="36" height="20" vTextAlign="Middle">
+					<text><![CDATA[Name:]]></text>
+				</element>
+				<element kind="textField" uuid="b5638929-2a25-47f6-8e5d-169e967b8ee6" x="161" y="20" width="120" height="20" forecolor="#0B3C61" blankWhenNull="true" bold="false" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{name_en}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ffa98b5e-5047-44e9-8469-54d481b9d223"/>
+				</element>
+				<element kind="textField" uuid="73d7d5f2-4bb5-4854-a30b-6660e37523ee" x="161" y="2" width="140" height="21" forecolor="#0B3C61" fontName="Kantumruy Pro" blankWhenNull="true" bold="false" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{name_kh}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5b630cc6-ac79-4bc5-88d5-6cbd58dc05e6"/>
+				</element>
+				<element kind="staticText" uuid="98b4a73d-4f60-4abd-a11a-4393aba70a62" x="281" y="2" width="40" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[តួនាទីៈ
+]]></text>
+				</element>
+				<element kind="staticText" uuid="53a1f287-30b2-4762-88ed-9b50a90a1f91" x="281" y="18" width="45" height="22" vTextAlign="Middle">
+					<text><![CDATA[Position:]]></text>
+				</element>
+				<element kind="textField" uuid="685c5272-4b3e-4f8d-9a23-1256bb22ddf9" x="321" y="2" width="140" height="20" forecolor="#0B3C61" fontName="Kantumruy Pro" blankWhenNull="true" bold="false" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{position_kh}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="255fb732-9fb6-40e1-931f-fe9eb1d288ab"/>
+				</element>
+				<element kind="textField" uuid="d5bd5e85-5f0b-4807-81be-e2bbc905d10b" x="321" y="18" width="140" height="22" forecolor="#0B3C61" blankWhenNull="true" bold="false" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{position_en}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88c4e37d-7ae9-47e4-944a-e34f53c23d31"/>
+				</element>
+				<element kind="staticText" uuid="6657cc8e-a968-47f6-8666-8423f50bc780" x="461" y="2" width="30" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ក្រុមៈ
+]]></text>
+				</element>
+				<element kind="staticText" uuid="0f2a897b-b15c-45d5-b2d3-33a4b446c2ef" x="461" y="17" width="30" height="22" vTextAlign="Middle">
+					<text><![CDATA[Team:]]></text>
+				</element>
+				<element kind="textField" uuid="f1a01dc4-2182-4797-833b-515e1feddcfb" x="491" y="2" width="61" height="36" forecolor="#0B3C61" blankWhenNull="true" bold="false" hTextAlign="Left" vTextAlign="Middle">
+					<expression><![CDATA[$F{team}]]></expression>
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="e5502ba8-647e-4a79-85cc-d905c98105c6"/>
+				</element>
+				<element kind="staticText" uuid="259f77be-25ad-41c9-af94-d711529a4ec4" x="1" y="41" width="551" height="21" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[អាសយដ្ឋានទាក់ទងក្នុងរយៈពេលឈប់សម្រាក (ដោយបញ្ជាក់លេខទូរសព្ទខ្លួន ឬសាច់ញាតិប្រសិនបើមាន)
+]]></text>
+				</element>
+				<element kind="staticText" uuid="30786700-4730-4678-9638-b438148bbf12" x="1" y="62" width="161" height="20" vTextAlign="Middle">
+					<text><![CDATA[Contact details during leave period:]]></text>
+				</element>
+				<element kind="textField" uuid="a26d063b-679e-440c-88bf-3e79354ba353" x="162" y="62" width="390" height="20" forecolor="#0B3C61" blankWhenNull="true" bold="false" vTextAlign="Middle">
+					<expression><![CDATA[$F{contact_number}]]></expression>
+				</element>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="127">
+				<element kind="staticText" uuid="c74b6b3d-e9e3-45d1-a3e0-7f20b91049a4" x="1" y="1" width="50" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ថ្ងៃទី Date:]]></text>
+				</element>
+				<element kind="textField" uuid="90c806a3-42d2-4d31-ae40-82d1c1f53e1c" x="51" y="1" width="120" height="20" forecolor="#0B3C61" pattern="dd-MM-yyyy" linkType="None" linkTarget="Self" blankWhenNull="true" removeLineWhenBlank="true" printWhenDetailOverflows="true" bold="false" vTextAlign="Middle">
+					<expression><![CDATA[$F{request_date}]]></expression>
+				</element>
+				<element kind="staticText" uuid="22f38b54-1e3c-44fd-bc8e-b986651d170f" x="181" y="1" width="50" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ថ្ងៃទី Date:]]></text>
+				</element>
+				<element kind="textField" uuid="97034549-ac36-4fdc-b79a-0ea3f61813ee" x="231" y="1" width="150" height="20" forecolor="#0B3C61" pattern="dd-MM-yyyy" blankWhenNull="true" bold="false" vTextAlign="Middle">
+					<expression><![CDATA[$F{line_manager_check_date}]]></expression>
+				</element>
+				<element kind="staticText" uuid="72d866e3-160b-4f1d-b317-2687e4181d84" x="393" y="1" width="50" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ថ្ងៃទី Date:]]></text>
+				</element>
+				<element kind="textField" uuid="2720126c-04c0-4fd5-86f1-9f8a5639aa5a" x="443" y="1" width="110" height="20" forecolor="#0B3C61" pattern="dd-MM-yyyy" blankWhenNull="true" bold="false" vTextAlign="Middle">
+					<expression><![CDATA[$F{hr_verification_date}]]></expression>
+				</element>
+				<element kind="staticText" uuid="8f220914-a4ab-4a3a-b8a8-ad92984c3ffe" x="393" y="21" width="144" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[មន្ត្រីធនធានមនុស្ស HR Admin:]]></text>
+				</element>
+				<element kind="staticText" uuid="d14fb7a8-8d65-40eb-b168-bc1d4fd2d870" x="181" y="21" width="160" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[អ្នកគ្រប់គ្រង Line Manager:]]></text>
+				</element>
+				<element kind="staticText" uuid="13b4314b-92fb-4b8c-a222-933ea887f31f" x="1" y="21" width="150" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ស្នើសុំដោយសាម៉ីខ្លួន Requested by:]]></text>
+				</element>
+				<element kind="staticText" uuid="447a3623-e269-4311-a507-3f39a2128228" x="1" y="41" width="90" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ហត្ថលេខា Signature:]]></text>
+				</element>
+				<element kind="staticText" uuid="9bb97378-542d-459b-b18b-5044f56a37d8" x="181" y="41" width="90" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ហត្ថលេខា Signature:]]></text>
+				</element>
+				<element kind="staticText" uuid="65015b4e-2158-40bb-9be2-32256137c04d" x="393" y="41" width="90" height="20" fontName="Kantumruy Pro" vTextAlign="Middle">
+					<text><![CDATA[ហត្ថលេខា Signature:]]></text>
+				</element>
+				<element kind="image" uuid="63f9b041-a9e0-4a8e-9a47-92134ffd49a5" positionType="Float" x="391" y="61" width="100" height="50" forecolor="#0B3C61" scaleImage="RetainShape" onErrorType="Blank" removeLineWhenBlank="true" hImageAlign="Center" vImageAlign="Middle">
+					<printWhenExpression><![CDATA[($V{hrSignatureFile} != null && $V{hrSignatureFile}.exists())  || ($F{hr_signature_byte} != null && $F{hr_signature_byte}.length > 0)]]></printWhenExpression>
+					<expression><![CDATA[  ($V{hrSignatureFile} != null && $V{hrSignatureFile}.exists())? $V{hrSignatureFile}.getAbsolutePath() : ( $F{hr_signature_byte} != null && $F{hr_signature_byte}.length > 0 ? $F{hr_signature_byte} : null) ]]></expression>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="image" uuid="4049b31d-7c71-4ca2-abc4-9ed09874233a" positionType="Float" x="181" y="61" width="100" height="50" forecolor="#0B3C61" scaleImage="RetainShape" onErrorType="Blank" removeLineWhenBlank="true" hImageAlign="Center" vImageAlign="Middle">
+					<printWhenExpression><![CDATA[($V{supervisorSignatureFile} != null && $V{supervisorSignatureFile}.exists())  || ($F{supervisor_signature_byte} != null && $F{supervisor_signature_byte}.length > 0)]]></printWhenExpression>
+					<expression><![CDATA[  ($V{supervisorSignatureFile} != null && $V{supervisorSignatureFile}.exists())? $V{supervisorSignatureFile}.getAbsolutePath() : ( $F{supervisor_signature_byte} != null && $F{supervisor_signature_byte}.length > 0 ? $F{supervisor_signature_byte} : null) ]]></expression>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="image" uuid="3bb4603a-3d24-436c-bc68-631dd83be518" positionType="Float" x="1" y="61" width="100" height="50" forecolor="#0B3C61" scaleImage="RetainShape" onErrorType="Blank" removeLineWhenBlank="true" hImageAlign="Center" vImageAlign="Middle">
+					<printWhenExpression><![CDATA[($V{reportedSignatureFile} != null && $V{reportedSignatureFile}.exists())  || ($F{request_signature_byte} != null && $F{request_signature_byte}.length > 0)]]></printWhenExpression>
+					<expression><![CDATA[  ($V{reportedSignatureFile} != null && $V{reportedSignatureFile}.exists())? $V{reportedSignatureFile}.getAbsolutePath() : ( $F{request_signature_byte} != null && $F{request_signature_byte}.length > 0 ? $F{request_signature_byte} : null) ]]></expression>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+				</element>
+				<element kind="textField" uuid="690cefb0-02b1-4112-aac8-eaf9fe841920" x="51" y="95" width="100" height="30" forecolor="#0B3C61" blankWhenNull="true" bold="false" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA[$F{name_en}]]></expression>
+				</element>
+				<element kind="textField" uuid="b12d4491-09a0-4eab-80cb-aac81f6ffb37" x="262" y="95" width="100" height="30" forecolor="#0B3C61" blankWhenNull="true" bold="false" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA[$F{supervisor_en}]]></expression>
+				</element>
+				<element kind="textField" uuid="560b51f7-cb32-4477-bfb9-f5422c84db09" x="452" y="95" width="100" height="30" forecolor="#0B3C61" blankWhenNull="true" bold="false" hTextAlign="Right" vTextAlign="Middle">
+					<expression><![CDATA[$F{hr_en}]]></expression>
+				</element>
+				<element kind="line" uuid="d99a11ea-f4d5-438b-a5c9-40721091cd02" x="393" y="125" width="160" height="1"/>
+				<element kind="line" uuid="5324e303-516c-4a3d-9af4-5953973548f9" x="181" y="126" width="181" height="1"/>
+				<element kind="line" uuid="32d90edb-7dfd-44b8-abfb-62799efb7e23" x="1" y="125" width="150" height="1"/>
+			</band>
+		</groupFooter>
+	</group>
+	<background splitType="Stretch"/>
+	<pageHeader height="102">
+		<element kind="image" uuid="d74a35ef-6579-4c07-94b9-d2ed5fe82e71" x="41" y="1" width="70" height="51">
+			<expression><![CDATA["assets/images/Halo_blue.png"]]></expression>
+		</element>
+		<element kind="staticText" uuid="17ef4d67-229c-49fa-ba99-2d60bcf46f03" x="181" y="37" width="200" height="65" fontName="Kantumruy Pro" fontSize="14.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ពាក្យសុំឈប់សម្រាក
+Leave Application Form]]></text>
+		</element>
+		<element kind="staticText" uuid="ab2cc20f-a012-4c64-b1be-71dc8746eb00" x="381" y="1" width="171" height="101" forecolor="#0B3C61" fontName="Calibri" fontSize="8.0" hTextAlign="Right">
+			<text><![CDATA[National Road 6A
+Chey Village
+Tuek Vil Sangkhat
+Krong Siem Reap
+Siem Reap Province
+85501 Cambodia
+
+T: +855 12 808 630
+mail@halocambodia.org
+www.halotrust.org
+]]></text>
+		</element>
+		<element kind="line" uuid="65ec07ef-984e-4a1f-aea0-125911c80054" x="1" y="101" width="551" height="1"/>
+	</pageHeader>
+	<detail>
+		<band height="33" splitType="Stretch">
+			<element kind="frame" uuid="64fa87af-7134-4543-8eb1-4f8a1dcd7cea" x="0" y="0" width="552" height="30">
+				<element kind="subreport" uuid="25755956-bbdc-4d37-aa29-a7ac7a0e9adf" x="1" y="2" width="551" height="30">
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<expression><![CDATA["report_embed/leave_request_detail.jasper"]]></expression>
+					<parameter name="emp_leave_id">
+						<expression><![CDATA[$F{emp_leave_id}]]></expression>
+					</parameter>
+				</element>
+			</element>
+		</band>
+	</detail>
+	<pageFooter height="34" splitType="Stretch">
+		<element kind="staticText" uuid="73f73c0a-46b0-4659-9142-cc201a72c3de" x="0" y="2" width="551" height="28" forecolor="#0B3C61" fontName="Calibri" fontSize="8.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[The HALO Trust is a company limited by guarantee
+Registered in England No. 2228587   Registered Charity No. 1001813 & SCO37870   Registered Office: 50 Broadway, London SW1H 0BL
+]]></text>
+		</element>
+	</pageFooter>
+</jasperReport>

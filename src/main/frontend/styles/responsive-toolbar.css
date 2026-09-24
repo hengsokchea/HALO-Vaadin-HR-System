@@ -1,0 +1,91 @@
+/* Main toolbar styling */
+.responsive-dialog-layout {
+    --toolbar-padding: 0.75rem;
+    --toolbar-border-color: var(--lumo-contrast-10pct);
+}
+
+/* Menu bar styling */
+vaadin-menu-bar[theme~="small"] {
+    min-height: 2.5rem;
+}
+
+/* Ensure text fields don't overflow */
+vaadin-menu-bar vaadin-text-field {
+    max-width: 250px;
+    min-width: 150px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    vaadin-menu-bar-button {
+        padding-left: 0.375rem !important;
+        padding-right: 0.375rem !important;
+    }
+    
+    vaadin-menu-bar vaadin-text-field {
+        max-width: 180px;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 480px) {
+    vaadin-menu-bar-button {
+        padding-left: 0.25rem !important;
+        padding-right: 0.25rem !important;
+    }
+    
+    vaadin-menu-bar vaadin-text-field {
+        max-width: 150px;
+        min-width: 100px;
+    }
+}
+
+/* Tooltip for overflow menu items */
+vaadin-menu-bar-button[aria-haspopup="menu"] {
+    min-width: 2.5rem;
+}
+
+/* Smooth transitions */
+vaadin-menu-bar-button {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+vaadin-menu-bar-button[hidden] {
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+}
+
+/* Toolbar sticky on top */
+.responsive-dialog-layout {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* sticky top toolbar */
+.responsive-dialog-layout .sticky-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--lumo-base-color);
+  border-bottom: 1px solid var(--lumo-contrast-10pct);
+}
+
+/* grid takes remaining space and scrolls inside */
+.responsive-dialog-layout vaadin-grid {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+/* sticky bottom pagination */
+.responsive-dialog-layout .sticky-pagination {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background: var(--lumo-base-color);
+  border-top: 1px solid var(--lumo-contrast-10pct);
+  padding: 0.25rem 0.75rem;
+}
+

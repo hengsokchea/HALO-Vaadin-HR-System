@@ -1,0 +1,47 @@
+/* Base look for ALL menu-bar buttons */
+vaadin-menu-bar-button {
+  background: transparent;
+  border-radius: 999px;
+  padding: 0.15rem 0.55rem;
+  font-weight: 500;
+}
+
+/* Soft hover for all */
+vaadin-menu-bar-button:hover {
+  background: var(--lumo-contrast-5pct);
+}
+
+/* Primary (blue text, soft hover) */
+vaadin-menu-bar-button.mi-primary {
+  color: var(--lumo-primary-text-color);
+  font-weight: 600;
+}
+vaadin-menu-bar-button.mi-primary:hover {
+  background: var(--lumo-primary-color-10pct);
+}
+
+/* Danger (red text, soft hover) */
+vaadin-menu-bar-button.mi-danger {
+  color: var(--lumo-error-text-color);
+  font-weight: 600;
+}
+vaadin-menu-bar-button.mi-danger:hover {
+  background: var(--lumo-error-color-10pct);
+}
+
+/* Neutral */
+vaadin-menu-bar-button.mi-neutral {
+  color: var(--lumo-body-text-color);
+}
+
+/* Quick search container button: remove extra button padding */
+vaadin-menu-bar-button.mi-quicksearch {
+  padding: 0;
+  background: transparent;
+}
+
+
+.quick-search-field {
+  --vaadin-input-field-height: var(--lumo-size-m);
+  font-size: var(--lumo-font-size-s);
+}

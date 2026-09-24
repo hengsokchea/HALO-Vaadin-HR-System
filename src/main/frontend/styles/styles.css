@@ -1,0 +1,250 @@
+
+
+/*@import url('./main-layout.css');
+@import url('./views/asset-model-view.css');
+@import url('./views/asset-view.css');
+@import url('./views/inventory-view.css');
+@import url('./views/transaction-view.css');
+@import url('./views/consumable-view.css');
+@import url('./views/inventory-store-check-view.css');
+@import url('./views/manufacturer-view.css');
+@import url('./views/category-view.css');
+@import url('./views/service-type-view.css');
+@import url('./views/fuel-view.css');
+@import url('./views/user-percentage-view.css');    html {
+      --lumo-border-radius-s: calc(var(--lumo-size-m) / 6);
+      --lumo-border-radius-m: calc(var(--lumo-size-m) / 2);
+      --lumo-border-radius-l: var(--lumo-size-m);
+
+    }
+    */
+.v-grid-header th {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+    
+
+    
+    
+    /* Main Toolbar */
+/* Toolbar styles */
+.responsive-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.responsive-toolbar .toolbar-left,
+.responsive-toolbar .toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+/* Menu Bar */
+.responsive-toolbar .menu-bar {
+    display: none; /* Hidden by default */
+    flex-direction: column; /* Stack items vertically for small screens */
+    background-color: var(--lumo-base-color);
+    padding: var(--lumo-space-s);
+    box-shadow: var(--lumo-box-shadow-s);
+    border-radius: var(--lumo-border-radius-s);
+    z-index: 1000;
+}
+
+.responsive-toolbar .menu-bar vaadin-menu-bar-button {
+    margin: var(--lumo-space-xs) 0; /* Add spacing between menu items */
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .responsive-toolbar .toolbar-left,
+    .responsive-toolbar .toolbar-right {
+        display: none; /* Hide toolbars on smaller screens */
+    }
+
+    .responsive-toolbar .menu-bar {
+        display: flex; /* Show the menu bar on small screens */
+    }
+}
+    
+  
+/* advance search dialog */    
+.advance-search-dialog {
+    --lumo-shade: #f5f5f5; /* Light gray background */
+    background-color: var(--lumo-shade);
+    border-radius: var(--lumo-border-radius-l); /* Optional: for rounded corners */
+    padding: var(--lumo-space-m); /* Optional: for inner padding */
+    box-shadow: var(--lumo-box-shadow-s); /* Optional: for a subtle shadow effect */
+}
+    
+/* Prevent long SideNavItem labels from being truncated */
+vaadin-side-nav-item::part(label) {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: unset;
+  line-height: 1.2;
+}
+
+    
+    :root {
+    --halo-blue: #0B3C61;
+    --halo-blue-dark: #082b47;
+    --halo-blue-light: #1a4e7a;
+    --halo-orange: #F39800;
+    --halo-orange-dark: #E87D1E;
+    --halo-text-white: #FFFFFF;
+    --halo-gold: #FFD700;
+}
+
+/* === Drawer background === */
+
+.app-name {
+    color: var(--halo-text-white) !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: center;
+}
+
+/* === Scroller background === */
+.scroller-bg {
+     background: linear-gradient(180deg, var(--halo-blue), #008DA8) !important;
+}
+
+/* === SideNav base === */
+vaadin-side-nav {
+    background: transparent !important;
+}
+
+/* === Text color - ALWAYS WHITE === */
+vaadin-side-nav-item::part(content),
+vaadin-side-nav-item::part(link),
+vaadin-side-nav-item::part(label),
+vaadin-side-nav-item::part(button),
+vaadin-side-nav-item span,
+vaadin-side-nav-item div {
+    color: var(--halo-text-white) !important;
+    font-weight: 400 !important;
+}
+
+/* === ICON STYLES - DEFAULT WHITE === */
+/* Target the prefix part which contains the icon */
+vaadin-side-nav-item vaadin-icon{
+    color: var(--halo-text-white) !important;
+    fill: var(--halo-text-white) !important;
+    transition: all 0.2s ease !important;
+}
+
+/* TOGGLE BUTTON - DEFAULT WHITE */
+vaadin-side-nav-item::part(toggle-button) {
+    color: var(--halo-text-white) !important;
+    background: transparent !important;
+}
+
+
+vaadin-side-nav-item:hover {
+    background: linear-gradient(135deg, #f6a15a, var(--halo-orange-dark)) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+     font-weight:bold;
+}
+
+vaadin-side-nav-item:hover vaadin-icon{
+    color: var(--halo-blue) !important;
+    fill: var(--halo-blue) !important;
+    font-weight:bold !important;
+	
+}
+
+ vaadin-side-nav-item[current]{
+     background: linear-gradient(135deg, #f6a15a, var(--halo-orange-dark)) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+     font-weight:bold !important;;
+ }
+ 
+ vaadin-side-nav-item[current] vaadin-icon{
+    color: var(--halo-blue) !important;
+    fill: var(--halo-blue) !important;
+    font-weight:bold !important;
+	
+}
+
+
+
+/* === TOOLTIP STYLING === */
+vaadin-tooltip-overlay::part(overlay) {
+    background: linear-gradient(135deg, #f6a15a, var(--halo-orange-dark)) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+vaadin-tooltip-overlay::part(content) {
+    background: transparent !important;
+    color: var(--halo-text-white) !important;
+    font-weight: 500 !important;
+    font-size: 0.85rem !important;
+    padding: 8px 12px !important;
+}
+
+
+
+/* === DRAWER TEXT ELEMENTS FALLBACK === */
+[part="drawer"] span,
+[part="drawer"] div,
+[part="drawer"] label,
+[part="drawer"] h1,
+[part="drawer"] h2,
+[part="drawer"] h3,
+[part="drawer"] p {
+    color: var(--halo-text-white) !important;
+}
+
+
+
+/* Navbar */
+vaadin-app-layout::part(navbar) {
+   /* background: linear-gradient(270deg, #f6a15a, #E87D1E, #ffb347); */
+    background: linear-gradient(90deg, var(--halo-blue), #008DA8);
+    /*background-size: 400% 400%;**/
+    animation: haloGradient 10s ease infinite;
+    color: white;
+    min-height: 56px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+@keyframes haloGradient {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+
+
+vaadin-app-layout::part(navbar) vaadin-icon {
+    color: white;
+    fill:white;
+}
+/* Drawer */
+vaadin-app-layout::part(drawer) {
+    background: linear-gradient(180deg, var(--halo-blue), #008DA8);
+}
+
+[part="header"] {
+    background: linear-gradient(
+        135deg,
+        #003B6A,
+        #008DA8
+    );
+    color: white;
+}
+
+[part="footer"] {
+    background: red;
+}

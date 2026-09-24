@@ -1,0 +1,53 @@
+
+vaadin-login-overlay::part(backdrop) {
+    background:
+        linear-gradient(
+            135deg,
+            #f5f7fa 0%,
+            #e4eaf1 100%
+        );
+}
+
+vaadin-login-overlay::part(card) {
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    background: #FAFAFA;
+    box-shadow:
+        0 8px 24px rgba(0,0,0,0.12),
+        0 2px 8px rgba(0,0,0,0.08) !important;
+}
+
+
+
+
+vaadin-login-overlay::part(brand) {
+
+	background: linear-gradient(
+	    135deg,
+	    #003B6A 0%,
+	    #00447A 50%,
+	    #008DA8 100%
+	);
+}
+
+
+vaadin-login-overlay vaadin-text-field::part(input-field),
+vaadin-login-overlay vaadin-password-field::part(input-field) {
+    border-radius: 10px;
+    background: #F8F7E6;
+}
+
+vaadin-login-overlay vaadin-button {
+    background: #00447A !important;
+    color: white !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
+
+vaadin-login-overlay vaadin-button {
+    transition: all 0.2s ease;
+}
+
+vaadin-login-overlay vaadin-button:hover {
+    transform: translateY(-1px);
+}

@@ -1,0 +1,790 @@
+@import url('./views/login-view.css');
+@import url('./views/dialog.css');
+@import url('./views/user-profile-context-menu.css');
+@import url('./views/payroll.css');
+/* =========================================================
+   OFFICIAL HALO BRAND COLOURS + LIGHT MODE
+   ========================================================= */
+:root {
+    color-scheme: light;
+
+    /* Shared height for the drawer header and top navbar */
+    --halo-top-bar-height: 64px;
+    --halo-drawer-width: 300px;
+    --halo-drawer-logo-width: 64px;
+    --halo-drawer-logo-height: 44px;
+
+    --halo-light-blue: #BBEDFF;
+    --halo-dark-blue: #031C59;
+    --halo-lilac: #C39FFE;
+    --halo-green: #00E08A;
+    --halo-beige: #F5F0EA;
+    --halo-red: #EB0C00;
+    --halo-white: #FFFFFF;
+    --halo-black: #000000;
+
+    /* Brand mapping */
+    --halo-primary: var(--halo-dark-blue);
+    --halo-primary-text: var(--halo-white);
+    --halo-hover: var(--halo-light-blue);
+    --halo-hover-text: var(--halo-dark-blue);
+    --halo-selected: var(--halo-green);
+    --halo-selected-text: var(--halo-dark-blue);
+
+    /* Semantic application colours: light mode */
+    --halo-page-background: var(--halo-beige);
+    --halo-surface: var(--halo-white);
+    --halo-surface-secondary: #F8F5F1;
+    --halo-input-background: #FBF9F6;
+    --halo-text: var(--halo-dark-blue);
+    --halo-text-secondary: rgba(3, 28, 89, 0.70);
+    --halo-border: rgba(3, 28, 89, 0.16);
+    --halo-brand-border: rgba(187, 237, 255, 0.85);
+    --halo-shadow: rgba(3, 28, 89, 0.18);
+    --halo-danger-text: #B40A00;
+
+    --halo-action-background: var(--halo-dark-blue);
+    --halo-action-text: var(--halo-white);
+    --halo-action-hover-background: var(--halo-light-blue);
+    --halo-action-hover-text: var(--halo-dark-blue);
+
+    /* Light-mode drawer */
+    --halo-drawer-background: var(--halo-light-blue);
+    --halo-drawer-text: var(--halo-dark-blue);
+    --halo-drawer-border: rgba(3, 28, 89, 0.18);
+    --halo-drawer-hover-background: var(--halo-white);
+    --halo-drawer-hover-text: var(--halo-dark-blue);
+    --halo-drawer-current-border: var(--halo-dark-blue);
+
+    /* Light-mode drawer header */
+    --halo-drawer-header-background: var(--halo-light-blue);
+    --halo-drawer-header-text: var(--halo-dark-blue);
+    --halo-drawer-header-border: var(--halo-green);
+
+    --halo-navbar-background: var(--halo-light-blue);
+    --halo-navbar-text: var(--halo-dark-blue);
+    --halo-navbar-control-background: rgba(3, 28, 89, 0.08);
+    --halo-navbar-control-border: rgba(3, 28, 89, 0.24);
+
+    /* Vaadin/Lumo integration */
+    --lumo-base-color: var(--halo-surface);
+    --lumo-primary-color: var(--halo-dark-blue);
+    --lumo-primary-color-50pct: rgba(3, 28, 89, 0.50);
+    --lumo-primary-color-10pct: rgba(3, 28, 89, 0.10);
+    --lumo-primary-text-color: var(--halo-dark-blue);
+    --lumo-primary-contrast-color: var(--halo-white);
+    --lumo-success-color: var(--halo-green);
+    --lumo-success-text-color: #006E45;
+    --lumo-error-color: var(--halo-red);
+    --lumo-error-text-color: var(--halo-danger-text);
+    --lumo-error-contrast-color: var(--halo-white);
+    
+    /* Dialog header — light mode */
+	--halo-dialog-header-background: var(--halo-light-blue);
+	--halo-dialog-header-text: var(--halo-dark-blue);
+	--halo-dialog-header-hover: rgba(3, 28, 89, 0.10);
+	--halo-dialog-header-hover-border: rgba(3, 28, 89, 0.28);
+	
+	
+    /* Global tabs — light mode */
+    --halo-tabs-background: var(--halo-surface);
+    --halo-tabs-border: var(--halo-border);
+    --halo-tabs-shadow: 0 2px 6px var(--halo-shadow);
+
+    --halo-tab-text: var(--halo-dark-blue);
+    --halo-tab-hover-background:
+        color-mix(in srgb, var(--halo-light-blue) 55%, transparent);
+    --halo-tab-hover-text: var(--halo-dark-blue);
+
+    --halo-tab-selected-background:
+        color-mix(in srgb, var(--halo-green) 15%, var(--halo-surface));
+    --halo-tab-selected-text: var(--halo-dark-blue);
+    --halo-tab-selected-border:
+        color-mix(in srgb, var(--halo-green) 45%, transparent);
+
+    --halo-tab-focus: var(--halo-green);
+    --halo-tab-disabled-opacity: 0.45;
+    --halo-tab-radius: 999px;
+    --halo-tab-horizontal-padding: 14px;
+    --halo-tab-container-padding: 5px 8px;
+    --halo-tab-gap: 4px;
+    --halo-tab-transition-duration: 160ms;
+}
+
+/* =========================================================
+   DARK MODE
+   Page.setColorScheme(ColorScheme.Value.DARK) adds theme="dark"
+   to the document.
+   ========================================================= */
+html[theme~="dark"] {
+    color-scheme: dark;
+
+    --halo-page-background: #080F1F;
+    --halo-surface: #101A2E;
+    --halo-surface-secondary: #162238;
+    --halo-input-background: #192742;
+    --halo-text: #F3FAFF;
+    --halo-text-secondary: #BBEDFF;
+    --halo-border: rgba(187, 237, 255, 0.22);
+    --halo-brand-border: rgba(187, 237, 255, 0.38);
+    --halo-shadow: rgba(0, 0, 0, 0.42);
+    --halo-danger-text: #FF8C85;
+
+    --halo-action-background: var(--halo-light-blue);
+    --halo-action-text: var(--halo-dark-blue);
+    --halo-action-hover-background: var(--halo-green);
+    --halo-action-hover-text: var(--halo-dark-blue);
+
+    /* Dark-mode drawer */
+    --halo-drawer-background: var(--halo-dark-blue);
+    --halo-drawer-text: var(--halo-white);
+    --halo-drawer-border: rgba(187, 237, 255, 0.25);
+    --halo-drawer-hover-background: var(--halo-light-blue);
+    --halo-drawer-hover-text: var(--halo-dark-blue);
+    --halo-drawer-current-border: var(--halo-light-blue);
+
+    /* Dark-mode drawer header */
+    --halo-drawer-header-background: var(--halo-dark-blue);
+    --halo-drawer-header-text: var(--halo-white);
+    --halo-drawer-header-border: var(--halo-green);
+
+    --halo-navbar-background: var(--halo-dark-blue);
+    --halo-navbar-text: var(--halo-white);
+    --halo-navbar-control-background: rgba(255, 255, 255, 0.10);
+    --halo-navbar-control-border: rgba(187, 237, 255, 0.34);
+
+    /* Keep HALO branding readable in Lumo dark mode */
+    --lumo-base-color: var(--halo-surface);
+    --lumo-primary-color: var(--halo-light-blue);
+    --lumo-primary-color-50pct: rgba(187, 237, 255, 0.50);
+    --lumo-primary-color-10pct: rgba(187, 237, 255, 0.12);
+    --lumo-primary-text-color: var(--halo-light-blue);
+    --lumo-primary-contrast-color: var(--halo-dark-blue);
+    --lumo-success-color: var(--halo-green);
+    --lumo-success-text-color: var(--halo-green);
+    --lumo-error-color: var(--halo-red);
+    --lumo-error-text-color: var(--halo-danger-text);
+    --lumo-error-contrast-color: var(--halo-white);
+    
+    /* Dialog header — dark mode */
+	--halo-dialog-header-background: var(--halo-dark-blue);
+	--halo-dialog-header-text: var(--halo-white);
+	--halo-dialog-header-hover: rgba(255, 255, 255, 0.16);
+	--halo-dialog-header-hover-border: rgba(255, 255, 255, 0.35);
+	
+    /* Global tabs — dark mode */
+    --halo-tabs-background: var(--halo-surface);
+    --halo-tabs-border: var(--halo-border);
+    --halo-tabs-shadow: 0 2px 8px var(--halo-shadow);
+
+    --halo-tab-text: var(--halo-light-blue);
+    --halo-tab-hover-background: rgba(187, 237, 255, 0.10);
+    --halo-tab-hover-text: var(--halo-white);
+
+    --halo-tab-selected-background:
+        color-mix(in srgb, var(--halo-green) 14%, var(--halo-surface));
+    --halo-tab-selected-text: var(--halo-green);
+    --halo-tab-selected-border:
+        color-mix(in srgb, var(--halo-green) 40%, transparent);
+
+    --halo-tab-focus: var(--halo-green);
+}
+
+html,
+body {
+    color: var(--halo-text);
+    background-color: var(--halo-page-background);
+}
+
+/* =========================================================
+   APP LAYOUT SIZE
+   ========================================================= */
+vaadin-app-layout {
+    --vaadin-app-layout-drawer-width: var(--halo-drawer-width);
+}
+
+/* =========================================================
+   GRID
+   ========================================================= */
+.v-grid-header th {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* =========================================================
+   RESPONSIVE TOOLBAR
+   ========================================================= */
+.responsive-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.responsive-toolbar .toolbar-left,
+.responsive-toolbar .toolbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.responsive-toolbar .menu-bar {
+    display: none;
+    flex-direction: column;
+    color: var(--halo-text);
+    background-color: var(--halo-surface);
+    padding: var(--lumo-space-s);
+    border: 1px solid var(--halo-border);
+    border-radius: var(--lumo-border-radius-s);
+    box-shadow: 0 6px 18px var(--halo-shadow);
+    z-index: 1000;
+}
+
+.responsive-toolbar .menu-bar vaadin-menu-bar-button {
+    margin: var(--lumo-space-xs) 0;
+}
+
+@media (max-width: 768px) {
+    vaadin-app-layout {
+        --vaadin-app-layout-drawer-width:
+            min(var(--halo-drawer-width), 85vw);
+    }
+
+    .responsive-toolbar .toolbar-left,
+    .responsive-toolbar .toolbar-right {
+        display: none;
+    }
+
+    .responsive-toolbar .menu-bar {
+        display: flex;
+    }
+}
+
+/* =========================================================
+   ADVANCED SEARCH DIALOG
+   ========================================================= */
+.advance-search-dialog {
+    color: var(--halo-text);
+    background-color: var(--halo-surface-secondary);
+    border: 1px solid var(--halo-border);
+    border-radius: var(--lumo-border-radius-l);
+    padding: var(--lumo-space-m);
+    box-shadow: var(--lumo-box-shadow-s);
+}
+
+/* =========================================================
+   APPLICATION NAME
+   ========================================================= */
+.app-name {
+    color: inherit !important;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-align: left;
+}
+
+/* =========================================================
+   NAVBAR — LIGHT AND DARK MODE
+   ========================================================= */
+vaadin-app-layout::part(navbar) {
+    box-sizing: border-box;
+    height: var(--halo-top-bar-height);
+    min-height: var(--halo-top-bar-height);
+    padding-left: 10px;
+    padding-right: 10px;
+
+    color: var(--halo-navbar-text);
+    background-color: var(--halo-navbar-background);
+
+    border-bottom: 4px solid var(--halo-green);
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+vaadin-app-layout [slot="navbar"],
+vaadin-app-layout [slot="navbar"] vaadin-icon {
+    color: var(--halo-navbar-text) !important;
+}
+
+/* Theme toggle */
+.theme-toggle-button {
+    min-width: 36px !important;
+    width: 36px;
+    min-height: 36px !important;
+    height: 36px;
+    padding: 0 !important;
+
+    color: var(--halo-navbar-text) !important;
+    background-color:
+        var(--halo-navbar-control-background) !important;
+
+    border:
+        1px solid var(--halo-navbar-control-border) !important;
+
+    border-radius: 50% !important;
+    cursor: pointer;
+
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.theme-toggle-button:hover {
+    color: var(--halo-dark-blue) !important;
+    background-color: var(--halo-green) !important;
+    border-color: var(--halo-green) !important;
+}
+
+.theme-toggle-button:focus-visible {
+    outline: 2px solid var(--halo-green);
+    outline-offset: 2px;
+}
+
+.theme-toggle-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    font-size: 20px;
+    line-height: 1;
+}
+
+/* =========================================================
+   DRAWER — LIGHT AND DARK MODE
+   ========================================================= */
+vaadin-app-layout::part(drawer) {
+    overflow: hidden;
+    color: var(--halo-drawer-text);
+    background-color: var(--halo-drawer-background);
+    border-right: 1px solid var(--halo-drawer-border);
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+/* =========================================================
+   DRAWER HEADER — LIGHT AND DARK MODE
+   ========================================================= */
+
+.drawer-header {
+    box-sizing: border-box;
+    width: 100%;
+    height: var(--halo-top-bar-height);
+    min-height: var(--halo-top-bar-height);
+    max-height: var(--halo-top-bar-height);
+    flex: 0 0 var(--halo-top-bar-height);
+    padding: 6px 10px;
+    color: var(--halo-drawer-header-text) !important;
+    background-color: var(--halo-drawer-header-background) !important;
+    border-bottom: 4px solid var(--halo-drawer-header-border);
+    box-shadow: 0 2px 6px rgba(3, 28, 89, 0.16);
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.drawer-header-layout {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    gap: var(--lumo-space-m);
+    cursor: pointer;
+}
+
+.drawer-header .app-name {
+    min-width: 0;
+    margin: 0;
+    color: var(--halo-drawer-header-text) !important;
+    font-size: clamp(15px, 1.35vw + 0.35rem, 21px);
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.drawer-logo,
+.drawer-logo-light,
+.drawer-logo-dark {
+    box-sizing: border-box;
+    width: var(--halo-drawer-logo-width) !important;
+    min-width: var(--halo-drawer-logo-width) !important;
+    max-width: var(--halo-drawer-logo-width) !important;
+    height: var(--halo-drawer-logo-height) !important;
+    min-height: var(--halo-drawer-logo-height) !important;
+    max-height: var(--halo-drawer-logo-height) !important;
+    flex-shrink: 0;
+    object-fit: contain;
+    object-position: center;
+}
+
+/* Light mode uses the dark-blue HALO logo */
+.drawer-logo-light {
+    display: block;
+}
+
+.drawer-logo-dark {
+    display: none;
+}
+
+/* Dark mode uses the white HALO logo */
+html[theme~="dark"] .drawer-logo-light {
+    display: none;
+}
+
+html[theme~="dark"] .drawer-logo-dark {
+    display: block;
+}
+
+/* Keep the header appearance unchanged when hovering */
+.drawer-header.clickable-header:hover {
+    color: var(--halo-drawer-header-text) !important;
+    background-color: var(--halo-drawer-header-background) !important;
+}
+
+.drawer-header.clickable-header:hover .app-name {
+    color: var(--halo-drawer-header-text) !important;
+}
+
+/* Keyboard accessibility */
+.drawer-header.clickable-header {
+    cursor: pointer;
+}
+
+.drawer-header.clickable-header:focus-visible {
+    outline: 2px solid var(--halo-green);
+    outline-offset: -2px;
+}
+
+.scroller-bg {
+    color: var(--halo-drawer-text);
+    background-color: var(--halo-drawer-background) !important;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease;
+}
+
+/* =========================================================
+   SIDE NAVIGATION
+   ========================================================= */
+vaadin-side-nav {
+    color: var(--halo-drawer-text);
+    background: transparent !important;
+    --vaadin-side-nav-child-indent: 1.35rem;
+}
+
+/*
+ * A SideNavItem may contain all of its child items.
+ * Keep the host transparent and style only its content row.
+ */
+vaadin-side-nav-item {
+    color: var(--halo-drawer-text);
+    background: transparent !important;
+}
+
+vaadin-side-nav-item::part(content) {
+    box-sizing: border-box;
+    margin: 2px 8px;
+    color: var(--halo-drawer-text) !important;
+    background-color: transparent !important;
+    border-radius: 10px;
+    font-weight: 400;
+    transition:
+        color 0.2s ease,
+        background-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+vaadin-side-nav-item::part(link) {
+    color: inherit !important;
+    font-weight: inherit;
+    line-height: 1.25;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+vaadin-side-nav-item > vaadin-icon {
+    color: inherit !important;
+    fill: currentColor !important;
+    transition: color 0.2s ease;
+}
+
+vaadin-side-nav-item::part(toggle-button) {
+    color: inherit !important;
+    background: transparent !important;
+}
+
+/* Hover only the exact row under the mouse */
+vaadin-side-nav-item::part(content):hover {
+    color: var(--halo-drawer-hover-text) !important;
+    background-color: var(--halo-drawer-hover-background) !important;
+    box-shadow: 0 3px 8px rgba(3, 28, 89, 0.20);
+    transform: translateX(2px);
+}
+
+/* Current route: only its own row, not its children */
+vaadin-side-nav-item[current]::part(content) {
+    color: var(--halo-dark-blue) !important;
+    background-color: var(--halo-green) !important;
+    border-left:
+        4px solid var(--halo-drawer-current-border) !important;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 224, 138, 0.28);
+    font-weight: 700;
+}
+
+vaadin-side-nav-item[current]::part(content):hover {
+    color: var(--halo-dark-blue) !important;
+    background-color: var(--halo-green) !important;
+}
+
+/* Second-level and deeper items */
+vaadin-side-nav-item[slot="children"]::part(content) {
+    border-radius: 8px;
+    font-size: 0.92rem;
+}
+
+/* Third-level and deeper items */
+vaadin-side-nav-item[slot="children"]
+vaadin-side-nav-item[slot="children"]::part(content) {
+    border-radius: 7px;
+    font-size: 0.88rem;
+}
+
+/* =========================================================
+   TOOLTIP
+   ========================================================= */
+vaadin-tooltip-overlay::part(overlay) {
+    background-color: var(--halo-dark-blue) !important;
+    border: 1px solid var(--halo-light-blue) !important;
+    border-radius: 6px !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.34) !important;
+}
+
+vaadin-tooltip-overlay::part(content) {
+    padding: 8px 12px !important;
+    color: var(--halo-white) !important;
+    background: transparent !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+}
+
+/* =========================================================
+   APPLICATION CONTENT
+   ========================================================= */
+vaadin-app-layout::part(content) {
+    color: var(--halo-text);
+    background-color: var(--halo-page-background);
+}
+
+/* Optional helper classes for custom cards and text */
+.halo-surface {
+    color: var(--halo-text);
+    background-color: var(--halo-surface);
+    border: 1px solid var(--halo-border);
+}
+
+.halo-secondary-text {
+    color: var(--halo-text-secondary);
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    vaadin-side-nav-item::part(content),
+    .drawer-header,
+    .profile-avatar,
+    .theme-toggle-button {
+        transition: none !important;
+    }
+
+    vaadin-side-nav-item::part(content):hover {
+        transform: none;
+    }
+    
+    
+}
+
+vaadin-side-nav-item::part(content):focus-visible,
+vaadin-side-nav-item::part(link):focus-visible {
+    outline: 2px solid var(--halo-green);
+    outline-offset: -2px;
+}
+
+
+/* =========================================================
+   GLOBAL VAADIN TABS
+   Light + Dark + Sticky + Pill/Ellipse Selected State
+   ========================================================= */
+
+/*
+ * Only horizontal tabs are sticky. Vertical tabs keep normal flow.
+ * AppLayout already places content below its navbar, so top: 0 is
+ * intentionally used here. Do not add another navbar-height offset.
+ */
+vaadin-tabs[orientation="horizontal"] {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+
+    box-sizing: border-box;
+    width: 100%;
+    flex-shrink: 0;
+
+    padding: var(--halo-tab-container-padding);
+
+    color: var(--halo-tab-text);
+    background: var(--halo-tabs-background);
+    border-bottom: 1px solid var(--halo-tabs-border);
+    box-shadow: var(--halo-tabs-shadow);
+
+    transition:
+        background-color var(--halo-tab-transition-duration) ease,
+        border-color var(--halo-tab-transition-duration) ease,
+        box-shadow var(--halo-tab-transition-duration) ease;
+}
+
+/* Vertical tabs use the same palette but are not sticky. */
+vaadin-tabs[orientation="vertical"] {
+    color: var(--halo-tab-text);
+    background: var(--halo-tabs-background);
+}
+
+/* =========================================================
+   TAB — DEFAULT
+   ========================================================= */
+vaadin-tab {
+    box-sizing: border-box;
+
+    color: var(--halo-tab-text);
+    border-radius: var(--halo-tab-radius);
+
+    padding-inline: var(--halo-tab-horizontal-padding);
+    margin-inline: calc(var(--halo-tab-gap) / 2);
+
+    font-weight: 500;
+    cursor: pointer;
+
+    transition:
+        color var(--halo-tab-transition-duration) ease,
+        background-color var(--halo-tab-transition-duration) ease,
+        box-shadow var(--halo-tab-transition-duration) ease,
+        transform var(--halo-tab-transition-duration) ease;
+}
+
+/* Icons follow the current tab text color. */
+vaadin-tab vaadin-icon {
+    color: currentColor;
+    transition: color var(--halo-tab-transition-duration) ease;
+}
+
+/* =========================================================
+   TAB — HOVER
+   ========================================================= */
+vaadin-tab:hover:not([selected]):not([disabled]) {
+    color: var(--halo-tab-hover-text);
+    background: var(--halo-tab-hover-background);
+}
+
+/* =========================================================
+   TAB — SELECTED PILL / ELLIPSE
+   ========================================================= */
+vaadin-tab[selected] {
+    color: var(--halo-tab-selected-text);
+    background: var(--halo-tab-selected-background);
+    border-radius: var(--halo-tab-radius);
+    font-weight: 700;
+
+    box-shadow:
+        inset 0 0 0 1px var(--halo-tab-selected-border);
+}
+
+/* Remove Lumo's default underline because selection is a pill. */
+vaadin-tab[selected]::before {
+    display: none;
+}
+
+/* =========================================================
+   TAB — PRESSED / ACTIVE
+   ========================================================= */
+vaadin-tab[active]:not([disabled]) {
+    background:
+        color-mix(
+            in srgb,
+            var(--halo-tab-selected-background) 80%,
+            var(--halo-tab-hover-background)
+        );
+    transform: scale(0.98);
+}
+
+/* =========================================================
+   TAB — KEYBOARD FOCUS
+   ========================================================= */
+vaadin-tab[focus-ring] {
+    outline: 2px solid var(--halo-tab-focus);
+    outline-offset: 2px;
+}
+
+vaadin-tab[selected][focus-ring] {
+    outline: 2px solid var(--halo-tab-focus);
+    outline-offset: 2px;
+
+    box-shadow:
+        inset 0 0 0 1px var(--halo-tab-selected-border),
+        0 0 0 2px
+            color-mix(in srgb, var(--halo-tab-focus) 20%, transparent);
+}
+
+/* =========================================================
+   TAB — DISABLED
+   ========================================================= */
+vaadin-tab[disabled] {
+    opacity: var(--halo-tab-disabled-opacity);
+    cursor: default;
+}
+
+vaadin-tab[disabled]:hover {
+    background: transparent;
+}
+
+/* =========================================================
+   TAB — RESPONSIVE
+   ========================================================= */
+@media (max-width: 700px) {
+    vaadin-tabs[orientation="horizontal"] {
+        padding: 4px;
+    }
+
+    vaadin-tab {
+        padding-inline: 11px;
+        margin-inline: 1px;
+    }
+}
+
+/* =========================================================
+   TAB — REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    vaadin-tabs,
+    vaadin-tab,
+    vaadin-tab vaadin-icon {
+        transition: none !important;
+    }
+
+    vaadin-tab[active]:not([disabled]) {
+        transform: none;
+    }
+}
+

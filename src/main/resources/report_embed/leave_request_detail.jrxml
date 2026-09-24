@@ -1,0 +1,194 @@
+<!-- Created with Jaspersoft Studio version 7.0.2.final using JasperReports Library version 7.0.2-31532122640f516c6d17238ae0e41a08113d5ac0  -->
+<jasperReport name="leave_request_detail" language="java" columnCount="1" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c7dac00a-d4d1-45a9-b6d7-228469a61cec">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="hr"/>
+	<parameter name="emp_leave_id" class="java.lang.Long"/>
+	<query language="SQL"><![CDATA[SELECT
+	emp_leave_detail.emp_leave_detail_id, 
+	emp_leave_detail.emp_leave_id, 
+	list_leave_type.leav_type_code, 
+	list_leave_type.leave_name_en, 
+	list_leave_type.leave_name_local, 
+	emp_leave_detail.from_date, 
+	emp_leave_detail.to_date, 
+	list_leave_type_sub_type.leave_sub_type_name_en, 
+	list_leave_type_sub_type.leave_sub_type_name_kh, 
+	emp_leave_detail.leave_duration, 
+  emp_leave_detail.number_of_day, 
+	emp_leave_detail.remark
+FROM
+	public.emp_leave_detail
+  INNER JOIN	public.list_leave_type	ON 		list_leave_type.leave_type_id = emp_leave_detail.leave_type_id
+	INNER JOIN	public.list_leave_type_group	ON 		list_leave_type_group.list_leave_type_group_id = list_leave_type.list_leave_type_group_id
+	LEFT JOIN	public.list_leave_type_sub_type	ON 		list_leave_type_sub_type.list_leave_type_sub_type_id = emp_leave_detail.leave_type_sub_type_id
+	WHERE emp_leave_detail.emp_leave_id=   $P{emp_leave_id} 
+
+ORDER BY 	emp_leave_detail.from_date, 
+	emp_leave_detail.to_date  ]]></query>
+	<field name="emp_leave_detail_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="emp_leave_detail_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_leave_detail_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave_detail"/>
+	</field>
+	<field name="emp_leave_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="emp_leave_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_leave_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave_detail"/>
+	</field>
+	<field name="leav_type_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leav_type_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="leav_type_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_leave_type"/>
+	</field>
+	<field name="leave_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_name_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_name_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_leave_type"/>
+	</field>
+	<field name="leave_name_local" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_name_local"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_name_local"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_leave_type"/>
+	</field>
+	<field name="from_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="from_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="from_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave_detail"/>
+	</field>
+	<field name="to_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="to_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="to_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave_detail"/>
+	</field>
+	<field name="leave_sub_type_name_en" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_sub_type_name_en"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_sub_type_name_en"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_leave_type_sub_type"/>
+	</field>
+	<field name="leave_sub_type_name_kh" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="leave_sub_type_name_kh"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_sub_type_name_kh"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="list_leave_type_sub_type"/>
+	</field>
+	<field name="leave_duration" class="java.lang.String">
+		<description><![CDATA[Morning only, Afternoon only,Full day]]></description>
+		<property name="com.jaspersoft.studio.field.name" value="leave_duration"/>
+		<property name="com.jaspersoft.studio.field.label" value="leave_duration"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave_detail"/>
+	</field>
+	<field name="number_of_day" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="number_of_day"/>
+		<property name="com.jaspersoft.studio.field.label" value="number_of_day"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave_detail"/>
+	</field>
+	<field name="remark" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="remark"/>
+		<property name="com.jaspersoft.studio.field.label" value="remark"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="emp_leave_detail"/>
+	</field>
+	<variable name="leave_type_display" class="java.lang.String">
+		<expression><![CDATA[( $F{leave_name_en} == null || $F{leave_name_en}.trim().isEmpty() ) &&
+        ( $F{leave_name_local} == null || $F{leave_name_local}.trim().isEmpty() )
+          ? ""
+          : (
+              ($F{leave_name_en} == null || $F{leave_name_en}.trim().isEmpty())
+                ? $F{leave_name_local}
+                : (
+                    ($F{leave_name_local} == null || $F{leave_name_local}.trim().isEmpty())
+                      ? $F{leave_name_en}
+                      : ($F{leave_name_en}.trim() +  " (" + $F{leave_name_local}.trim() + ")")
+                  )
+            )]]></expression>
+	</variable>
+	<variable name="leave_subtype_display" class="java.lang.String">
+		<expression><![CDATA[ ( $F{leave_sub_type_name_en} == null || $F{leave_sub_type_name_en}.trim().isEmpty() ) &&
+        ( $F{leave_sub_type_name_kh} == null || $F{leave_sub_type_name_kh}.trim().isEmpty() )
+          ? ""
+          : (
+              ($F{leave_sub_type_name_en} == null || $F{leave_sub_type_name_en}.trim().isEmpty())
+                ? $F{leave_sub_type_name_kh}
+                : (
+                    ($F{leave_sub_type_name_kh} == null || $F{leave_sub_type_name_kh}.trim().isEmpty())
+                      ? $F{leave_sub_type_name_en}
+                      : ($F{leave_sub_type_name_en}.trim() + " \n " + $F{leave_sub_type_name_kh}.trim() )
+                  )
+            )]]></expression>
+	</variable>
+	<background splitType="Stretch"/>
+	<columnHeader height="32" splitType="Stretch">
+		<element kind="rectangle" uuid="a39d5919-4acd-4059-a523-c96e2eb94930" x="0" y="0" width="554" height="32" backcolor="#CFCFCF">
+			<pen lineWidth="0.0"/>
+		</element>
+		<element kind="staticText" uuid="39b8b699-d3ec-447e-9f00-0d003e6622ae" x="1" y="1" width="60" height="30" fontName="Kantumruy Pro" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ច្បាប់ចាប់ពីថ្ងៃទី
+From Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6036e11e-2e76-4d8f-9aac-5683c6e2c41b"/>
+		</element>
+		<element kind="staticText" uuid="739ebb03-c61e-4563-aa71-7b30bf04e824" x="61" y="1" width="59" height="30" fontName="Kantumruy Pro" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ដល់ថ្ងៃទី
+To Date]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd8ed8e8-f349-4bcf-b958-477e407ba0d1"/>
+		</element>
+		<element kind="staticText" uuid="309a8c8d-4be9-4f45-af8e-5cad41ad1a86" x="121" y="1" width="269" height="30" fontName="Kantumruy Pro" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ប្រភេទច្បាប់
+Leave Type]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="36ebdd63-96aa-49d0-a208-f336391e23bf"/>
+		</element>
+		<element kind="staticText" uuid="9c1adc86-7819-472e-83c8-205033b15b68" x="390" y="1" width="79" height="30" fontName="Kantumruy Pro" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[រយះពេលច្បាប់
+Leave Duration]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8527e522-8952-4562-9c9c-92dd4fdf1f88"/>
+		</element>
+		<element kind="staticText" uuid="e902eb47-1071-4150-9cfd-c506ecd54f13" x="470" y="1" width="83" height="30" fontName="Kantumruy Pro" bold="false" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[ចំនួនថ្ងៃច្បាប់
+Number of Days]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed48f18e-b9c0-4301-83c0-fc9f10cc1934"/>
+		</element>
+		<element kind="line" uuid="cffa1efa-ba98-4f2e-9451-676e71636cc0" x="469" y="0" width="1" height="32"/>
+		<element kind="line" uuid="b1c3b2d4-5560-47c0-870d-b7fc94fadd67" x="390" y="0" width="1" height="32"/>
+		<element kind="line" uuid="c4da14dc-0f4a-4141-8d23-a94dea4037fd" x="120" y="0" width="1" height="32"/>
+		<element kind="line" uuid="c25be212-d3db-413e-8d4d-ca803b4db78f" x="60" y="0" width="1" height="32"/>
+		<element kind="line" uuid="b2b117b3-3e76-4549-8380-c14339ddd1b7" x="0" y="0" width="1" height="32"/>
+		<element kind="line" uuid="11eb51d2-7c8f-4aa8-a120-48587a55dd99" x="554" y="0" width="1" height="32"/>
+		<element kind="line" uuid="820caf08-d976-4804-b862-5e36edd1a4ea" x="0" y="31" width="555" height="1"/>
+		<element kind="line" uuid="fdfe74eb-11a1-4a54-a896-8bcee3ab8ede" x="0" y="0" width="555" height="1"/>
+	</columnHeader>
+	<detail>
+		<band height="31" splitType="Stretch">
+			<element kind="textField" uuid="0f077573-cc50-4a44-9389-df90706857cb" stretchType="ContainerHeight" x="1" y="0" width="60" height="30" forecolor="#0B3C61" textAdjust="StretchHeight" pattern="dd-MM-yyyy" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{from_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6036e11e-2e76-4d8f-9aac-5683c6e2c41b"/>
+			</element>
+			<element kind="textField" uuid="53c3113d-710b-4db7-a295-bf8c0f94c965" stretchType="ContainerHeight" x="60" y="0" width="60" height="30" forecolor="#0B3C61" textAdjust="StretchHeight" pattern="dd-MM-yyyy" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{to_date}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cd8ed8e8-f349-4bcf-b958-477e407ba0d1"/>
+			</element>
+			<element kind="textField" uuid="ee433ba0-cde2-47db-813c-4f03370ff632" stretchType="ContainerHeight" x="390" y="0" width="79" height="30" forecolor="#0B3C61" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{leave_duration}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8527e522-8952-4562-9c9c-92dd4fdf1f88"/>
+			</element>
+			<element kind="textField" uuid="69e6d87d-30c1-4390-b7bd-ea7837c7e35d" stretchType="ContainerHeight" x="470" y="0" width="85" height="30" forecolor="#0B3C61" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{number_of_day}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="ed48f18e-b9c0-4301-83c0-fc9f10cc1934"/>
+			</element>
+			<element kind="line" uuid="4beb6a55-5c78-4a9b-b3b5-cb56249df7d7" positionType="FixRelativeToBottom" stretchType="NoStretch" x="0" y="30" width="555" height="1" printWhenDetailOverflows="true"/>
+			<element kind="line" uuid="ddcb019a-4b8e-4886-989e-a3ef99640e1c" stretchType="ContainerBottom" x="0" y="0" width="1" height="30"/>
+			<element kind="line" uuid="f3d9ceff-ebd3-4c85-b997-2995ee09e168" stretchType="ContainerBottom" x="60" y="0" width="1" height="30"/>
+			<element kind="line" uuid="98e3ce47-94cf-4ef1-88d9-98465e6b12ea" stretchType="ContainerBottom" x="120" y="0" width="1" height="30"/>
+			<element kind="line" uuid="3976ed78-b697-4213-a77a-0894ac2ae7d6" stretchType="ContainerBottom" x="390" y="0" width="1" height="30"/>
+			<element kind="line" uuid="be4f9941-e733-47ae-bac5-2bd11bb0dfec" stretchType="ContainerBottom" x="469" y="0" width="1" height="30"/>
+			<element kind="line" uuid="c106b48e-7964-4ee5-a3b4-1dc7c9998834" stretchType="ContainerBottom" x="554" y="0" width="1" height="30"/>
+			<element kind="textField" uuid="7bdb2996-d675-418d-b497-82ec08fba31a" x="121" y="0" width="269" height="29" forecolor="#0B3C61" fontName="Kantumruy Pro" textAdjust="StretchHeight" blankWhenNull="true" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[ ( $V{leave_type_display} == null || $V{leave_type_display}.isEmpty() )
+      ? $V{leave_subtype_display}
+      : (
+          ( $V{leave_subtype_display} == null || $V{leave_subtype_display}.isEmpty() )
+            ? $V{leave_type_display}
+            : ($V{leave_type_display} + "\n" + $V{leave_subtype_display})
+        )]]></expression>
+				<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			</element>
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+</jasperReport>

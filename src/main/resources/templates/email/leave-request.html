@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body style="font-family:Arial,sans-serif;background:#f4f6f9;padding:20px;margin:0;">
+
+<div style="max-width:600px;margin:auto;background:white;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.1);">
+
+    <!-- Header -->
+    <div style="background:#0B3C61; background-image:linear-gradient(to right,#0B3C61,#1565C0); padding:25px; text-align:center; color:white;">
+        <img src="cid:companyLogo" width="100" style="display:block; margin:0 auto 10px auto;">
+        <div style="display:inline-block; background:rgba(255,255,255,0.15); padding:4px 12px; border-radius:20px; font-size:11px; letter-spacing:1px; margin-bottom:10px;">
+            HR SYSTEM
+        </div>
+        <h1 style="margin:0; font-size:24px; font-weight:700;">Leave Request Approval</h1>
+    </div>
+
+    <!-- Content -->
+    <div style="padding:20px;">
+        <!-- ⚠️ INTERNAL NETWORK NOTICE -->
+        <div style="margin-bottom:20px; padding:12px; background:#fff3cd; border:1px solid #ffc107; border-radius:5px;">
+            <p style="margin:0; font-size:13px; color:#856404;">
+                <strong>🏢 Internal Network Notice:</strong> This is an automated notification from the 
+                internal HR system. The links below are only accessible from within the company network.
+            </p>
+        </div>
+
+        <p style="font-size:15px; color:#333;">Dear <strong th:text="${lineManagerName}"></strong>,</p>
+        <p style="color:#555; line-height:1.6;">A new leave request requires your approval:</p>
+
+        <!-- Employee Info -->
+        <table style="width:100%; font-size:14px; border-collapse:collapse; margin:10px 0;">
+            <tr>
+                <td style="padding:6px 0; width:35%;"><b>Employee</b></td>
+                <td style="padding:6px 0;" th:text="${employeeName}"></td>
+            </tr>
+            <tr>
+                <td style="padding:6px 0;"><b>Department</b></td>
+                <td style="padding:6px 0;" th:text="${department}"></td>
+            </tr>
+            <tr>
+                <td style="padding:6px 0;"><b>Request Date</b></td>
+                <td style="padding:6px 0;" th:text="${#temporals.format(requestDate, 'dd-MM-yyyy')}"></td>
+            </tr>
+            <tr>
+                <td style="padding:6px 0;"><b>Contact</b></td>
+                <td style="padding:6px 0;" th:text="${contactNumber}"></td>
+            </tr>
+            <tr>
+                <td style="padding:6px 0;"><b>Reason</b></td>
+                <td style="padding:6px 0;" th:text="${reason}"></td>
+            </tr>
+        </table>
+
+        <!-- Leave Details -->
+        <div style="margin:15px 0; border:1px solid #e5e7eb; border-radius:8px; overflow:hidden;">
+            <div style="background:#f8fafc; padding:10px 15px; font-weight:700; color:#0B3C61; font-size:14px; border-bottom:1px solid #e5e7eb;">
+                Leave Details
+            </div>
+            <div style="padding:10px;">
+                <div th:each="detail : ${leaveDetails}" style="border:1px solid #eee; border-radius:6px; padding:12px; margin-bottom:8px; background:#fafafa;">
+                    <table style="width:100%; font-size:13px;">
+                        <tr>
+                            <td style="width:35%; padding:3px 0;"><b>Type</b></td>
+                            <td style="padding:3px 0;" th:text="${detail.leaveType.leaveNameEn} + ' - ' + ${detail.leaveType.leaveNameKh}"></td>
+                        </tr>
+                        <tr th:if="${detail.leaveTypeSubType != null}">
+                            <td style="padding:3px 0;"><b>Sub Type</b></td>
+                            <td style="padding:3px 0;" th:text="${detail.leaveTypeSubType.leaveSubTypeNameEn} + ' - ' + ${detail.leaveTypeSubType.leaveSubTypeNameKh}"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:3px 0;"><b>From</b></td>
+                            <td style="padding:3px 0;" th:text="${#temporals.format(detail.fromDate, 'dd-MM-yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:3px 0;"><b>To</b></td>
+                            <td style="padding:3px 0;" th:text="${#temporals.format(detail.toDate, 'dd-MM-yyyy')}"></td>
+                        </tr>
+                        <tr>
+                            <td style="padding:3px 0;"><b>Days</b></td>
+                            <td style="padding:3px 0;" th:text="${detail.numberOfDay}"></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- 📌 ACTION SECTION - Most reliable for intranet -->
+        <div style="margin:20px 0; padding:15px; background:#f8fafc; border-radius:8px; border:1px solid #e5e7eb;">
+            <h3 style="margin:0 0 12px 0; color:#0B3C61; font-size:16px; text-align:center;">
+                ✅ Process Leave Request
+            </h3>
+            
+            <div style="font-size:13px; word-break:break-all;">
+                <div style="margin-bottom:10px; padding:10px; background:white; border-radius:5px; border-left:4px solid #27ae60;">
+                    <strong style="color:#27ae60;">✅ Approve:</strong><br>
+                    <span style="color:#666; font-size:12px;" th:text="${approveUrl}"></span>
+                </div>
+                <div style="margin-bottom:10px; padding:10px; background:white; border-radius:5px; border-left:4px solid #e74c3c;">
+                    <strong style="color:#e74c3c;">❌ Reject:</strong><br>
+                    <span style="color:#666; font-size:12px;" th:text="${rejectUrl}"></span>
+                </div>
+            </div>
+            
+            <p style="font-size:11px; color:#888; text-align:center; margin:10px 0 0 0;">
+                ⚠️ <strong>Internal Network Only</strong> - Copy and paste the URL into your browser
+            </p>
+        </div>
+
+        <!-- QR Code - Alternative method -->
+        <div style="text-align:center; margin:15px 0; padding:15px; background:#f0f4f8; border-radius:8px;">
+            <p style="margin:0 0 8px 0; font-weight:bold; color:#0B3C61; font-size:14px;">📱 Scan QR Code</p>
+            <img src="cid:qrCode" width="130" style="border:1px solid #ddd; padding:6px; border-radius:8px; background:white;">
+            <p style="font-size:11px; color:#888; margin:8px 0 0 0;">
+                Scan with phone (on company Wi-Fi)
+            </p>
+        </div>
+
+        <!-- Security Info -->
+        <div style="margin-top:15px; padding:10px; background:#f8f9fa; border-radius:4px; font-size:12px; color:#666;">
+            🔒 <strong>Secure Internal Notification</strong> - Contact HR for questions
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="padding:12px; text-align:center; background:#f8fafc; border-top:1px solid #e5e7eb; font-size:11px; color:#888;">
+        © 2026 HR System • <span style="color:#999;">Internal Use Only</span>
+    </div>
+</div>
+
+</body>
+</html>

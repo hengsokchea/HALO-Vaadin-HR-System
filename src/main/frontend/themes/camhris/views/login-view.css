@@ -1,0 +1,206 @@
+/* =========================================================
+   LOGIN BACKDROP
+   ========================================================= */
+vaadin-login-overlay::part(backdrop) {
+    background:
+        radial-gradient(
+            circle at 18% 18%,
+            rgba(187, 237, 255, 0.72),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 82% 82%,
+            rgba(195, 159, 254, 0.42),
+            transparent 38%
+        ),
+        linear-gradient(135deg, #F4FBFF, var(--halo-beige));
+}
+
+html[theme~="dark"] vaadin-login-overlay::part(backdrop) {
+    background:
+        radial-gradient(
+            circle at 18% 18%,
+            rgba(187, 237, 255, 0.10),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 82% 82%,
+            rgba(195, 159, 254, 0.12),
+            transparent 38%
+        ),
+        linear-gradient(135deg, #060C19, #101A2E);
+}
+
+/* =========================================================
+   COMPACT LOGIN CARD
+   ========================================================= */
+vaadin-login-overlay::part(card) {
+    box-sizing: border-box;
+    width: min(440px, calc(100vw - 32px));
+    max-width: 440px;
+    max-height: calc(100dvh - 24px);
+    margin: auto;
+    color: var(--halo-text);
+    background-color: var(--halo-surface);
+    border: 1px solid var(--halo-border);
+    border-radius: 18px;
+    overflow: auto;
+    box-shadow:
+        0 20px 48px var(--halo-shadow),
+        0 6px 16px rgba(0, 0, 0, 0.16);
+}
+
+/* =========================================================
+   BRAND AREA
+   ========================================================= */
+vaadin-login-overlay::part(brand) {
+    box-sizing: border-box;
+    min-height: 0;
+    padding: 22px 28px 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--halo-white);
+    background-color: var(--halo-dark-blue);
+    border-bottom: 4px solid var(--halo-green);
+}
+
+vaadin-login-overlay::part(title),
+vaadin-login-overlay::part(description) {
+    color: var(--halo-white);
+    text-align: center;
+}
+
+vaadin-login-overlay::part(title) {
+    margin-top: 8px;
+    margin-bottom: 2px;
+    font-size: 1.45rem;
+    line-height: 1.2;
+}
+
+vaadin-login-overlay::part(description) {
+    margin: 0;
+    font-size: 0.80rem;
+    line-height: 1.35;
+    opacity: 0.92;
+}
+
+/* =========================================================
+   LOGIN FORM
+   ========================================================= */
+vaadin-login-overlay::part(form) {
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 18px 24px 22px;
+    color: var(--halo-text);
+    background-color: var(--halo-surface);
+}
+
+vaadin-login-overlay::part(form-title) {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--halo-text);
+    font-size: 1rem;
+}
+
+vaadin-login-overlay vaadin-text-field,
+vaadin-login-overlay vaadin-password-field {
+    width: 100%;
+}
+
+vaadin-login-overlay vaadin-text-field::part(label),
+vaadin-login-overlay vaadin-password-field::part(label) {
+    color: var(--halo-text);
+    font-weight: 600;
+}
+
+vaadin-login-overlay vaadin-text-field::part(input-field),
+vaadin-login-overlay vaadin-password-field::part(input-field) {
+    min-height: 42px;
+    color: var(--halo-text);
+    background-color: var(--halo-input-background);
+    border: 1px solid var(--halo-border);
+    border-radius: 9px;
+}
+
+vaadin-login-overlay vaadin-text-field[focused]::part(input-field),
+vaadin-login-overlay vaadin-password-field[focused]::part(input-field) {
+    border-color: var(--lumo-primary-color);
+    box-shadow: 0 0 0 2px var(--lumo-primary-color-10pct);
+}
+
+vaadin-login-overlay vaadin-button[theme~="primary"] {
+    min-height: 42px;
+    color: var(--halo-action-text) !important;
+    background-color: var(--halo-action-background) !important;
+    border-radius: 9px;
+    font-weight: 700;
+    box-shadow: 0 3px 8px var(--halo-shadow);
+}
+
+vaadin-login-overlay vaadin-button[theme~="primary"]:hover {
+    color: var(--halo-action-hover-text) !important;
+    background-color: var(--halo-action-hover-background) !important;
+}
+
+vaadin-login-overlay vaadin-button[theme~="primary"]:focus-visible {
+    outline: 2px solid var(--halo-green);
+    outline-offset: 2px;
+}
+
+vaadin-login-overlay [theme~="error"] {
+    color: var(--halo-danger-text);
+}
+
+/* Optional custom footer/security area */
+.login-footer,
+.login-security-note,
+.login-passkey-area {
+    color: var(--halo-text-secondary);
+    background-color: var(--halo-surface-secondary);
+    border-color: var(--halo-border);
+}
+
+/* =========================================================
+   SMALL SCREENS AND SHORT SCREENS
+   ========================================================= */
+@media (max-width: 520px) {
+    vaadin-login-overlay::part(card) {
+        width: calc(100vw - 20px);
+        max-width: none;
+        max-height: calc(100dvh - 16px);
+        border-radius: 14px;
+    }
+
+    vaadin-login-overlay::part(brand) {
+        padding: 18px 20px 14px;
+    }
+
+    vaadin-login-overlay::part(form) {
+        padding: 14px 18px 18px;
+    }
+
+    vaadin-login-overlay::part(title) {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-height: 700px) {
+    vaadin-login-overlay::part(brand) {
+        padding-top: 14px;
+        padding-bottom: 12px;
+    }
+
+    vaadin-login-overlay::part(form) {
+        padding-top: 12px;
+        padding-bottom: 14px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    vaadin-login-overlay vaadin-button {
+        transition: none;
+    }
+}
