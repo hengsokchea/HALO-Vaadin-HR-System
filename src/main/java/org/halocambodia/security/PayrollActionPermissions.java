@@ -16,6 +16,7 @@ public final class PayrollActionPermissions {
     public static final String PAYMENT_APPROVE = "payroll-action-payment-approve";
     public static final String BANK_EXPORT = "payroll-action-bank-export";
     public static final String PAYMENT_RECONCILE = "payroll-action-payment-reconcile";
+    public static final String PAYSLIP_EMAIL_SEND = "payroll-action-payslip-email-send";
 
     private PayrollActionPermissions() {}
 }

@@ -381,6 +381,7 @@ public final class PayrollModels {
             String nameKh,
             String bankName,
             String bankAccount,
+            String personalEmail,
             String paymentFrequency,
             BigDecimal firstPaymentPercent,
             BigDecimal basicSalary,
@@ -389,7 +390,9 @@ public final class PayrollModels {
             BigDecimal paymentAmount,
             BigDecimal carryForwardAmount,
             String currency,
-            String remarks) {
+            String remarks,
+            String emailStatus,
+            OffsetDateTime emailStatusAt) {
     }
 
     /** Effective payment schedule resolved for one payroll period. */
@@ -444,9 +447,6 @@ public final class PayrollModels {
         }
 
         public String employeeDisplay() {
-            if (payrollEmployeeId == null) {
-                return "-";
-            }
             StringBuilder value = new StringBuilder();
             if (insuranceNo != null) {
                 value.append(insuranceNo);
@@ -458,7 +458,10 @@ public final class PayrollModels {
                 if (value.length() > 0) value.append(" · ");
                 value.append(employeeNameKh);
             }
-            return value.length() == 0 ? "Payroll Employee #" + payrollEmployeeId : value.toString();
+            if (value.length() > 0) {
+                return value.toString();
+            }
+            return payrollEmployeeId == null ? "-" : "Payroll Employee #" + payrollEmployeeId;
         }
     }
 

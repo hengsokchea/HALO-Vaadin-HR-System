@@ -8,7 +8,6 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.YearMonth;
 import java.util.List;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -21,6 +20,8 @@ import org.halocambodia.security.AuthenticatedUser;
 import org.halocambodia.security.PayrollActionPermissions;
 import org.halocambodia.services.PayrollPaymentService;
 import org.halocambodia.services.PayrollPayslipService;
+import org.halocambodia.services.PayrollPayslipEmailService;
+import org.halocambodia.services.PayrollPayslipEmailService.PayslipEmailPlan;
 import org.halocambodia.services.PayrollPayslipService.PayslipReport;
 import org.halocambodia.services.PayrollService;
 
@@ -57,6 +58,7 @@ final class PayrollPaymentsPanel extends VerticalLayout {
     private final PayrollService service;
     private final PayrollPaymentService paymentService;
     private final PayrollPayslipService payslipService;
+    private final PayrollPayslipEmailService payslipEmailService;
     private final AuthenticatedUser authenticatedUser;
     private final PayrollRefreshCoordinator refreshCoordinator;
 
@@ -64,6 +66,7 @@ final class PayrollPaymentsPanel extends VerticalLayout {
     private final Grid<PaymentBatchRow> paymentBatchGrid = new Grid<>();
     private final Grid<EmployeePaymentRow> paymentDetailGrid = new Grid<>();
     private final TextField paymentEmployeeSearch = new TextField();
+    private final ComboBox<String> paymentEmailStatusFilter = new ComboBox<>();
     private final Button generateFirstPaymentButton = actionButton("First Payment", VaadinIcon.PLUS);
     private final Button generateFinalSettlementButton =actionButton("Final Settlement", VaadinIcon.CALC);
     private final Button generateAdjustmentSettlementButton =  actionButton("Adjustment Settlement", VaadinIcon.REFRESH);
@@ -72,6 +75,7 @@ final class PayrollPaymentsPanel extends VerticalLayout {
     private final Button exportBankFileButton = actionButton("Export Bank File", VaadinIcon.DOWNLOAD);
     private final Button exportNssfFileButton = actionButton("Export NSSF Excel", VaadinIcon.DOWNLOAD);
     private final Button printPayslipsButton = actionButton("Print Payslips", VaadinIcon.PRINT);
+    private final Button sendPayslipEmailButton = actionButton("Send Email", VaadinIcon.ENVELOPE);
     private final Button cancelPaymentBatchButton = actionButton("Cancel Batch", VaadinIcon.CLOSE);
     private final Button auditHistoryButton = actionButton("Audit History", VaadinIcon.TIME_BACKWARD);
     private final Span paymentSummary = new Span("Select a payroll period and payment batch.");
@@ -79,10 +83,17 @@ final class PayrollPaymentsPanel extends VerticalLayout {
     private PaymentScheduleSummary paymentSchedule;
     private StreamRegistration downloadRegistration;
 
-    PayrollPaymentsPanel( PayrollService service, PayrollPaymentService paymentService, PayrollPayslipService payslipService, AuthenticatedUser authenticatedUser, PayrollRefreshCoordinator refreshCoordinator) {
+    PayrollPaymentsPanel(
+            PayrollService service,
+            PayrollPaymentService paymentService,
+            PayrollPayslipService payslipService,
+            PayrollPayslipEmailService payslipEmailService,
+            AuthenticatedUser authenticatedUser,
+            PayrollRefreshCoordinator refreshCoordinator) {
         this.service = service;
         this.paymentService = paymentService;
         this.payslipService = payslipService;
+        this.payslipEmailService = payslipEmailService;
         this.authenticatedUser = authenticatedUser;
         this.refreshCoordinator = refreshCoordinator;
 
@@ -148,6 +159,8 @@ final class PayrollPaymentsPanel extends VerticalLayout {
 
         printPayslipsButton.addClickListener(event -> printPayslips());
 
+        sendPayslipEmailButton.addClickListener(event -> sendPayslipEmails());
+
         cancelPaymentBatchButton.addClickListener(event -> confirmPaymentBatchStatus(PayrollPaymentBatchStatus.CANCELLED.code()));
 
         auditHistoryButton.addClickListener(event -> openPaymentAuditHistory());
@@ -174,7 +187,7 @@ final class PayrollPaymentsPanel extends VerticalLayout {
 
                 auditHistoryButton);
 
-        paymentEmployeeSearch.setPlaceholder("Search insurance number, employee or bank account... ");
+        paymentEmployeeSearch.setPlaceholder("Search insurance number, employee, email or bank account... ");
 
         paymentEmployeeSearch.setPrefixComponent(VaadinIcon.SEARCH.create());
 
@@ -186,6 +199,13 @@ final class PayrollPaymentsPanel extends VerticalLayout {
 
         paymentEmployeeSearch.addValueChangeListener(event -> refreshPaymentDetails());
 
+        paymentEmailStatusFilter.setPlaceholder("Email Status");
+        paymentEmailStatusFilter.setItems("NOT_SENT", "SENT", "FAILED", "SKIPPED");
+        paymentEmailStatusFilter.setItemLabelGenerator(PayrollPaymentsPanel::emailStatusFilterLabel);
+        paymentEmailStatusFilter.setClearButtonVisible(true);
+        paymentEmailStatusFilter.setWidth("190px");
+        paymentEmailStatusFilter.addValueChangeListener(event -> refreshPaymentDetails());
+
         paymentSummary.addClassName("payroll-processing-summary");
 
         paymentSchedulePanel.addClassName("payroll-attendance-control");
@@ -194,7 +214,13 @@ final class PayrollPaymentsPanel extends VerticalLayout {
 
         renderPaymentSchedule();
 
-        HorizontalLayout detailHeader = new HorizontalLayout(sectionTitle("Employee Payments"), paymentSummary, paymentEmployeeSearch, printPayslipsButton);
+        HorizontalLayout detailHeader = new HorizontalLayout(
+                sectionTitle("Employee Payments"),
+                paymentSummary,
+                paymentEmployeeSearch,
+                paymentEmailStatusFilter,
+                printPayslipsButton,
+                sendPayslipEmailButton);
 
         detailHeader.setWidthFull();
 
@@ -271,9 +297,20 @@ final class PayrollPaymentsPanel extends VerticalLayout {
         paymentDetailGrid.addSelectionListener(event -> updatePaymentActions());
         paymentDetailGrid.addColumn(EmployeePaymentRow::insuranceNo).setHeader("Insurance") .setFrozen(true).setAutoWidth(true).setSortable(true).setResizable(true);
         paymentDetailGrid.addColumn(EmployeePaymentRow::nameEn).setHeader("Employee Name (English)").setFrozen(true).setAutoWidth(true).setSortable(true).setResizable(true);
-        paymentDetailGrid.addColumn(EmployeePaymentRow::nameKh).setHeader("Employee Name (Khmer)").setAutoWidth(true).setResizable(true).setResizable(true);
-        paymentDetailGrid.addColumn(EmployeePaymentRow::bankName).setHeader("Bank").setAutoWidth(true).setResizable(true).setResizable(true);
+        paymentDetailGrid.addColumn(EmployeePaymentRow::nameKh).setHeader("Employee Name (Khmer)").setAutoWidth(true).setResizable(true);
+        paymentDetailGrid.addColumn(EmployeePaymentRow::bankName).setHeader("Bank").setAutoWidth(true).setResizable(true);
         paymentDetailGrid.addColumn(EmployeePaymentRow::bankAccount).setHeader("Bank Account").setAutoWidth(true).setResizable(true);
+        paymentDetailGrid.addColumn(EmployeePaymentRow::personalEmail).setHeader("Personal Email").setAutoWidth(true).setResizable(true);
+        paymentDetailGrid.addComponentColumn(row -> payslipEmailStatusBadge(row.emailStatus()))
+                .setHeader("Email Status")
+                .setAutoWidth(true)
+                .setResizable(true);
+        paymentDetailGrid.addColumn(row -> row.emailStatusAt() == null
+                        ? "-"
+                        : DateTimeUtilFormart.DATE_TIME_FORMATTER.format(row.emailStatusAt()))
+                .setHeader("Email Date / Time")
+                .setAutoWidth(true)
+                .setResizable(true);
         paymentDetailGrid.addColumn(row -> frequencyLabel(row.paymentFrequency())).setHeader("Frequency").setAutoWidth(true).setResizable(true);
         paymentDetailGrid.addColumn(row -> decimal(row.firstPaymentPercent()) + "%").setHeader("First (%)").setAutoWidth(true).setResizable(true);
         paymentDetailGrid.addColumn(row -> currencyMoney(row.basicSalary(), row.currency())).setHeader("Basic Salary").setTextAlign(ColumnTextAlign.END).setAutoWidth(true).setResizable(true);
@@ -533,6 +570,13 @@ final class PayrollPaymentsPanel extends VerticalLayout {
 
                     batch.id(), paymentEmployeeSearch.getValue());
 
+            String emailFilter = paymentEmailStatusFilter.getValue();
+            if (emailFilter != null && !emailFilter.isBlank()) {
+                rows = rows.stream()
+                        .filter(row -> matchesEmailStatusFilter(row, emailFilter))
+                        .toList();
+            }
+
             paymentDetailGrid.setItems(rows);
 
             BigDecimal visibleAmount = rows.stream()
@@ -574,6 +618,7 @@ final class PayrollPaymentsPanel extends VerticalLayout {
         boolean canApprovePayment = authenticatedUser.hasPermissionRoute(PayrollActionPermissions.PAYMENT_APPROVE, AccessPageType.UPDATED_PAGE);
         boolean canExport = authenticatedUser.hasPermissionRoute(PayrollActionPermissions.BANK_EXPORT, AccessPageType.UPDATED_PAGE);
         boolean canReconcile = authenticatedUser.hasPermissionRoute(PayrollActionPermissions.PAYMENT_RECONCILE, AccessPageType.UPDATED_PAGE);
+        boolean canSendPayslipEmail = authenticatedUser.hasPermissionRoute(PayrollActionPermissions.PAYSLIP_EMAIL_SEND, AccessPageType.UPDATED_PAGE);
         boolean canView = authenticatedUser.hasPage(PayrollView.class, AccessPageType.SELECTED_PAGE);
 
         boolean hasSemiMonthlyEmployees = paymentSchedule != null
@@ -734,6 +779,19 @@ final class PayrollPaymentsPanel extends VerticalLayout {
                 : selectedCount == 0
                         ? "No employee selected: print all employees in this batch | មិនបានជ្រើសបុគ្គលិក៖ បោះពុម្ពទាំងអស់"
                         : "Print only the selected employee(s) | បោះពុម្ពតែបុគ្គលិកដែលបានជ្រើស");
+
+        sendPayslipEmailButton.setEnabled(canSendPayslipEmail && payslipBatch
+                && (selectedCount == 0 || validSelection));
+        sendPayslipEmailButton.setText(selectedCount == 0
+                ? "Send Unsent"
+                : "Resend Selected (" + selectedCount + ")");
+        sendPayslipEmailButton.setTooltipText(!canSendPayslipEmail
+                ? "You do not have permission to send payslip email | អ្នកមិនមានសិទ្ធិផ្ញើអ៊ីមែលបង្កាន់ដៃទេ"
+                : !payslipBatch
+                        ? "Payslip email is available only after the batch is PAID | អាចផ្ញើអ៊ីមែលបង្កាន់ដៃបានបន្ទាប់ពីកញ្ចប់ PAID"
+                        : selectedCount == 0
+                                ? "Send only employees who still need an email attempt; already-sent employees are not duplicated | ផ្ញើតែបុគ្គលិកដែលមិនទាន់បានផ្ញើ ដោយមិនផ្ញើស្ទួនអ្នកដែលបានផ្ញើរួច"
+                                : "Explicitly resend an individual payslip email to the selected employee(s) | ផ្ញើបង្កាន់ដៃឡើងវិញតែបុគ្គលិកដែលបានជ្រើស");
 
         auditHistoryButton.setEnabled(batch != null);
         auditHistoryButton.setTooltipText(batch == null
@@ -1136,6 +1194,124 @@ final class PayrollPaymentsPanel extends VerticalLayout {
         } catch (Exception ex) {
             error(message(ex));
         }
+    }
+
+    private void sendPayslipEmails() {
+        PaymentBatchRow batch = selectedPaymentBatch().orElse(null);
+        if (batch == null) {
+            error("Select a paid payment batch first. | សូមជ្រើសរើសកញ្ចប់ដែលបានបើកប្រាក់ជាមុនសិន។");
+            return;
+        }
+
+        Set<Long> selectedPaymentIds = paymentDetailGrid.getSelectedItems().stream()
+                .map(EmployeePaymentRow::id)
+                .filter(java.util.Objects::nonNull)
+                .collect(java.util.stream.Collectors.toCollection(java.util.LinkedHashSet::new));
+
+        try {
+            PayslipEmailPlan plan = payslipEmailService.plan(batch.id(), selectedPaymentIds);
+            if (plan.targetCount() <= 0) {
+                String message = plan.selectedMode()
+                        ? "No selected employee is available for email. | មិនមានបុគ្គលិកដែលបានជ្រើសសម្រាប់ផ្ញើអ៊ីមែលទេ។"
+                        : "No unsent payslip email remains. Already-sent employees will not be emailed again. "
+                                + "| មិនមានអ៊ីមែលបង្កាន់ដៃដែលមិនទាន់ផ្ញើទៀតទេ។ អ្នកដែលបានផ្ញើរួចនឹងមិនត្រូវផ្ញើស្ទួនទេ។";
+                success(message);
+                return;
+            }
+
+            PeriodRow period = paymentPeriodFilter.getValue();
+            String payrollPeriod = period == null
+                    ? (batch.paymentDate() == null
+                            ? ""
+                            : YearMonth.from(batch.paymentDate()).toString())
+                    : "%04d-%02d".formatted(period.year(), period.month());
+            String installmentLabel = installmentTypeLabel(batch.installmentType());
+
+            String actionText = plan.selectedMode()
+                    ? "Resend an individual PDF payslip to " + plan.targetCount() + " selected employee(s)?"
+                    : "Send an individual PDF payslip to " + plan.targetCount() + " employee(s) who still need email?";
+            String statusText = " Sent: " + plan.sentCount()
+                    + " · Failed: " + plan.failedCount()
+                    + " · Skipped: " + plan.skippedCount()
+                    + " · Not Sent: " + plan.notSentCount()
+                    + " · Missing Email: " + plan.missingEmailCount() + ".";
+
+            PayrollConfirmDialog confirm = confirm(
+                    plan.selectedMode()
+                            ? "Resend Payslip Email | ផ្ញើអ៊ីមែលបង្កាន់ដៃឡើងវិញ"
+                            : "Send Unsent Payslip Email | ផ្ញើអ៊ីមែលបង្កាន់ដៃដែលមិនទាន់ផ្ញើ",
+                    actionText + statusText
+                            + " | បុគ្គលិកដែលគ្មានអ៊ីមែលផ្ទាល់ខ្លួននឹងត្រូវរំលង។");
+            confirm.setConfirmText(plan.selectedMode()
+                    ? "Resend Selected | ផ្ញើឡើងវិញ"
+                    : "Send Unsent | ផ្ញើដែលមិនទាន់ផ្ញើ");
+
+            Long batchId = batch.id();
+            Set<Long> selectedSnapshot = Set.copyOf(selectedPaymentIds);
+
+            confirm.addConfirmListener(event -> ProgressDialog.runAsync(
+                    "Send Payslip Email | ផ្ញើអ៊ីមែលបង្កាន់ដៃ",
+                    plan.selectedMode()
+                            ? "Generating and resending selected payslips... | កំពុងបង្កើត និងផ្ញើបង្កាន់ដៃដែលបានជ្រើសឡើងវិញ..."
+                            : "Generating and sending unsent payslips... | កំពុងបង្កើត និងផ្ញើបង្កាន់ដៃដែលមិនទាន់ផ្ញើ...",
+                    () -> payslipEmailService.send(
+                            batchId,
+                            selectedSnapshot,
+                            payrollPeriod,
+                            installmentLabel),
+                    result -> {
+                        refreshPaymentDetails();
+                        paymentDetailGrid.deselectAll();
+                        updatePaymentActions();
+                        new PayrollPayslipEmailResultDialog(result).open();
+                    },
+                    ex -> error(message(ex))));
+
+            confirm.open();
+        } catch (Exception ex) {
+            error(message(ex));
+        }
+    }
+
+    private static boolean matchesEmailStatusFilter(EmployeePaymentRow row, String filter) {
+        if (filter == null || filter.isBlank()) {
+            return true;
+        }
+        String status = row == null || row.emailStatus() == null ? "" : row.emailStatus().trim();
+        return switch (filter) {
+            case "NOT_SENT" -> status.isBlank();
+            case "SENT" -> PayrollPayslipEmailService.EMAIL_SENT.equals(status);
+            case "FAILED" -> PayrollPayslipEmailService.EMAIL_FAILED.equals(status);
+            case "SKIPPED" -> PayrollPayslipEmailService.EMAIL_SKIPPED.equals(status);
+            default -> true;
+        };
+    }
+
+    private static String emailStatusFilterLabel(String filter) {
+        return switch (filter == null ? "" : filter) {
+            case "NOT_SENT" -> "Not Sent | មិនទាន់ផ្ញើ";
+            case "SENT" -> "Sent | បានផ្ញើ";
+            case "FAILED" -> "Failed | បរាជ័យ";
+            case "SKIPPED" -> "Skipped | បានរំលង";
+            default -> "All | ទាំងអស់";
+        };
+    }
+
+    private static Span payslipEmailStatusBadge(String eventType) {
+        String status = eventType == null ? "" : eventType.trim();
+        Span badge = new Span(switch (status) {
+            case "PAYSLIP_EMAIL_SENT" -> "Sent | បានផ្ញើ";
+            case "PAYSLIP_EMAIL_FAILED" -> "Failed | បរាជ័យ";
+            case "PAYSLIP_EMAIL_SKIPPED" -> "Skipped | បានរំលង";
+            default -> "Not Sent | មិនទាន់ផ្ញើ";
+        });
+        badge.getElement().getThemeList().add(switch (status) {
+            case "PAYSLIP_EMAIL_SENT" -> "badge success pill";
+            case "PAYSLIP_EMAIL_FAILED" -> "badge error pill";
+            case "PAYSLIP_EMAIL_SKIPPED" -> "badge contrast pill";
+            default -> "badge pill";
+        });
+        return badge;
     }
 
     private void openPayslipPreview(PayslipReport report, String titleEn, String titleKh) {

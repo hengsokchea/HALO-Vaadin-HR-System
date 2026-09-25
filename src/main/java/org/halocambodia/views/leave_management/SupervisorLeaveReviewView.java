@@ -2090,7 +2090,7 @@ public class SupervisorLeaveReviewView extends MasterPageDialogLayout<EmployeeLe
         leaveDuration.setItems(EmployeeLeaveDetail.LeaveDuration.values());
         leaveDuration.setItemLabelGenerator(EmployeeLeaveDetail.LeaveDuration::getLabel);
         
-        leaveType.setItems(leaveTypeRepository.findAllById(List.of(1L,2L,3L,9L,10L,19L,21L,22L)));
+        leaveType.setItems(leaveTypeRepository.findAllById(List.of(1L,2L,3L,9L,10L,19L,21L,22L,36L)));
         leaveType.setItemLabelGenerator(
         	    leave -> String.format("%s | %s",
         	        leave.getLeaveNameEn() != null ? leave.getLeaveNameEn() : "",

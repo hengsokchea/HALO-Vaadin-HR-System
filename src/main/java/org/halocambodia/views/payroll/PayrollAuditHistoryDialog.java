@@ -136,9 +136,11 @@ final class PayrollAuditHistoryDialog extends CustomDialog {
     private static Span auditEventBadge(String eventType) {
         Span badge = new Span(auditEventLabel(eventType));
         badge.getElement().getThemeList().add(switch (nvl(eventType)) {
-            case "RUN_APPROVED", "PAYMENT_APPROVED", "PAYMENT_PAID", "RUN_PAID", "PERIOD_CLOSED" ->
-                    "badge success pill";
-            case "RETURNED_FOR_CORRECTION", "PAYMENT_CANCELLED" -> "badge error pill";
+            case "RUN_APPROVED", "PAYMENT_APPROVED", "PAYMENT_PAID", "RUN_PAID", "PERIOD_CLOSED",
+                    "PAYSLIP_EMAIL_SENT" -> "badge success pill";
+            case "RETURNED_FOR_CORRECTION", "PAYMENT_CANCELLED", "PAYSLIP_EMAIL_FAILED" ->
+                    "badge error pill";
+            case "PAYSLIP_EMAIL_SKIPPED" -> "badge contrast pill";
             case "SENT_FOR_REVIEW", "RUN_REVIEWED", "RUN_CALCULATED", "RUN_RECALCULATED", "EMPLOYEE_RECALCULATED" ->
                     "badge primary pill";
             default -> "badge contrast pill";
@@ -160,6 +162,9 @@ final class PayrollAuditHistoryDialog extends CustomDialog {
             case "PAYMENT_APPROVED" -> "Payment Approved | អនុម័តការបើកប្រាក់";
             case "PAYMENT_PAID" -> "Payment Paid | បានបើកប្រាក់";
             case "PAYMENT_CANCELLED" -> "Payment Cancelled | បោះបង់ការបើកប្រាក់";
+            case "PAYSLIP_EMAIL_SENT" -> "Payslip Email Sent | បានផ្ញើអ៊ីមែលបង្កាន់ដៃ";
+            case "PAYSLIP_EMAIL_FAILED" -> "Payslip Email Failed | ផ្ញើអ៊ីមែលបង្កាន់ដៃបរាជ័យ";
+            case "PAYSLIP_EMAIL_SKIPPED" -> "Payslip Email Skipped | បានរំលងអ៊ីមែលបង្កាន់ដៃ";
             case "RUN_PAID" -> "Payroll Paid | ប្រាក់បៀវត្សបានបើក";
             case "PERIOD_CLOSED" -> "Period Closed | បិទរយៈពេល";
             default -> nvl(eventType).replace('_', ' ');

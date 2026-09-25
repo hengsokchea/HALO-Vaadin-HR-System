@@ -18,7 +18,7 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 @Service
 public class PayrollPayslipService {
 
-    private static final String TEMPLATE = "report_embed/payroll_payslip.jrxml";
+    private static final String TEMPLATE = "report_embed/payroll_payslip.jasper";
 
     private final PayrollPayslipRepository payslipRepository;
     private final AuthenticatedUser authenticatedUser;

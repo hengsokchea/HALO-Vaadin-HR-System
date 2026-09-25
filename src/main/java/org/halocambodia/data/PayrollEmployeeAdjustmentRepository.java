@@ -168,7 +168,8 @@ public class PayrollEmployeeAdjustmentRepository {
         if (componentCode == null) {
             return Optional.empty();
         }
-        return entityManager.createNativeQuery("""
+
+        Object value = entityManager.createNativeQuery("""
                 SELECT payroll_component_id
                 FROM public.payroll_component
                 WHERE component_code = :code
@@ -177,7 +178,13 @@ public class PayrollEmployeeAdjustmentRepository {
                 .setParameter("code", componentCode)
                 .getResultStream()
                 .findFirst()
-                .map(v -> ((Number) v).longValue());
+                .orElse(null);
+
+        if (value == null) {
+            return Optional.empty();
+        }
+
+        return Optional.of(((Number) value).longValue());
     }
 
     public Long insertRecurring(

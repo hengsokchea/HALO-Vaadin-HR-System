@@ -133,6 +133,72 @@ public class PayrollPaymentService {
     }
 
     /**
+     * Records one immutable employee-level payslip email delivery result.
+     *
+     * <p>This deliberately uses the existing payroll audit log so Payment Audit
+     * History shows who received the payslip, who failed, and who was skipped.
+     * Every retry creates a new event; the Employee Payments grid shows the most
+     * recent result for each employee.</p>
+     */
+    @Transactional
+    public void recordPayslipEmailResult(
+            Long batchId,
+            Long employeePaymentId,
+            Long payrollEmployeeId,
+            String deliveryStatus,
+            String recipient,
+            String detail) {
+
+        if (batchId == null) {
+            throw new IllegalArgumentException("Payment batch is required for payslip email audit.");
+        }
+        if (employeePaymentId == null) {
+            throw new IllegalArgumentException("Employee payment is required for payslip email audit.");
+        }
+
+        PayrollPaymentBatch batch = requireBatch(batchId);
+        var employeePayment = employeePaymentRepository.findById(employeePaymentId)
+                .orElseThrow(() -> new IllegalArgumentException(
+                        "Employee payment not found for payslip email audit."));
+        if (!java.util.Objects.equals(employeePayment.getPayrollPaymentBatchId(), batchId)) {
+            throw new IllegalArgumentException(
+                    "Employee payment does not belong to the selected payment batch.");
+        }
+        Long effectivePayrollEmployeeId = payrollEmployeeId != null
+                ? payrollEmployeeId
+                : employeePayment.getPayrollEmployeeId();
+
+        PayrollRunEventType eventType = switch (
+                deliveryStatus == null ? "" : deliveryStatus.trim().toUpperCase(Locale.ROOT)) {
+            case "SENT" -> PayrollRunEventType.PAYSLIP_EMAIL_SENT;
+            case "FAILED" -> PayrollRunEventType.PAYSLIP_EMAIL_FAILED;
+            case "SKIPPED" -> PayrollRunEventType.PAYSLIP_EMAIL_SKIPPED;
+            default -> throw new IllegalArgumentException(
+                    "Unsupported payslip email delivery status: " + deliveryStatus);
+        };
+
+        String normalizedRecipient = recipient == null || recipient.isBlank()
+                ? null
+                : recipient.trim();
+        String reason = normalizedRecipient == null
+                ? "No personal email configured"
+                : "Recipient: " + normalizedRecipient;
+
+        payrollRunEventService.recordWithEmployeePayment(
+                batch.getPayrollPeriodId(),
+                batch.getPayrollRunId(),
+                effectivePayrollEmployeeId,
+                batch.getId(),
+                employeePaymentId,
+                eventType,
+                null,
+                null,
+                reason,
+                detail,
+                currentUserId());
+    }
+
+    /**
      * Exports the selected payment batch as a real Excel XLSX workbook for
      * Finance / bank upload preparation. Export is allowed for any batch status.
      * Only positive Pay Now rows are exported; recovery carry-forward rows never

@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 import org.halocambodia.data.DateTimeUtilFormart;
 import org.halocambodia.data.PayrollEmployee;
+import org.halocambodia.data.PayrollEmployeePayment;
+import org.halocambodia.data.PayrollEmployeePaymentRepository;
 import org.halocambodia.data.PayrollEmployeeRepository;
 import org.halocambodia.data.PayrollRunEvent;
 import org.halocambodia.data.PayrollRunEventRepository;
@@ -27,14 +29,17 @@ public class PayrollRunEventService {
     private final PayrollRunEventRepository repository;
     private final UserRepository userRepository;
     private final PayrollEmployeeRepository payrollEmployeeRepository;
+    private final PayrollEmployeePaymentRepository employeePaymentRepository;
 
     public PayrollRunEventService(
             PayrollRunEventRepository repository,
             UserRepository userRepository,
-            PayrollEmployeeRepository payrollEmployeeRepository) {
+            PayrollEmployeeRepository payrollEmployeeRepository,
+            PayrollEmployeePaymentRepository employeePaymentRepository) {
         this.repository = repository;
         this.userRepository = userRepository;
         this.payrollEmployeeRepository = payrollEmployeeRepository;
+        this.employeePaymentRepository = employeePaymentRepository;
     }
 
     /** Records one append-only audit event inside the caller's transaction. */
@@ -65,6 +70,52 @@ public class PayrollRunEventService {
                 payrollRunId,
                 payrollEmployeeId,
                 payrollPaymentBatchId,
+                eventType,
+                blankToNull(fromStatus),
+                blankToNull(toStatus),
+                blankToNull(reason),
+                blankToNull(detail),
+                OffsetDateTime.now(DateTimeUtilFormart.CAMBODIA_ZONE),
+                userId));
+    }
+
+    /**
+     * Records one append-only audit event linked directly to an employee payment.
+     * New payslip-email events use this structured link instead of encoding the
+     * payment ID in free-text reason data.
+     */
+    @Transactional(propagation = Propagation.MANDATORY)
+    public void recordWithEmployeePayment(
+            Long payrollPeriodId,
+            Long payrollRunId,
+            Long payrollEmployeeId,
+            Long payrollPaymentBatchId,
+            Long payrollEmployeePaymentId,
+            PayrollRunEventType eventType,
+            String fromStatus,
+            String toStatus,
+            String reason,
+            String detail,
+            Long userId) {
+        if (payrollPeriodId == null) {
+            throw new IllegalArgumentException("Payroll period is required for audit history.");
+        }
+        if (payrollEmployeePaymentId == null) {
+            throw new IllegalArgumentException("Employee payment is required for audit history.");
+        }
+        if (eventType == null) {
+            throw new IllegalArgumentException("Payroll audit event type is required.");
+        }
+        if (userId == null) {
+            throw new IllegalArgumentException("Payroll audit user is required.");
+        }
+
+        repository.save(new PayrollRunEvent(
+                payrollPeriodId,
+                payrollRunId,
+                payrollEmployeeId,
+                payrollPaymentBatchId,
+                payrollEmployeePaymentId,
                 eventType,
                 blankToNull(fromStatus),
                 blankToNull(toStatus),
@@ -138,6 +189,16 @@ public class PayrollRunEventService {
                         .collect(Collectors.toMap(PayrollEmployee::getId, employee -> employee,
                                 (first, ignored) -> first, LinkedHashMap::new));
 
+        Set<Long> employeePaymentIds = events.stream()
+                .map(PayrollRunEventService::employeePaymentId)
+                .filter(java.util.Objects::nonNull)
+                .collect(Collectors.toSet());
+        Map<Long, PayrollEmployeePayment> paymentsById = employeePaymentIds.isEmpty()
+                ? Map.of()
+                : employeePaymentRepository.findAllById(employeePaymentIds).stream()
+                        .collect(Collectors.toMap(PayrollEmployeePayment::getId, payment -> payment,
+                                (first, ignored) -> first, LinkedHashMap::new));
+
         return events.stream().map(event -> {
             Long eventBy = event.getEventBy();
             Long payrollEmployeeId = event.getPayrollEmployeeId();
@@ -146,6 +207,17 @@ public class PayrollRunEventService {
             PayrollEmployee employee = payrollEmployeeId == null
                     ? null
                     : employeesById.get(payrollEmployeeId);
+            PayrollEmployeePayment payment = paymentsById.get(employeePaymentId(event));
+
+            Integer insuranceNo = employee != null
+                    ? employee.getInsuranceNo()
+                    : payment == null ? null : payment.getInsuranceNoSnapshot();
+            String employeeNameEn = employee != null
+                    ? employee.getEmployeeNameEn()
+                    : payment == null ? null : payment.getEmployeeNameEnSnapshot();
+            String employeeNameKh = employee != null
+                    ? employee.getEmployeeNameKh()
+                    : payment == null ? null : payment.getEmployeeNameKhSnapshot();
 
             return new PayrollAuditEventRow(
                     event.getId(),
@@ -155,15 +227,43 @@ public class PayrollRunEventService {
                     user == null ? null : user.getName(),
                     user == null ? null : user.getUsername(),
                     payrollEmployeeId,
-                    employee == null ? null : employee.getInsuranceNo(),
-                    employee == null ? null : employee.getEmployeeNameEn(),
-                    employee == null ? null : employee.getEmployeeNameKh(),
+                    insuranceNo,
+                    employeeNameEn,
+                    employeeNameKh,
                     event.getPayrollPaymentBatchId(),
                     event.getFromStatus(),
                     event.getToStatus(),
                     event.getReason(),
                     event.getEventDetail());
         }).toList();
+    }
+
+    private static Long employeePaymentId(PayrollRunEvent event) {
+        if (event == null) {
+            return null;
+        }
+        if (event.getPayrollEmployeePaymentId() != null) {
+            return event.getPayrollEmployeePaymentId();
+        }
+        return legacyPaymentIdFromReason(event.getReason());
+    }
+
+    /** Compatibility only for email-audit rows created before the structured column existed. */
+    private static Long legacyPaymentIdFromReason(String reason) {
+        if (reason == null || !reason.startsWith("Payment ID: ")) {
+            return null;
+        }
+        int start = "Payment ID: ".length();
+        int end = reason.indexOf(" · ", start);
+        String value = (end < 0 ? reason.substring(start) : reason.substring(start, end)).trim();
+        if (value.isEmpty()) {
+            return null;
+        }
+        try {
+            return Long.valueOf(value);
+        } catch (NumberFormatException ignored) {
+            return null;
+        }
     }
 
     private static String blankToNull(String value) {

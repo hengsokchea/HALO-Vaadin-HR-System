@@ -3,6 +3,8 @@ package org.halocambodia.gmail;
 import org.halocambodia.data.EmployeeLeave;
 import org.halocambodia.data.EmployeeLeaveDetail;
 import org.halocambodia.services.QRCodeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -19,6 +21,8 @@ import org.springframework.core.io.ClassPathResource;
 
 @Service
 public class EmailService {
+
+    private static final Logger log = LoggerFactory.getLogger(EmailService.class);
 
     private final JavaMailSender mailSender;
     private final TemplateEngine templateEngine;
@@ -75,21 +79,16 @@ public class EmailService {
 
             helper.addInline("qrCode",new ByteArrayResource(qr),"image/png");
             
-            System.out.println("==================================");
-            System.out.println("Sending Leave Email");
-            System.out.println("Employee : " + leave.getEmployee().getNameEn());
-            System.out.println("Manager  : " + leave.getLineManager().getNameEn());
-            System.out.println("Email    : " + leave.getLineManager().getOfficialEmail());
-            System.out.println("Approve  : " + approveUrl);
-            System.out.println("==================================");
+            log.info("Sending leave approval email for employee {} to manager {}",
+                    leave.getEmployee().getNameEn(),
+                    leave.getLineManager().getNameEn());
 
             mailSender.send(message);
-            
-            System.out.println("SUCCESS: " + leave.getLineManager().getOfficialEmail());
+
+            log.info("Leave approval email sent for employee {}", leave.getEmployee().getNameEn());
 
         } catch (Exception e) {
-            System.err.println("FAILED: " + leave.getLineManager().getOfficialEmail());
-            e.printStackTrace();
+            log.error("Unable to send leave approval email", e);
         }
     }
     
@@ -134,23 +133,76 @@ public class EmailService {
             helper.setText(html, true); 
             helper.addInline("companyLogo", new ClassPathResource("assets/images/HaloLogoWhite.png") );
             
-            System.out.println("==================================");
-            System.out.println("Sending Leave Email");
-            System.out.println("Employee : " + leave.getEmployee().getNameEn());
-            System.out.println("Manager  : " + leave.getLineManager().getNameEn());
-            System.out.println("Email    : " + leave.getLineManager().getOfficialEmail());
-            System.out.println("==================================");
+            log.info("Sending leave result email for employee {} with action {}",
+                    leave.getEmployee().getNameEn(), action);
 
             mailSender.send(message);
-            
-            System.out.println("SUCCESS: " + leave.getLineManager().getOfficialEmail());
+
+            log.info("Leave result email sent for employee {}", leave.getEmployee().getNameEn());
 
         } catch (Exception e) {
-
-            System.err.println("FAILED: " + leave.getLineManager().getOfficialEmail());
-            e.printStackTrace();
+            log.error("Unable to send leave result email", e);
         }
     }
     
     
+    /**
+     * Sends one employee's payroll payslip as a PDF attachment.
+     * This method is intentionally synchronous because Payroll Payments runs it
+     * inside the shared ProgressDialog background executor and needs an accurate
+     * per-employee success/failure result.
+     */
+    public void sendPayrollPayslip(
+            String recipient,
+            String employeeName,
+            String payrollPeriod,
+            String installmentLabel,
+            String fileName,
+            byte[] pdfBytes) {
+
+        if (recipient == null || recipient.isBlank()) {
+            throw new IllegalArgumentException("Employee personal email is empty.");
+        }
+        if (pdfBytes == null || pdfBytes.length == 0) {
+            throw new IllegalArgumentException("Payslip PDF is empty.");
+        }
+
+        try {
+            String safeEmployeeName = employeeName == null || employeeName.isBlank()
+                    ? "Employee"
+                    : employeeName.trim();
+            String safePayrollPeriod = payrollPeriod == null ? "" : payrollPeriod.trim();
+            String safeInstallmentLabel = installmentLabel == null ? "" : installmentLabel.trim();
+
+            StringBuilder body = new StringBuilder();
+            body.append("Dear ").append(safeEmployeeName).append(",\n\n")
+                    .append("Please find attached your payroll payslip");
+            if (!safePayrollPeriod.isBlank()) {
+                body.append(" for ").append(safePayrollPeriod);
+            }
+            if (!safeInstallmentLabel.isBlank()) {
+                body.append(" (").append(safeInstallmentLabel).append(")");
+            }
+            body.append(".\n\n")
+                    .append("សូមពិនិត្យបង្កាន់ដៃប្រាក់បៀវត្សរបស់អ្នកដែលបានភ្ជាប់ជាឯកសារ PDF។\n\n")
+                    .append("Regards,\nHR & Payroll");
+
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            helper.setTo(recipient.trim());
+            helper.setSubject("Payroll Payslip - " + safePayrollPeriod);
+            helper.setText(body.toString(), false);
+            helper.addAttachment(
+                    fileName == null || fileName.isBlank() ? "Payslip.pdf" : fileName,
+                    new ByteArrayResource(pdfBytes),
+                    "application/pdf");
+
+            mailSender.send(message);
+        } catch (Exception ex) {
+            throw new IllegalStateException(
+                    "Unable to send payroll payslip to " + recipient + ": " + ex.getMessage(),
+                    ex);
+        }
+    }
+
 }

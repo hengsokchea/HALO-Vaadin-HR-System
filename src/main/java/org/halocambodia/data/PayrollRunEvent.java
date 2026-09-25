@@ -44,6 +44,10 @@ public class PayrollRunEvent {
     @Column(name = "payroll_payment_batch_id", updatable = false)
     private Long payrollPaymentBatchId;
 
+    /** Direct link for employee-payment events such as payslip email delivery. */
+    @Column(name = "payroll_employee_payment_id", updatable = false)
+    private Long payrollEmployeePaymentId;
+
     @Column(name = "event_type", nullable = false, length = 50, updatable = false)
     private String eventType;
 
@@ -77,10 +81,39 @@ public class PayrollRunEvent {
             String eventDetail,
             OffsetDateTime eventAt,
             Long eventBy) {
+        this(
+                payrollPeriodId,
+                payrollRunId,
+                payrollEmployeeId,
+                payrollPaymentBatchId,
+                null,
+                eventType,
+                fromStatus,
+                toStatus,
+                reason,
+                eventDetail,
+                eventAt,
+                eventBy);
+    }
+
+    public PayrollRunEvent(
+            Long payrollPeriodId,
+            Long payrollRunId,
+            Long payrollEmployeeId,
+            Long payrollPaymentBatchId,
+            Long payrollEmployeePaymentId,
+            PayrollRunEventType eventType,
+            String fromStatus,
+            String toStatus,
+            String reason,
+            String eventDetail,
+            OffsetDateTime eventAt,
+            Long eventBy) {
         this.payrollPeriodId = payrollPeriodId;
         this.payrollRunId = payrollRunId;
         this.payrollEmployeeId = payrollEmployeeId;
         this.payrollPaymentBatchId = payrollPaymentBatchId;
+        this.payrollEmployeePaymentId = payrollEmployeePaymentId;
         this.eventType = eventType.name();
         this.fromStatus = fromStatus;
         this.toStatus = toStatus;

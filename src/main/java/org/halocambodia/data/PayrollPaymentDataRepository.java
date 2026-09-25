@@ -193,6 +193,7 @@ public class PayrollPaymentDataRepository {
                        detail.employee_name_kh_snapshot,
                        detail.bank_name_snapshot,
                        detail.bank_account_snapshot,
+                       employee.personal_email,
                        detail.payment_frequency,
                        detail.first_payment_percent,
                        detail.basic_salary,
@@ -201,14 +202,45 @@ public class PayrollPaymentDataRepository {
                        detail.payment_amount,
                        detail.carry_forward_amount,
                        detail.currency_code,
-                       detail.remarks
+                       detail.remarks,
+                       email_event.event_type AS email_status,
+                       email_event.event_at AS email_status_at
                 FROM public.payroll_employee_payment detail
+                LEFT JOIN public.emp_master employee
+                  ON employee.emp_id = detail.emp_id
+                LEFT JOIN LATERAL (
+                    SELECT event.event_type,
+                           event.event_at
+                    FROM public.payroll_run_event event
+                    WHERE event.payroll_payment_batch_id = detail.payroll_payment_batch_id
+                      AND event.event_type IN (
+                          'PAYSLIP_EMAIL_SENT',
+                          'PAYSLIP_EMAIL_FAILED',
+                          'PAYSLIP_EMAIL_SKIPPED'
+                      )
+                      AND (
+                          event.payroll_employee_payment_id = detail.payroll_employee_payment_id
+                          OR (
+                              event.payroll_employee_payment_id IS NULL
+                              AND event.reason LIKE 'Payment ID: ' || detail.payroll_employee_payment_id::text || ' · %'
+                          )
+                          OR (
+                              event.payroll_employee_payment_id IS NULL
+                              AND event.reason NOT LIKE 'Payment ID: %'
+                              AND detail.payroll_employee_id IS NOT NULL
+                              AND event.payroll_employee_id = detail.payroll_employee_id
+                          )
+                      )
+                    ORDER BY event.event_at DESC, event.payroll_run_event_id DESC
+                    LIMIT 1
+                ) email_event ON TRUE
                 WHERE detail.payroll_payment_batch_id = :batchId
                   AND (:term = ''
                        OR CAST(detail.insurance_no_snapshot AS TEXT) ILIKE '%' || :term || '%'
                        OR COALESCE(detail.employee_name_en_snapshot, '') ILIKE '%' || :term || '%'
                        OR COALESCE(detail.employee_name_kh_snapshot, '') ILIKE '%' || :term || '%'
-                       OR COALESCE(detail.bank_account_snapshot, '') ILIKE '%' || :term || '%')
+                       OR COALESCE(detail.bank_account_snapshot, '') ILIKE '%' || :term || '%'
+                       OR COALESCE(employee.personal_email, '') ILIKE '%' || :term || '%')
                 ORDER BY detail.insurance_no_snapshot, detail.payroll_employee_payment_id
                 """)
                 .setParameter("batchId", batchId)
@@ -228,14 +260,17 @@ public class PayrollPaymentDataRepository {
                         string(row[7]),
                         string(row[8]),
                         string(row[9]),
-                        decimal(row[10]),
+                        string(row[10]),
                         decimal(row[11]),
                         decimal(row[12]),
                         decimal(row[13]),
                         decimal(row[14]),
                         decimal(row[15]),
-                        string(row[16]),
-                        string(row[17])))
+                        decimal(row[16]),
+                        string(row[17]),
+                        string(row[18]),
+                        string(row[19]),
+                        offsetDateTime(row[20])))
                 .toList();
     }
 

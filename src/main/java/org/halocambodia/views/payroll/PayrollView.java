@@ -9,6 +9,7 @@ import org.halocambodia.data.LeaveTypeSubTypeRepository;
 import org.halocambodia.security.AuthenticatedUser;
 import org.halocambodia.services.PayrollAttendanceDayEditService;
 import org.halocambodia.services.PayrollPaymentService;
+import org.halocambodia.services.PayrollPayslipEmailService;
 import org.halocambodia.services.PayrollPayslipService;
 import org.halocambodia.services.PayrollService;
 import org.halocambodia.views.MainLayout;
@@ -58,7 +59,8 @@ public class PayrollView extends VerticalLayout implements BeforeEnterObserver {
     private boolean initialDashboardLoadStarted;
 
     public PayrollView(PayrollService service, PayrollPaymentService paymentService,
-            PayrollPayslipService payslipService, AuthenticatedUser authenticatedUser,
+            PayrollPayslipService payslipService, PayrollPayslipEmailService payslipEmailService,
+            AuthenticatedUser authenticatedUser,
             LeaveTypeRepository leaveTypeRepository,
             LeaveTypeSubTypeRepository leaveTypeSubTypeRepository,
             PayrollAttendanceDayEditService attendanceDayEditService) {
@@ -69,7 +71,8 @@ public class PayrollView extends VerticalLayout implements BeforeEnterObserver {
         periodsPanel = new PayrollPeriodsPanel(service, authenticatedUser, refreshCoordinator);
         attendancePanel = new PayrollAttendancePanel(service,authenticatedUser, leaveTypeRepository,leaveTypeSubTypeRepository, attendanceDayEditService,refreshCoordinator);
         processingPanel = new PayrollProcessingPanel(service, authenticatedUser, refreshCoordinator);
-        paymentsPanel = new PayrollPaymentsPanel(service, paymentService, payslipService, authenticatedUser, refreshCoordinator);
+        paymentsPanel = new PayrollPaymentsPanel(
+                service, paymentService, payslipService, payslipEmailService, authenticatedUser, refreshCoordinator);
 
         wireRefreshCoordinator();
 
